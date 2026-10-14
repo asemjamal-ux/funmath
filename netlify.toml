@@ -1,0 +1,7 @@
+# Netlify build for Number Oasis (static PWA). Headers and SPA routing live in public/_headers and public/_redirects.
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22.16.0"

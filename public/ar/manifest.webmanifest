@@ -1,0 +1,15 @@
+{
+  "name": "واحة الأرقام",
+  "short_name": "واحة الأرقام",
+  "lang": "ar",
+  "dir": "rtl",
+  "start_url": "/ar/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFF9EF",
+  "theme_color": "#0E7C7B",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

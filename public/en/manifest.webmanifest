@@ -1,0 +1,15 @@
+{
+  "name": "Number Oasis",
+  "short_name": "Number Oasis",
+  "lang": "en",
+  "dir": "ltr",
+  "start_url": "/en/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#FFF9EF",
+  "theme_color": "#0E7C7B",
+  "icons": [
+    { "src": "/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}

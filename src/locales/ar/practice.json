@@ -1,0 +1,28 @@
+{
+  "practice.title": "تدريب: {skill}",
+  "practice.exit": "خروج",
+  "practice.next": "التالي",
+  "practice.progress": "السؤال {current} من {total}",
+  "practice.prompt.solve": "هيا نتدرّب! ما الإجابة؟",
+  "practice.prompt.missing": "ما العدد المفقود؟",
+  "practice.feedback.correct": "إجابة صحيحة! تفكير رائع!",
+  "practice.feedback.tryAgain": "ليس تمامًا — لنحاول مرة أخرى!",
+  "practice.hint.button": "هل نجرّب تلميحًا؟",
+  "practice.hint.title": "تلميح:",
+  "practice.hint.level2": "لنتخيّلها في أذهاننا خطوة خطوة.",
+  "practice.worked.title": "هيا نحلّها معًا.",
+  "practice.worked.next": "الخطوة التالية",
+  "practice.worked.gotIt": "فهمنا",
+  "practice.leave.title": "هل نخرج الآن؟ بذورنا محفوظة.",
+  "practice.leave.confirm": "نخرج",
+  "practice.leave.stay": "لنكمل اللعب",
+  "practice.summary.title": "أحسنّا!",
+  "practice.summary.correct": "أجبنا عن {correct} من {total} إجابة صحيحة",
+  "practice.summary.newStar": "حصلنا على نجمة جديدة!",
+  "practice.summary.keepGoing": "كل تدريب يساعد نجومنا على النمو.",
+  "practice.summary.again": "لنتدرّب مرة أخرى",
+  "practice.summary.playGame": "لنلعب لعبة بهذه المهارة",
+
+  "dailyMix.title": "مراجعة اليوم",
+  "dailyMix.bonus": "مكافأة مراجعة اليوم: +{n} بذور!"
+}

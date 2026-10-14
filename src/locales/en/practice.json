@@ -1,0 +1,28 @@
+{
+  "practice.title": "Practice: {skill}",
+  "practice.exit": "Leave",
+  "practice.next": "Next",
+  "practice.progress": "Question {current} of {total}",
+  "practice.prompt.solve": "Let's practise! What's the answer?",
+  "practice.prompt.missing": "Which number is missing?",
+  "practice.feedback.correct": "Correct! Great thinking!",
+  "practice.feedback.tryAgain": "Not quite — let's try again!",
+  "practice.hint.button": "Want a hint?",
+  "practice.hint.title": "Hint:",
+  "practice.hint.level2": "Picture it in your head, one step at a time.",
+  "practice.worked.title": "Let's solve it together.",
+  "practice.worked.next": "Next step",
+  "practice.worked.gotIt": "Got it",
+  "practice.leave.title": "Leave now? Your Seeds are saved.",
+  "practice.leave.confirm": "Leave",
+  "practice.leave.stay": "Keep playing",
+  "practice.summary.title": "You did it!",
+  "practice.summary.correct": "{correct} of {total} answered correctly",
+  "practice.summary.newStar": "You earned a new star!",
+  "practice.summary.keepGoing": "Every practice helps your stars grow.",
+  "practice.summary.again": "Practise again",
+  "practice.summary.playGame": "Play a game with this skill",
+
+  "dailyMix.title": "Daily Mix",
+  "dailyMix.bonus": "Daily Mix bonus: +{n} seeds!"
+}

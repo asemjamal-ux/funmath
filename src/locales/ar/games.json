@@ -1,0 +1,23 @@
+{
+  "games.title": "الألعاب",
+  "games.chooseSkill": "{game}: لنختر مهارة",
+  "games.playAgain": "لنلعب مرة أخرى",
+  "games.otherGame": "لنختر لعبة أخرى",
+  "games.summary.title": "انتهت الجولة!",
+  "games.summary.correct": "وجدنا {correct} من {total}",
+  "games.bubble-pop.title": "فقاعات الأرقام",
+  "games.bubble-pop.desc": "لنفقع الفقاعة التي فيها الإجابة الصحيحة.",
+  "games.bubble-pop.choose": "فقاعات الإجابة",
+  "games.number-line-hop.title": "قفزات خط الأعداد",
+  "games.number-line-hop.desc": "لنساعد فَنَك على القفز إلى المكان الصحيح.",
+  "games.number-line-hop.landAdd": "يبدأ فَنَك من {start} ويقفز {b} إلى الأمام. أين يهبط؟",
+  "games.number-line-hop.landSub": "يبدأ فَنَك من {start} ويقفز {b} إلى الخلف. أين يهبط؟",
+  "games.number-line-hop.landMul": "يقفز فَنَك {a} قفزات، كل قفزة {b}. أين يهبط؟",
+  "games.number-line-hop.howMany": "يقفز فَنَك من {from} إلى {to} وكل قفزة {size}. كم قفزة؟",
+  "games.number-line-hop.tried": "جرّبنا: {values}",
+  "games.match-pairs.title": "مطابقة الأزواج",
+  "games.match-pairs.desc": "لنجد كل سؤال وإجابته.",
+  "games.match-pairs.prompt": "لنقلب بطاقتين ونجد سؤالًا وإجابته!",
+  "games.match-pairs.card": "البطاقة {index}، مقلوبة",
+  "games.match-pairs.notPair": "ليستا زوجًا — لنحاول مرة أخرى!"
+}

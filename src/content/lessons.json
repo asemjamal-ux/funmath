@@ -1,0 +1,2177 @@
+[
+  {
+    "id": "lesson-ADD-01",
+    "skillId": "ADD-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-01.hook",
+        "audioKey": "ADD-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-01.model",
+        "audioKey": "ADD-01.model",
+        "model": {
+          "kind": "counters",
+          "op": "addition",
+          "a": 2,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-01.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            1,
+            2,
+            3
+          ],
+          "blank": "result",
+          "choices": [
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-01.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            3,
+            1,
+            4
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            2,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-01.keyIdea",
+        "audioKey": "ADD-01.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            2,
+            3,
+            5
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-02",
+    "skillId": "ADD-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-02.hook",
+        "audioKey": "ADD-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-02.model",
+        "audioKey": "ADD-02.model",
+        "model": {
+          "kind": "tenFrame",
+          "op": "addition",
+          "a": 6,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-02.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            5,
+            2,
+            7
+          ],
+          "blank": "result",
+          "choices": [
+            8,
+            9,
+            7
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-02.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            7,
+            3,
+            10
+          ],
+          "blank": "result",
+          "choices": [
+            8,
+            0,
+            10
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-02.guided3",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            4,
+            4,
+            8
+          ],
+          "blank": "result",
+          "choices": [
+            10,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-02.keyIdea",
+        "audioKey": "ADD-02.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            6,
+            3,
+            9
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-03",
+    "skillId": "ADD-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-03.hook",
+        "audioKey": "ADD-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-03.model",
+        "audioKey": "ADD-03.model",
+        "model": {
+          "kind": "tenFrame",
+          "op": "addition",
+          "a": 7,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-03.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            6,
+            4,
+            10
+          ],
+          "blank": "b",
+          "choices": [
+            5,
+            6,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-03.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            8,
+            2,
+            10
+          ],
+          "blank": "b",
+          "choices": [
+            4,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-03.keyIdea",
+        "audioKey": "ADD-03.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            7,
+            3,
+            10
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-04",
+    "skillId": "ADD-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-04.hook",
+        "audioKey": "ADD-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-04.model",
+        "audioKey": "ADD-04.model",
+        "model": {
+          "kind": "numberLine",
+          "op": "addition",
+          "a": 8,
+          "b": 5
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-04.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            9,
+            4,
+            13
+          ],
+          "blank": "result",
+          "choices": [
+            14,
+            15,
+            13
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-04.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            7,
+            6,
+            13
+          ],
+          "blank": "result",
+          "choices": [
+            14,
+            15,
+            13
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-04.keyIdea",
+        "audioKey": "ADD-04.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            8,
+            5,
+            13
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-05",
+    "skillId": "ADD-05",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-05.hook",
+        "audioKey": "ADD-05.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-05.model",
+        "audioKey": "ADD-05.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "addition",
+          "a": 23,
+          "b": 14
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-05.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            32,
+            15,
+            47
+          ],
+          "blank": "result",
+          "choices": [
+            45,
+            47,
+            48,
+            49
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-05.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            41,
+            26,
+            67
+          ],
+          "blank": "result",
+          "choices": [
+            65,
+            67,
+            68,
+            69
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-05.keyIdea",
+        "audioKey": "ADD-05.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            23,
+            14,
+            37
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-06",
+    "skillId": "ADD-06",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-06.hook",
+        "audioKey": "ADD-06.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-06.model",
+        "audioKey": "ADD-06.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "addition",
+          "a": 27,
+          "b": 15
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-06.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            38,
+            4,
+            42
+          ],
+          "blank": "result",
+          "choices": [
+            44,
+            40,
+            42,
+            43
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-06.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            46,
+            27,
+            73
+          ],
+          "blank": "result",
+          "choices": [
+            74,
+            75,
+            71,
+            73
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-06.keyIdea",
+        "audioKey": "ADD-06.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            27,
+            15,
+            42
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-ADD-07",
+    "skillId": "ADD-07",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.ADD-07.hook",
+        "audioKey": "ADD-07.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.ADD-07.model",
+        "audioKey": "ADD-07.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "addition",
+          "a": 246,
+          "b": 137
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-07.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            315,
+            128,
+            443
+          ],
+          "blank": "result",
+          "choices": [
+            441,
+            443,
+            444,
+            445
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "ADD-07.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            264,
+            153,
+            417
+          ],
+          "blank": "result",
+          "choices": [
+            418,
+            419,
+            415,
+            417
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.ADD-07.keyIdea",
+        "audioKey": "ADD-07.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            246,
+            137,
+            383
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-01",
+    "skillId": "SUB-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-01.hook",
+        "audioKey": "SUB-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-01.model",
+        "audioKey": "SUB-01.model",
+        "model": {
+          "kind": "counters",
+          "op": "subtraction",
+          "a": 5,
+          "b": 2
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-01.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            4,
+            1,
+            3
+          ],
+          "blank": "result",
+          "choices": [
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-01.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            5,
+            3,
+            2
+          ],
+          "blank": "result",
+          "choices": [
+            4,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-01.keyIdea",
+        "audioKey": "SUB-01.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            5,
+            2,
+            3
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-02",
+    "skillId": "SUB-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-02.hook",
+        "audioKey": "SUB-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-02.model",
+        "audioKey": "SUB-02.model",
+        "model": {
+          "kind": "tenFrame",
+          "op": "subtraction",
+          "a": 9,
+          "b": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-02.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            8,
+            3,
+            5
+          ],
+          "blank": "result",
+          "choices": [
+            7,
+            5,
+            6
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-02.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            10,
+            6,
+            4
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            6,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-02.keyIdea",
+        "audioKey": "SUB-02.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            9,
+            4,
+            5
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-03",
+    "skillId": "SUB-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-03.hook",
+        "audioKey": "SUB-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-03.model",
+        "audioKey": "SUB-03.model",
+        "model": {
+          "kind": "counters",
+          "op": "addition",
+          "a": 4,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-03.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            3,
+            4,
+            7
+          ],
+          "blank": "b",
+          "choices": [
+            5,
+            6,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-03.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            5,
+            2,
+            7
+          ],
+          "blank": "b",
+          "choices": [
+            4,
+            2,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-03.keyIdea",
+        "audioKey": "SUB-03.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            4,
+            3,
+            7
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-04",
+    "skillId": "SUB-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-04.hook",
+        "audioKey": "SUB-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-04.model",
+        "audioKey": "SUB-04.model",
+        "model": {
+          "kind": "numberLine",
+          "op": "subtraction",
+          "a": 13,
+          "b": 5
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-04.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            12,
+            4,
+            8
+          ],
+          "blank": "result",
+          "choices": [
+            10,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-04.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            15,
+            7,
+            8
+          ],
+          "blank": "result",
+          "choices": [
+            10,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-04.keyIdea",
+        "audioKey": "SUB-04.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            13,
+            5,
+            8
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-05",
+    "skillId": "SUB-05",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-05.hook",
+        "audioKey": "SUB-05.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-05.model",
+        "audioKey": "SUB-05.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "subtraction",
+          "a": 48,
+          "b": 23
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-05.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            57,
+            34,
+            23
+          ],
+          "blank": "result",
+          "choices": [
+            21,
+            23,
+            24,
+            25
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-05.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            69,
+            25,
+            44
+          ],
+          "blank": "result",
+          "choices": [
+            44,
+            45,
+            46,
+            42
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-05.keyIdea",
+        "audioKey": "SUB-05.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            48,
+            23,
+            25
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-06",
+    "skillId": "SUB-06",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-06.hook",
+        "audioKey": "SUB-06.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-06.model",
+        "audioKey": "SUB-06.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "subtraction",
+          "a": 42,
+          "b": 17
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-06.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            53,
+            8,
+            45
+          ],
+          "blank": "result",
+          "choices": [
+            46,
+            47,
+            43,
+            45
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-06.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            64,
+            38,
+            26
+          ],
+          "blank": "result",
+          "choices": [
+            28,
+            24,
+            26,
+            27
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-06.keyIdea",
+        "audioKey": "SUB-06.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            42,
+            17,
+            25
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-SUB-07",
+    "skillId": "SUB-07",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.SUB-07.hook",
+        "audioKey": "SUB-07.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.SUB-07.model",
+        "audioKey": "SUB-07.model",
+        "model": {
+          "kind": "baseTen",
+          "op": "subtraction",
+          "a": 302,
+          "b": 158
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-07.guided1",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            425,
+            162,
+            263
+          ],
+          "blank": "result",
+          "choices": [
+            261,
+            263,
+            264,
+            265
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "SUB-07.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            503,
+            247,
+            256
+          ],
+          "blank": "result",
+          "choices": [
+            256,
+            257,
+            258,
+            254
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.SUB-07.keyIdea",
+        "audioKey": "SUB-07.keyIdea",
+        "expression": {
+          "operation": "subtraction",
+          "operands": [
+            302,
+            158,
+            144
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-01",
+    "skillId": "MUL-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-01.hook",
+        "audioKey": "MUL-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-01.model",
+        "audioKey": "MUL-01.model",
+        "model": {
+          "kind": "groups",
+          "op": "multiplication",
+          "a": 3,
+          "b": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-01.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            2,
+            5,
+            10
+          ],
+          "blank": "result",
+          "choices": [
+            12,
+            8,
+            10,
+            11
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-01.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            4,
+            3,
+            12
+          ],
+          "blank": "result",
+          "choices": [
+            12,
+            13,
+            14,
+            10
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-01.keyIdea",
+        "audioKey": "MUL-01.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            3,
+            4,
+            12
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-02",
+    "skillId": "MUL-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-02.hook",
+        "audioKey": "MUL-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-02.model",
+        "audioKey": "MUL-02.model",
+        "model": {
+          "kind": "array",
+          "op": "multiplication",
+          "a": 3,
+          "b": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-02.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            2,
+            5,
+            10
+          ],
+          "blank": "result",
+          "choices": [
+            12,
+            8,
+            10,
+            11
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-02.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            4,
+            3,
+            12
+          ],
+          "blank": "result",
+          "choices": [
+            12,
+            13,
+            14,
+            10
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-02.keyIdea",
+        "audioKey": "MUL-02.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            3,
+            4,
+            12
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-03",
+    "skillId": "MUL-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-03.hook",
+        "audioKey": "MUL-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-03.model",
+        "audioKey": "MUL-03.model",
+        "model": {
+          "kind": "array",
+          "op": "multiplication",
+          "a": 5,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-03.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            2,
+            7,
+            14
+          ],
+          "blank": "result",
+          "choices": [
+            16,
+            12,
+            14,
+            15
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-03.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            10,
+            4,
+            40
+          ],
+          "blank": "result",
+          "choices": [
+            40,
+            41,
+            42,
+            38
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-03.guided3",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            0,
+            6,
+            0
+          ],
+          "blank": "result",
+          "choices": [
+            0,
+            1,
+            2,
+            10
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-03.keyIdea",
+        "audioKey": "MUL-03.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            5,
+            3,
+            15
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-04",
+    "skillId": "MUL-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-04.hook",
+        "audioKey": "MUL-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-04.model",
+        "audioKey": "MUL-04.model",
+        "model": {
+          "kind": "array",
+          "op": "multiplication",
+          "a": 4,
+          "b": 6
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-04.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            3,
+            5,
+            15
+          ],
+          "blank": "result",
+          "choices": [
+            13,
+            15,
+            16,
+            17
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-04.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            4,
+            7,
+            28
+          ],
+          "blank": "result",
+          "choices": [
+            28,
+            29,
+            30,
+            26
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-04.keyIdea",
+        "audioKey": "MUL-04.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            4,
+            6,
+            24
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-05",
+    "skillId": "MUL-05",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-05.hook",
+        "audioKey": "MUL-05.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-05.model",
+        "audioKey": "MUL-05.model",
+        "model": {
+          "kind": "array",
+          "op": "multiplication",
+          "a": 6,
+          "b": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-05.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            6,
+            3,
+            18
+          ],
+          "blank": "result",
+          "choices": [
+            20,
+            16,
+            18,
+            19
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-05.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            7,
+            5,
+            35
+          ],
+          "blank": "result",
+          "choices": [
+            33,
+            35,
+            36,
+            37
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-05.keyIdea",
+        "audioKey": "MUL-05.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            6,
+            4,
+            24
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-MUL-06",
+    "skillId": "MUL-06",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.MUL-06.hook",
+        "audioKey": "MUL-06.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.MUL-06.model",
+        "audioKey": "MUL-06.model",
+        "model": {
+          "kind": "array",
+          "op": "multiplication",
+          "a": 9,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-06.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            8,
+            4,
+            32
+          ],
+          "blank": "result",
+          "choices": [
+            32,
+            33,
+            34,
+            30
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "MUL-06.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            9,
+            6,
+            54
+          ],
+          "blank": "result",
+          "choices": [
+            56,
+            52,
+            54,
+            55
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.MUL-06.keyIdea",
+        "audioKey": "MUL-06.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            9,
+            3,
+            27
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-01",
+    "skillId": "DIV-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-01.hook",
+        "audioKey": "DIV-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-01.model",
+        "audioKey": "DIV-01.model",
+        "model": {
+          "kind": "plates",
+          "op": "division",
+          "a": 12,
+          "b": 3
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-01.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            10,
+            2,
+            5
+          ],
+          "blank": "result",
+          "choices": [
+            6,
+            7,
+            3,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-01.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            15,
+            5,
+            3
+          ],
+          "blank": "result",
+          "choices": [
+            1,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-01.keyIdea",
+        "audioKey": "DIV-01.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            12,
+            3,
+            4
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-02",
+    "skillId": "DIV-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-02.hook",
+        "audioKey": "DIV-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-02.model",
+        "audioKey": "DIV-02.model",
+        "model": {
+          "kind": "groups",
+          "op": "division",
+          "a": 15,
+          "b": 5
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-02.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            12,
+            4,
+            3
+          ],
+          "blank": "result",
+          "choices": [
+            1,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-02.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            18,
+            3,
+            6
+          ],
+          "blank": "result",
+          "choices": [
+            8,
+            4,
+            6,
+            7
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-02.keyIdea",
+        "audioKey": "DIV-02.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            15,
+            5,
+            3
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-03",
+    "skillId": "DIV-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-03.hook",
+        "audioKey": "DIV-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-03.model",
+        "audioKey": "DIV-03.model",
+        "model": {
+          "kind": "groups",
+          "op": "division",
+          "a": 20,
+          "b": 5
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-03.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            14,
+            2,
+            7
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            7,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-03.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            0,
+            10,
+            0
+          ],
+          "blank": "result",
+          "choices": [
+            0,
+            1,
+            2,
+            10
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-03.guided3",
+        "item": {
+          "operation": "division",
+          "operands": [
+            30,
+            10,
+            3
+          ],
+          "blank": "result",
+          "choices": [
+            1,
+            3,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-03.keyIdea",
+        "audioKey": "DIV-03.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            20,
+            5,
+            4
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-04",
+    "skillId": "DIV-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-04.hook",
+        "audioKey": "DIV-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-04.model",
+        "audioKey": "DIV-04.model",
+        "model": {
+          "kind": "groups",
+          "op": "division",
+          "a": 12,
+          "b": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-04.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            21,
+            3,
+            7
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            7,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-04.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            28,
+            4,
+            7
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            7,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-04.keyIdea",
+        "audioKey": "DIV-04.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            12,
+            4,
+            3
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-05",
+    "skillId": "DIV-05",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-05.hook",
+        "audioKey": "DIV-05.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-05.model",
+        "audioKey": "DIV-05.model",
+        "model": {
+          "kind": "groups",
+          "op": "division",
+          "a": 42,
+          "b": 6
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-05.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            36,
+            6,
+            6
+          ],
+          "blank": "result",
+          "choices": [
+            8,
+            4,
+            6,
+            7
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-05.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            35,
+            7,
+            5
+          ],
+          "blank": "result",
+          "choices": [
+            6,
+            7,
+            3,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-05.keyIdea",
+        "audioKey": "DIV-05.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            42,
+            6,
+            7
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-06",
+    "skillId": "DIV-06",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-06.hook",
+        "audioKey": "DIV-06.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-06.model",
+        "audioKey": "DIV-06.model",
+        "model": {
+          "kind": "groups",
+          "op": "division",
+          "a": 72,
+          "b": 8
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-06.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            56,
+            8,
+            7
+          ],
+          "blank": "result",
+          "choices": [
+            5,
+            7,
+            8,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-06.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            81,
+            9,
+            9
+          ],
+          "blank": "result",
+          "choices": [
+            10,
+            11,
+            7,
+            9
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-06.keyIdea",
+        "audioKey": "DIV-06.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            72,
+            8,
+            9
+          ],
+          "blank": "result"
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  }
+]

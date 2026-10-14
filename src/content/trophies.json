@@ -1,0 +1,20 @@
+[
+  { "id": "TR-01", "titleKey": "trophy.TR-01.title", "hintKey": "trophy.TR-01.hint", "icon": "footprints", "rule": { "type": "counterAtLeast", "counter": "lessonsCompleted", "value": 1 } },
+  { "id": "TR-02", "titleKey": "trophy.TR-02.title", "hintKey": "trophy.TR-02.hint", "icon": "lightbulb", "rule": { "type": "counterAtLeast", "counter": "correctAfterHint", "value": 1 } },
+  { "id": "TR-03", "titleKey": "trophy.TR-03.title", "hintKey": "trophy.TR-03.hint", "icon": "mountain", "rule": { "type": "counterAtLeast", "counter": "correctAfterHint", "value": 10 } },
+  { "id": "TR-04", "titleKey": "trophy.TR-04.title", "hintKey": "trophy.TR-04.hint", "icon": "star", "rule": { "type": "anySkillAtStars", "stars": 3 } },
+  { "id": "TR-05", "titleKey": "trophy.TR-05.title", "hintKey": "trophy.TR-05.hint", "icon": "medal", "rule": { "type": "counterAtLeast", "counter": "practiceSetsCompleted", "value": 10 } },
+  { "id": "TR-06", "titleKey": "trophy.TR-06.title", "hintKey": "trophy.TR-06.hint", "icon": "plus", "rule": { "type": "allSkillsAtStars", "skills": ["ADD-01", "ADD-02", "ADD-03", "ADD-04", "ADD-05", "ADD-06", "ADD-07"], "stars": 2 } },
+  { "id": "TR-07", "titleKey": "trophy.TR-07.title", "hintKey": "trophy.TR-07.hint", "icon": "minus", "rule": { "type": "allSkillsAtStars", "skills": ["SUB-01", "SUB-02", "SUB-03", "SUB-04", "SUB-05", "SUB-06", "SUB-07"], "stars": 2 } },
+  { "id": "TR-08", "titleKey": "trophy.TR-08.title", "hintKey": "trophy.TR-08.hint", "icon": "times", "rule": { "type": "allSkillsAtStars", "skills": ["MUL-01", "MUL-02", "MUL-03", "MUL-04", "MUL-05", "MUL-06"], "stars": 2 } },
+  { "id": "TR-09", "titleKey": "trophy.TR-09.title", "hintKey": "trophy.TR-09.hint", "icon": "divide", "rule": { "type": "allSkillsAtStars", "skills": ["DIV-01", "DIV-02", "DIV-03", "DIV-04", "DIV-05", "DIV-06"], "stars": 2 } },
+  { "id": "TR-10", "titleKey": "trophy.TR-10.title", "hintKey": "trophy.TR-10.hint", "icon": "hands", "rule": { "type": "skillAtStars", "skill": "ADD-03", "stars": 3 } },
+  { "id": "TR-11", "titleKey": "trophy.TR-11.title", "hintKey": "trophy.TR-11.hint", "icon": "blocks", "rule": { "type": "allSkillsAtStars", "skills": ["ADD-06", "SUB-06"], "stars": 3 } },
+  { "id": "TR-12", "titleKey": "trophy.TR-12.title", "hintKey": "trophy.TR-12.hint", "icon": "crown", "rule": { "type": "allSkillsAtStars", "skills": ["MUL-03", "MUL-04", "MUL-05", "MUL-06"], "stars": 3 } },
+  { "id": "TR-13", "titleKey": "trophy.TR-13.title", "hintKey": "trophy.TR-13.hint", "icon": "plate", "rule": { "type": "skillAtStars", "skill": "DIV-01", "stars": 3 } },
+  { "id": "TR-14", "titleKey": "trophy.TR-14.title", "hintKey": "trophy.TR-14.hint", "icon": "game", "rule": { "type": "distinctGamesPlayed", "value": 3 } },
+  { "id": "TR-15", "titleKey": "trophy.TR-15.title", "hintKey": "trophy.TR-15.hint", "icon": "mix", "rule": { "type": "counterAtLeast", "counter": "dailyMixCompleted", "value": 5 } },
+  { "id": "TR-16", "titleKey": "trophy.TR-16.title", "hintKey": "trophy.TR-16.hint", "icon": "calendar", "rule": { "type": "counterAtLeast", "counter": "distinctPracticeDays", "value": 5 } },
+  { "id": "TR-17", "titleKey": "trophy.TR-17.title", "hintKey": "trophy.TR-17.hint", "icon": "palm", "rule": { "type": "oasisStageAtLeast", "value": 5 } },
+  { "id": "TR-18", "titleKey": "trophy.TR-18.title", "hintKey": "trophy.TR-18.hint", "icon": "sun", "rule": { "type": "allMvpSkillsAtStars", "stars": 3 } }
+]

@@ -1,0 +1,23 @@
+{
+  "games.title": "Games",
+  "games.chooseSkill": "{game}: choose a skill",
+  "games.playAgain": "Play again",
+  "games.otherGame": "Choose another game",
+  "games.summary.title": "Round complete!",
+  "games.summary.correct": "{correct} of {total} found",
+  "games.bubble-pop.title": "Bubble Pop",
+  "games.bubble-pop.desc": "Pop the bubble with the right answer.",
+  "games.bubble-pop.choose": "Answer bubbles",
+  "games.number-line-hop.title": "Number Line Hop",
+  "games.number-line-hop.desc": "Help Fanak hop to the right spot.",
+  "games.number-line-hop.landAdd": "Fanak starts at {start} and hops {b} forward. Where does Fanak land?",
+  "games.number-line-hop.landSub": "Fanak starts at {start} and hops {b} back. Where does Fanak land?",
+  "games.number-line-hop.landMul": "Fanak makes {a} hops of {b}. Where does Fanak land?",
+  "games.number-line-hop.howMany": "Fanak hops from {from} to {to} in hops of {size}. How many hops?",
+  "games.number-line-hop.tried": "Already tried: {values}",
+  "games.match-pairs.title": "Match Pairs",
+  "games.match-pairs.desc": "Find each question and its answer.",
+  "games.match-pairs.prompt": "Turn over two cards. Find a question and its answer!",
+  "games.match-pairs.card": "Card {index}, face down",
+  "games.match-pairs.notPair": "Not a pair — let's try again!"
+}

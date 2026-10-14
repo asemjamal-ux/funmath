@@ -1,0 +1,736 @@
+/*
+ * Sticker-book theme layer (2026-10-15 redesign, see docs/decisions/002-playful-visual-direction.md).
+ * Loaded after components.css and pages.css; it restyles existing classes only, so markup and test selectors
+ * stay unchanged. Thick ink outlines + hard offset shadows; bright fills always carry ink-coloured text.
+ */
+
+/* ---------- Canvas ---------- */
+body {
+  background-color: var(--color-bg);
+  background-image: radial-gradient(var(--dots-a) 2.2px, transparent 2.6px), radial-gradient(var(--dots-b) 2.2px, transparent 2.6px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+}
+
+h1,
+h2 {
+  letter-spacing: 0.005em;
+}
+
+:lang(ar) h1,
+:lang(ar) h2 {
+  letter-spacing: 0;
+}
+
+/* Operation identities: bright fills, ink text (ratio ≥ 4.5:1 on every fill). */
+.op-addition, .world--add, .world-card--add { --op-fill: var(--pop-sky); --op-soft: var(--color-add-soft); --op-strong: var(--color-add-strong); }
+.op-subtraction, .world--sub, .world-card--sub { --op-fill: var(--pop-pink); --op-soft: var(--color-sub-soft); --op-strong: var(--color-sub-strong); }
+.op-multiplication, .world--mul, .world-card--mul { --op-fill: var(--pop-tangerine); --op-soft: var(--color-mul-soft); --op-strong: var(--color-mul-strong); }
+.op-division, .world--div, .world-card--div { --op-fill: var(--pop-grape); --op-soft: var(--color-div-soft); --op-strong: var(--color-div-strong); }
+
+.op-badge__shape {
+  stroke: var(--color-ink);
+  stroke-width: 3;
+  paint-order: stroke;
+}
+
+.op-badge__sym {
+  fill: var(--color-ink);
+  font-family: 'Fredoka', 'Baloo 2', system-ui, sans-serif;
+}
+
+/* ---------- Buttons: squishy stickers that sink into their shadow ---------- */
+.btn {
+  --btn-bg: var(--color-brand);
+  --btn-fg: var(--color-ink);
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+  font-weight: 700;
+  transition: transform var(--motion-instant) var(--ease-standard), box-shadow var(--motion-instant) var(--ease-standard);
+}
+
+.btn:active:not(:disabled) {
+  transform: translate(calc(3px * var(--dir-sign)), 3px);
+  box-shadow: 0 0 0 var(--color-ink);
+}
+
+@media (hover: hover) {
+  .btn:hover:not(:disabled) {
+    filter: none;
+    transform: translate(calc(-1px * var(--dir-sign)), -1px) rotate(calc(-1deg * var(--dir-sign)));
+    box-shadow: var(--shadow-sticker);
+  }
+}
+
+.btn--secondary {
+  --btn-bg: var(--color-surface);
+  --btn-fg: var(--color-ink);
+  border: var(--outline);
+}
+
+.btn--ghost {
+  border-color: transparent;
+  box-shadow: none;
+  --btn-fg: var(--color-ink);
+}
+
+.btn--danger {
+  --btn-bg: var(--color-danger-strong);
+  --btn-fg: var(--color-white);
+}
+
+.btn--primary.op-addition,
+.btn--operation.op-addition { --btn-bg: var(--pop-sky); --btn-fg: var(--color-ink); }
+.btn--primary.op-subtraction,
+.btn--operation.op-subtraction { --btn-bg: var(--pop-pink); --btn-fg: var(--color-ink); }
+.btn--primary.op-multiplication,
+.btn--operation.op-multiplication { --btn-bg: var(--pop-tangerine); --btn-fg: var(--color-ink); }
+.btn--primary.op-division,
+.btn--operation.op-division { --btn-bg: var(--pop-grape); --btn-fg: var(--color-ink); }
+
+.icon-btn,
+.lang-switch,
+.link-btn {
+  border: var(--outline);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker-sm);
+  transition: transform var(--motion-instant), box-shadow var(--motion-instant);
+}
+
+.lang-switch {
+  background: var(--pop-teal);
+}
+
+.icon-btn:active:not(:disabled),
+.lang-switch:active,
+.link-btn:active {
+  transform: translate(calc(3px * var(--dir-sign)), 3px);
+  box-shadow: none;
+}
+
+.icon-btn:disabled {
+  box-shadow: none;
+}
+
+/* ---------- Top bar ---------- */
+.topbar {
+  background: var(--color-surface);
+  border-block-end: var(--outline);
+}
+
+.seeds {
+  border: var(--outline);
+  background: var(--pop-sun);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.avatar {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+  background: var(--pop-sun);
+}
+
+.avatar--camel, .avatar--turtle, .avatar--elephant { background: var(--pop-teal); }
+.avatar--owl, .avatar--cat, .avatar--penguin { background: var(--pop-grape); }
+.avatar--dolphin, .avatar--giraffe { background: var(--pop-sky); }
+.avatar--lion, .avatar--rabbit, .avatar--parrot { background: var(--pop-pink); }
+
+/* ---------- Cards and panels ---------- */
+.lesson-card,
+.worked,
+.hop-line,
+.profile-card,
+.tile,
+.game-card,
+.trophy-card--earned,
+.dialog,
+.manip .counters-group,
+.bubble {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker);
+}
+
+.bubble {
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.dialog {
+  box-shadow: var(--shadow-dialog);
+}
+
+.trophy-card {
+  border: 3px dashed var(--color-locked);
+}
+
+.trophy-card--earned {
+  border-style: solid;
+  background: var(--pop-sun);
+}
+
+.hint {
+  border: var(--outline);
+  border-inline-start-width: 8px;
+  background: var(--pop-sun);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.feedback {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.feedback--correct {
+  background: var(--pop-lime);
+  color: var(--color-ink);
+  animation: pop-in 320ms var(--ease-out) 1;
+}
+
+.feedback--tryAgain {
+  background: var(--pop-sun);
+  color: var(--color-ink);
+}
+
+@keyframes pop-in {
+  0% { transform: scale(0.7) rotate(calc(-4deg * var(--dir-sign))); opacity: 0; }
+  70% { transform: scale(1.06) rotate(calc(2deg * var(--dir-sign))); opacity: 1; }
+  100% { transform: none; }
+}
+
+/* ---------- Answering ---------- */
+.choice {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker);
+  background: var(--color-surface);
+}
+
+.choices .choice:nth-child(4n + 1) { background: var(--color-add-soft); }
+.choices .choice:nth-child(4n + 2) { background: var(--color-sub-soft); }
+.choices .choice:nth-child(4n + 3) { background: var(--color-mul-soft); }
+.choices .choice:nth-child(4n + 4) { background: var(--color-div-soft); }
+
+@media (hover: hover) {
+  .choice:hover:not([aria-disabled]) {
+    border-color: var(--color-ink);
+    transform: translateY(-3px) rotate(calc(-1.5deg * var(--dir-sign)));
+  }
+}
+
+.choice:active:not([aria-disabled]) {
+  transform: translate(calc(4px * var(--dir-sign)), 4px);
+  box-shadow: none;
+}
+
+.choices .choice.choice--correct {
+  background: var(--pop-lime);
+  color: var(--color-ink);
+  animation: pop-in 320ms var(--ease-out) 1;
+}
+
+.choices .choice.choice--tryAgain {
+  background: var(--color-surface-sunken);
+  box-shadow: none;
+  border-style: dashed;
+}
+
+.numpad__key {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+  background: var(--color-surface);
+}
+
+.numpad__key:active:not(:disabled) {
+  transform: translate(calc(3px * var(--dir-sign)), 3px);
+  box-shadow: none;
+}
+
+.numpad__key--fn {
+  background: var(--pop-pink);
+}
+
+.numpad__key--ok {
+  background: var(--pop-lime);
+  border: var(--outline);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.answer-field {
+  border: var(--outline);
+  box-shadow: inset 0 4px 0 var(--color-surface-sunken);
+}
+
+.answer-field--correct {
+  background: var(--pop-lime);
+}
+
+.math-expr__blank {
+  border: 3px dashed var(--color-ink);
+  background: var(--pop-sun);
+  color: var(--color-ink);
+  animation: blank-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes blank-bob {
+  0%, 100% { transform: rotate(calc(-3deg * var(--dir-sign))); }
+  50% { transform: rotate(calc(3deg * var(--dir-sign))) translateY(-3px); }
+}
+
+.vp__cell {
+  border: 3px dashed var(--color-ink);
+}
+
+.vp__cell--focus {
+  border-style: solid;
+  background: var(--pop-sun);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.dot {
+  border: var(--outline-thin);
+}
+
+.dot--current {
+  background: var(--pop-sun);
+  border-color: var(--color-ink);
+}
+
+.dot--correct {
+  background: var(--pop-lime);
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.dot--incorrect {
+  background: var(--color-surface-sunken);
+  border-color: var(--color-ink);
+}
+
+/* ---------- Manipulatives ---------- */
+.counter {
+  border: var(--outline-thin);
+  box-shadow: none;
+}
+
+.tenframe {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.tenframe__cell {
+  border: 1px dashed var(--color-ink-muted);
+}
+
+.tenframe__cell--on::after {
+  border: var(--outline-thin);
+}
+
+.blocks,
+.array,
+.plates-pile,
+.plate,
+.group-ring {
+  border: var(--outline);
+}
+
+.blocks,
+.array,
+.plates-pile {
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.plates-pile--selected {
+  background: var(--pop-sun);
+}
+
+/* ---------- Mascot ---------- */
+.mascot {
+  overflow: visible;
+}
+
+.fanak-tap {
+  background: none;
+  border: 0;
+  padding: 0;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+}
+
+.fanak-tap--jump .mascot {
+  animation: fanak-jump 700ms var(--ease-out) 1;
+}
+
+@keyframes fanak-jump {
+  0% { translate: 0 0; }
+  30% { translate: 0 -26px; rotate: calc(-8deg * var(--dir-sign)); }
+  55% { translate: 0 0; rotate: calc(6deg * var(--dir-sign)); }
+  75% { translate: 0 -8px; rotate: 0deg; }
+  100% { translate: 0 0; }
+}
+
+/* ---------- Welcome ---------- */
+.welcome__lang {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker);
+  color: var(--color-ink);
+  transition: transform var(--motion-instant), box-shadow var(--motion-instant);
+}
+
+.welcome__lang[lang='en'] { background: var(--pop-coral); rotate: calc(-2deg * var(--dir-sign)); }
+.welcome__lang[lang='ar'] { background: var(--pop-teal); rotate: calc(2deg * var(--dir-sign)); }
+
+.welcome__lang:active {
+  transform: translate(calc(4px * var(--dir-sign)), 4px);
+  box-shadow: none;
+}
+
+.welcome__title [lang='en'] {
+  font-family: 'Fredoka', 'Baloo 2', system-ui, sans-serif;
+}
+
+.profile-card:nth-child(odd),
+.picker__list li:nth-child(odd) .profile-card {
+  rotate: calc(-1.5deg * var(--dir-sign));
+}
+
+.picker__list li:nth-child(even) .profile-card {
+  rotate: calc(1.5deg * var(--dir-sign));
+  background: var(--color-add-soft);
+}
+
+.profile-card:active {
+  transform: translate(calc(4px * var(--dir-sign)), 4px);
+  box-shadow: none;
+}
+
+/* ---------- Home: the sticker-book oasis ---------- */
+.home__hero {
+  position: relative;
+  padding: var(--space-3);
+}
+
+.home__hero .oasis {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker);
+  border-radius: var(--radius-l);
+}
+
+.home__caption {
+  display: inline-block;
+  margin-block-start: var(--space-3);
+  padding: var(--space-1) var(--space-3);
+  border: var(--outline-thin);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  font-weight: 700;
+}
+
+.home__caption-row {
+  text-align: center;
+}
+
+.float-tiles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.float-tile {
+  position: absolute;
+  pointer-events: auto;
+  min-inline-size: 48px;
+  min-block-size: 48px;
+  padding-inline: var(--space-2);
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-sticker-sm);
+  color: var(--color-ink);
+  font: 700 22px/1 var(--font-display);
+  rotate: var(--tilt, 0deg);
+  animation: tile-bob 4.5s ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.float-tile--spin {
+  animation: tile-spin 600ms var(--ease-out) 1;
+}
+
+@keyframes tile-bob {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -10px; }
+}
+
+@keyframes tile-spin {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.35) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+.float-tile--1 { inset-block-start: 4%; inset-inline-start: 1%; background: var(--pop-sun); --tilt: -8deg; }
+.float-tile--2 { inset-block-start: 6%; inset-inline-end: 2%; background: var(--pop-coral); --tilt: 10deg; --delay: -1.2s; }
+.float-tile--3 { inset-block-end: 24%; inset-inline-start: 0; background: var(--pop-teal); --tilt: 6deg; --delay: -2.4s; }
+.float-tile--4 { inset-block-end: 20%; inset-inline-end: 0; background: var(--pop-lime); --tilt: -6deg; --delay: -3.1s; }
+
+.worlds .world-card {
+  border: var(--outline);
+  background: var(--op-soft);
+  box-shadow: var(--shadow-sticker);
+  overflow: visible;
+  transition: transform var(--motion-quick) var(--ease-standard), box-shadow var(--motion-quick);
+}
+
+.worlds .world-card:nth-child(odd) { rotate: calc(-1deg * var(--dir-sign)); }
+.worlds .world-card:nth-child(even) { rotate: calc(1deg * var(--dir-sign)); }
+
+@media (hover: hover) {
+  .worlds .world-card:not(.world-card--locked):hover {
+    transform: translateY(-4px) rotate(calc(-1.5deg * var(--dir-sign)));
+    box-shadow: calc(7px * var(--dir-sign)) 8px 0 var(--color-ink);
+  }
+}
+
+.worlds .world-card:not(.world-card--locked):active {
+  transform: translate(calc(5px * var(--dir-sign)), 5px);
+  box-shadow: none;
+}
+
+.worlds .world-card--locked {
+  background: var(--color-surface-sunken);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.world-card__name {
+  color: var(--color-ink);
+  font-size: 24px;
+}
+
+.world-card--locked .op-badge__shape {
+  fill: var(--color-surface);
+}
+
+.tile {
+  transition: transform var(--motion-quick), box-shadow var(--motion-quick);
+}
+
+.home__row .tile:nth-child(1) { background: var(--pop-sun); }
+.home__row .tile:nth-child(2) { background: var(--pop-pink); }
+.home__row .tile:nth-child(3) { background: var(--pop-teal); }
+.home__row .tile:nth-child(4) { background: var(--pop-lime); }
+
+.tile__note {
+  color: var(--color-ink);
+}
+
+@media (hover: hover) {
+  .tile:not(:disabled):hover {
+    transform: translateY(-3px) rotate(calc(-1.5deg * var(--dir-sign)));
+  }
+}
+
+.tile:not(:disabled):active {
+  transform: translate(calc(5px * var(--dir-sign)), 5px);
+  box-shadow: none;
+}
+
+.tile:disabled,
+.home__row .tile:disabled {
+  opacity: 1;
+  background: var(--color-surface-sunken);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+/* ---------- World: candy skill path ---------- */
+.world__header {
+  border: var(--outline);
+  background: var(--op-fill);
+  box-shadow: var(--shadow-sticker);
+}
+
+.world__header h1 {
+  color: var(--color-ink);
+}
+
+.skill-node__circle {
+  border: var(--outline);
+  background: var(--op-fill);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker);
+  transition: transform var(--motion-quick);
+}
+
+.skill-node--new .skill-node__circle {
+  background: var(--color-surface);
+  border: var(--outline);
+  color: var(--color-ink);
+  animation: node-pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes node-pulse {
+  0%, 100% { scale: 1; }
+  50% { scale: 1.06; }
+}
+
+.skill-node--locked .skill-node__circle {
+  border: 3px dashed var(--color-locked);
+  box-shadow: none;
+}
+
+.skill-node--mastered .skill-node__circle {
+  outline: 4px solid var(--pop-sun);
+  outline-offset: 3px;
+}
+
+@media (hover: hover) {
+  .skill-node:not(.skill-node--locked) .skill-node__btn:hover .skill-node__circle {
+    transform: rotate(calc(-8deg * var(--dir-sign))) scale(1.05);
+  }
+}
+
+.skill-node__btn:active .skill-node__circle {
+  transform: scale(0.94);
+}
+
+.skill-node__explain {
+  border: var(--outline-thin);
+  background: var(--pop-sun);
+  color: var(--color-ink);
+}
+
+.skill-node__leaf {
+  border: var(--outline-thin);
+  background: var(--pop-lime);
+  color: var(--color-ink);
+}
+
+/* ---------- Activity screens ---------- */
+.prompt__text {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.lesson__step {
+  border: var(--outline-thin);
+  background: var(--pop-sun);
+  color: var(--color-ink);
+}
+
+.summary__title {
+  font-family: var(--font-display);
+}
+
+.game-card:nth-child(1) .game-card__art,
+.game-list li:nth-child(1) .game-card__art { background: var(--pop-sky); }
+.game-list li:nth-child(2) .game-card__art { background: var(--pop-tangerine); }
+.game-list li:nth-child(3) .game-card__art { background: var(--pop-pink); }
+
+.game-card__art {
+  border: var(--outline);
+  color: var(--color-ink);
+}
+
+.game-card:active {
+  transform: translate(calc(5px * var(--dir-sign)), 5px);
+  box-shadow: none;
+}
+
+.bubbles {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker);
+}
+
+.bubble-btn {
+  border: var(--outline);
+  box-shadow: inset -8px -8px 0 var(--color-add-soft), var(--shadow-sticker-sm);
+}
+
+.bubble-btn--1 { background: var(--color-sub-soft); }
+.bubble-btn--2 { background: var(--color-mul-soft); }
+.bubble-btn--3 { background: var(--color-div-soft); }
+
+.card {
+  border: var(--outline);
+  background: var(--pop-grape);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.card:nth-child(3n + 2) { background: var(--pop-teal); }
+.card:nth-child(3n + 3) { background: var(--pop-coral); }
+
+.card--up {
+  background: var(--color-surface);
+}
+
+.card.card--matched {
+  background: var(--pop-lime);
+}
+
+/* ---------- Gate & Grown-ups (calmer: outlines but no tilt) ---------- */
+.gate__hold {
+  border: var(--outline);
+  background: var(--pop-sun);
+  color: var(--color-ink);
+  box-shadow: var(--shadow-sticker);
+}
+
+.gate__slot {
+  border: var(--outline);
+}
+
+.gu-section,
+.gu-profile {
+  border: var(--outline-thin);
+}
+
+.grownups__navlink.active {
+  background: var(--pop-teal);
+  color: var(--color-ink);
+  border: var(--outline-thin);
+}
+
+.chip {
+  border: var(--outline-thin);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.chip--on {
+  background: var(--pop-sun);
+  border-color: var(--color-ink);
+  box-shadow: none;
+}
+
+.avatar-option--on,
+.radio-row--on {
+  border-color: var(--color-ink);
+  background: var(--pop-sun);
+}
+
+.radio-row,
+.input,
+.select {
+  border: var(--outline-thin);
+}
+
+/* ---------- Motion off ---------- */
+:root[data-motion='reduced'] .float-tile,
+:root[data-motion='reduced'] .math-expr__blank,
+:root[data-motion='reduced'] .skill-node--new .skill-node__circle {
+  animation: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-tile,
+  .math-expr__blank,
+  .skill-node--new .skill-node__circle,
+  .fanak-tap--jump .mascot {
+    animation: none;
+  }
+}

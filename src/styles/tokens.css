@@ -1,0 +1,159 @@
+/* Design tokens — names and values exactly as design-system.md. The only file allowed to contain raw colours. */
+:root {
+  /* §3.1 core */
+  --color-bg: #fff4de;
+  --color-surface: #fffdf7;
+  --color-surface-sunken: #ffe9c2;
+  --color-ink: #2b2140;
+  --color-ink-muted: #594d72;
+  --color-border: #2b2140;
+  --color-border-strong: #2b2140;
+  --color-brand: #4ecdc4;
+  --color-brand-strong: #0b6e68;
+  --color-brand-soft: #d6f5f2;
+  --color-sun: #ffd23f;
+  --color-sun-strong: #8a5a00;
+  --color-focus-outer: #2b2140;
+  --color-focus-inner: #ffd23f;
+  --color-white: #ffffff;
+
+  /* §3.2 operations */
+  --color-add-strong: #1d5fa8;
+  --color-add: #4d9de0;
+  --color-add-soft: #dcecfb;
+  --color-sub-strong: #b02a66;
+  --color-sub: #ff7eb6;
+  --color-sub-soft: #ffe2ef;
+  --color-mul-strong: #a84a00;
+  --color-mul: #ff9f1c;
+  --color-mul-soft: #ffead0;
+  --color-div-strong: #6b3fd1;
+  --color-div: #b08cff;
+  --color-div-soft: #ece3ff;
+
+  /* §3.3 feedback */
+  --color-success-strong: #1b6e3a;
+  --color-success-soft: #c9f0b5;
+  --color-tryagain-strong: #8a5a00;
+  --color-tryagain-soft: #fff0b8;
+  --color-locked: #7a6e8f;
+  --color-danger-strong: #b42318;
+
+  /* Illustration palette (OasisScene, Mascot, avatars) */
+  --art-sky: #cdeffc;
+  --art-sky-low: #fff3d6;
+  --art-dune: #f2d49b;
+  --art-dune-dark: #e3b871;
+  --art-grass: #7cc576;
+  --art-grass-dark: #3f8f4a;
+  --art-trunk: #9a6a3a;
+  --art-water: #6cc3e8;
+  --art-water-dark: #2f8fc0;
+  --art-tent: #e8735a;
+  --art-lantern: #ffb000;
+  --art-fox: #e9b97a;
+  --art-fox-dark: #b98146;
+  --art-fox-inner: #ffd9c2;
+  --art-bird: #4a5675;
+  --art-flower: #f48fb1;
+  --art-date: #8d4b2a;
+  --art-shadow: rgba(43, 33, 64, 0.14);
+
+  /* Sticker-book palette (playful accents, numbers, floating tiles). Text on these is always ink. */
+  --pop-sun: #ffd23f;
+  --pop-coral: #ff6b6b;
+  --pop-teal: #4ecdc4;
+  --pop-lime: #8fd96c;
+  --pop-grape: #b08cff;
+  --pop-tangerine: #ff9f1c;
+  --pop-pink: #ff7eb6;
+  --pop-sky: #4d9de0;
+  --pop-sun-soft: #fff3c4;
+  --pop-teal-soft: #e3f8f6;
+  --pop-grape-soft: #f1e9ff;
+  --pop-red-n9: #f45b69;
+  --pop-teal-n10: #2ec4b6;
+  --paper-white: #ffffff;
+  --dots-a: rgba(255, 159, 28, 0.22);
+  --dots-b: rgba(78, 205, 196, 0.2);
+
+  /* Sticker outlines and hard offset shadows */
+  --outline: 3px solid var(--color-ink);
+  --outline-thin: 2px solid var(--color-ink);
+  --shadow-sticker: calc(5px * var(--dir-sign)) 5px 0 var(--color-ink);
+  --shadow-sticker-sm: calc(3px * var(--dir-sign)) 3px 0 var(--color-ink);
+
+  /* §4.2 type (EN) */
+  --font-display: 'Fredoka', 'Baloo 2', system-ui, 'Segoe UI', Tahoma, sans-serif;
+  --font-body: 'Nunito', system-ui, 'Segoe UI', Tahoma, sans-serif;
+  --type-display-xl: 800 48px/56px var(--font-display);
+  --type-display-l: 700 36px/44px var(--font-display);
+  --type-title: 700 28px/36px var(--font-display);
+  --type-heading: 700 22px/30px var(--font-display);
+  --type-body-l: 600 20px/30px var(--font-body);
+  --type-body: 400 18px/28px var(--font-body);
+  --type-body-s: 400 16px/24px var(--font-body);
+  --type-label: 700 16px/22px var(--font-display);
+  --type-caption: 400 14px/20px var(--font-body);
+  --type-math-xl: 700 56px/64px var(--font-display);
+  --type-math-l: 700 40px/48px var(--font-display);
+  --type-math-m: 700 32px/40px var(--font-display);
+
+  /* §5 spacing, radius, elevation */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --radius-s: 8px;
+  --radius-m: 18px;
+  --radius-l: 26px;
+  --radius-pill: 999px;
+  --shadow-card: var(--shadow-sticker);
+  --shadow-dialog: calc(8px * var(--dir-sign)) 8px 0 var(--color-ink);
+  --scrim: rgba(43, 33, 64, 0.5);
+
+  /* §11 motion */
+  --motion-instant: 100ms;
+  --motion-quick: 160ms;
+  --motion-base: 240ms;
+  --motion-gentle: 400ms;
+  --motion-celebrate: 1000ms;
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+  --dir-sign: 1;
+}
+
+:root[dir='rtl'] {
+  --dir-sign: -1;
+}
+
+/* §4.2 Arabic: larger sizes and taller line heights */
+:root:lang(ar) {
+  --font-display: 'Baloo Bhaijaan 2', 'Baloo 2', 'Noto Sans Arabic', system-ui, Tahoma, sans-serif;
+  --font-body: 'Cairo', 'Noto Sans Arabic', 'Nunito', system-ui, Tahoma, sans-serif;
+  --type-display-xl: 800 52px/76px var(--font-display);
+  --type-display-l: 700 40px/60px var(--font-display);
+  --type-title: 700 30px/46px var(--font-display);
+  --type-heading: 700 24px/38px var(--font-display);
+  --type-body-l: 600 22px/38px var(--font-body);
+  --type-body: 400 20px/34px var(--font-body);
+  --type-body-s: 400 18px/30px var(--font-body);
+  --type-label: 700 17px/26px var(--font-display);
+  --type-caption: 400 15px/24px var(--font-body);
+  --type-math-xl: 700 56px/72px var(--font-display);
+  --type-math-l: 700 40px/56px var(--font-display);
+  --type-math-m: 700 32px/44px var(--font-display);
+}
+
+/* Western digits use Baloo 2 even in Arabic UI (DS §4.1). */
+.num-latn {
+  --font-math: 'Baloo 2', system-ui, sans-serif;
+}
+.num-arab {
+  --font-math: 'Baloo Bhaijaan 2', 'Noto Sans Arabic', system-ui, Tahoma, sans-serif;
+}

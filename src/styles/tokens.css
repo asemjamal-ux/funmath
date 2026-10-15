@@ -30,6 +30,16 @@
   --color-div-strong: #6b3fd1;
   --color-div: #b08cff;
   --color-div-soft: #ece3ff;
+  /* Advanced Worlds (decision 005): strong colours meet 4.5:1 on their soft tints */
+  --color-frac-strong: #0f6b63;
+  --color-frac: #4ecdc4;
+  --color-frac-soft: #dcf6f3;
+  --color-dec-strong: #7a5000;
+  --color-dec: #ffd23f;
+  --color-dec-soft: #fff3c4;
+  --color-geo-strong: #a3301c;
+  --color-geo: #ff8a65;
+  --color-geo-soft: #ffe4dc;
 
   /* §3.3 feedback */
   --color-success-strong: #1b6e3a;

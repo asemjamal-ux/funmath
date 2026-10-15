@@ -284,5 +284,77 @@
       "2": { "kind": "div", "divisors": [8, 9], "quotient": [0, 10], "blank": ["result"] },
       "3": { "kind": "div", "divisors": [8, 9], "quotient": [0, 10], "blank": ["result", "b"] }
     } }
+  },
+  {
+    "id": "FRA-01", "operation": "fractions", "stage": 4, "order": 1, "prerequisites": [], "scope": "mvp",
+    "titleKey": "skill.FRA-01.title", "model": "form", "lessonId": "lesson-FRA-01",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "FRA-02", "operation": "fractions", "stage": 4, "order": 2, "prerequisites": ["FRA-01"], "scope": "mvp",
+    "titleKey": "skill.FRA-02.title", "model": "form", "lessonId": "lesson-FRA-02",
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "FRA-03", "operation": "fractions", "stage": 5, "order": 3, "prerequisites": ["FRA-02"], "scope": "mvp",
+    "titleKey": "skill.FRA-03.title", "model": "form", "lessonId": "lesson-FRA-03",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "FRA-04", "operation": "fractions", "stage": 5, "order": 4, "prerequisites": ["FRA-03"], "scope": "mvp",
+    "titleKey": "skill.FRA-04.title", "model": "form", "lessonId": "lesson-FRA-04",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "DEC-01", "operation": "decimals", "stage": 4, "order": 1, "prerequisites": [], "scope": "mvp",
+    "titleKey": "skill.DEC-01.title", "model": "form", "lessonId": "lesson-DEC-01",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "DEC-02", "operation": "decimals", "stage": 5, "order": 2, "prerequisites": ["DEC-01"], "scope": "mvp",
+    "titleKey": "skill.DEC-02.title", "model": "form", "lessonId": "lesson-DEC-02",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "DEC-03", "operation": "decimals", "stage": 5, "order": 3, "prerequisites": ["DEC-02"], "scope": "mvp",
+    "titleKey": "skill.DEC-03.title", "model": "form", "lessonId": "lesson-DEC-03",
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "DEC-04", "operation": "decimals", "stage": 5, "order": 4, "prerequisites": ["DEC-03"], "scope": "mvp",
+    "titleKey": "skill.DEC-04.title", "model": "form", "lessonId": "lesson-DEC-04",
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "GEO-01", "operation": "geometry", "stage": 4, "order": 1, "prerequisites": [], "scope": "mvp",
+    "titleKey": "skill.GEO-01.title", "model": "form", "lessonId": "lesson-GEO-01",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "GEO-02", "operation": "geometry", "stage": 4, "order": 2, "prerequisites": ["GEO-01"], "scope": "mvp",
+    "titleKey": "skill.GEO-02.title", "model": "form", "lessonId": "lesson-GEO-02",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "GEO-03", "operation": "geometry", "stage": 5, "order": 3, "prerequisites": ["GEO-02"], "scope": "mvp",
+    "titleKey": "skill.GEO-03.title", "model": "form", "lessonId": "lesson-GEO-03",
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "GEO-04", "operation": "geometry", "stage": 5, "order": 4, "prerequisites": ["GEO-03"], "scope": "mvp",
+    "titleKey": "skill.GEO-04.title", "model": "form", "lessonId": "lesson-GEO-04",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
   }
 ]

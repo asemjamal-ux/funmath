@@ -122,7 +122,7 @@ export function worldOpen(data: ProfileData | null, op: Operation): boolean {
 /** The MVP skills this learner sees: earlier-Stage basics are hidden for older starters (decision 004). */
 export function learnerSkills(data: ProfileData | null): Skill[] {
   if (!data) return [...MVP_SKILLS];
-  return visibleSkills(MVP_SKILLS, data.profile.startingStage, data.profile.prefs.showEarlierSkills ?? false);
+  return visibleSkills(MVP_SKILLS, data.profile.startingStage, data.profile.prefs.showEarlierSkills ?? false, data.profile.unlockAll);
 }
 
 export function learnerSkillsOf(data: ProfileData | null, op: Operation): Skill[] {

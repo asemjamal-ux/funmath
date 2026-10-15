@@ -26,6 +26,7 @@ import './styles/playful.css';
 import './styles/front.css';
 import './styles/worksheets.css';
 import './styles/games-more.css';
+import './styles/topics.css';
 import { App, preloadRoute } from './app/App';
 import { useApp } from './app/store';
 import { registerServiceWorker } from './components/UpdatePrompt';

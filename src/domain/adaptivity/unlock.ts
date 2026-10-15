@@ -1,5 +1,5 @@
 import { UNLOCK_STARS } from '../constants';
-import type { Operation, Skill, SkillId, Stage } from '../math/types';
+import { isTopic, type Operation, type Skill, type SkillId, type Stage } from '../math/types';
 
 export interface UnlockInput {
   skills: readonly Skill[]; // MVP skills only
@@ -8,16 +8,28 @@ export interface UnlockInput {
   stars: (id: SkillId) => number;
 }
 
+/** The advanced Worlds (fractions, decimals, area & perimeter) belong to Stages 4–5 (decision 005). */
+export const ADVANCED_FROM_STAGE = 4;
+
 /**
- * Skills a learner sees (decision 004): a profile started at a higher Stage goes straight to its own skills, so
- * basics from earlier Stages are hidden unless a grown-up turns "show earlier skills" on. Stage 4–5 profiles see the
- * top MVP Stage, because Stages 4–5 have no MVP skills yet.
+ * Skills a learner sees (decisions 004, 005): a profile started at a higher Stage goes straight to its own skills, so
+ * basics from earlier Stages are hidden unless a grown-up turns "show earlier skills" on. Within each World the
+ * cut-off is capped at that World's top Stage, so Stage 4–5 learners keep the Stage 3 arithmetic facts. The advanced
+ * Worlds appear only from Stage 4, or when a grown-up unlocks everything.
  */
-export function visibleSkills<S extends { stage: number }>(skills: readonly S[], startingStage: number, showEarlier: boolean): S[] {
-  if (showEarlier) return [...skills];
-  const topStage = Math.max(...skills.map((s) => s.stage));
-  const from = Math.min(startingStage, topStage);
-  return skills.filter((s) => s.stage >= from);
+export function visibleSkills<S extends { stage: number; operation: Operation }>(
+  skills: readonly S[],
+  startingStage: number,
+  showEarlier: boolean,
+  unlockAll = false,
+): S[] {
+  const top = new Map<Operation, number>();
+  for (const s of skills) top.set(s.operation, Math.max(top.get(s.operation) ?? 0, s.stage));
+  return skills.filter((s) => {
+    if (isTopic(s.operation) && startingStage < ADVANCED_FROM_STAGE && !unlockAll) return false;
+    if (showEarlier) return true;
+    return s.stage >= Math.min(startingStage, top.get(s.operation) ?? s.stage);
+  });
 }
 
 /** PRD §6.9 World unlock rules. */
@@ -31,6 +43,10 @@ export function isWorldOpen(op: Operation, input: UnlockInput): boolean {
       return input.stars('ADD-05') >= UNLOCK_STARS || input.startingStage >= 2;
     case 'division':
       return input.stars('MUL-02') >= UNLOCK_STARS || input.startingStage >= 3;
+    case 'fractions':
+    case 'decimals':
+    case 'geometry':
+      return input.startingStage >= ADVANCED_FROM_STAGE;
   }
 }
 

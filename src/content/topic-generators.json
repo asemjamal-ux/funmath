@@ -1,0 +1,62 @@
+{
+  "FRA-01": { "valueMax": 12, "tiers": {
+    "1": {"kind": "fracName", "d": [2, 4]},
+    "2": {"kind": "fracName", "d": [2, 8]},
+    "3": {"kind": "fracName", "d": [3, 12]}
+  } },
+  "FRA-02": { "valueMax": 100, "tiers": {
+    "1": {"kind": "fracOf", "d": [2, 5], "k": [1, 6], "nonUnit": false},
+    "2": {"kind": "fracOf", "d": [2, 10], "k": [2, 10], "nonUnit": false},
+    "3": {"kind": "fracOf", "d": [3, 10], "k": [2, 10], "nonUnit": true}
+  } },
+  "FRA-03": { "valueMax": 30, "tiers": {
+    "1": {"kind": "fracEquiv", "d": [2, 4], "m": [2, 3], "ask": ["n"], "simplify": false},
+    "2": {"kind": "fracEquiv", "d": [2, 6], "m": [2, 5], "ask": ["n", "d"], "simplify": false},
+    "3": {"kind": "fracEquiv", "d": [2, 6], "m": [2, 5], "ask": ["n", "d"], "simplify": true}
+  } },
+  "FRA-04": { "valueMax": 12, "tiers": {
+    "1": {"kind": "fracAdd", "d": [3, 8], "ops": ["+"]},
+    "2": {"kind": "fracAdd", "d": [3, 10], "ops": ["+", "−"]},
+    "3": {"kind": "fracAdd", "d": [3, 12], "ops": ["+", "−"]}
+  } },
+  "DEC-01": { "valueMax": 100, "tiers": {
+    "1": {"kind": "decFrac", "den": 10, "n": [1, 9], "ask": ["dec"]},
+    "2": {"kind": "decFrac", "den": 10, "n": [1, 9], "ask": ["dec", "frac"]},
+    "3": {"kind": "decFrac", "den": 10, "n": [1, 29], "ask": ["dec", "frac"]}
+  } },
+  "DEC-02": { "valueMax": 1000, "tiers": {
+    "1": {"kind": "decFrac", "den": 100, "n": [1, 99], "ask": ["dec"]},
+    "2": {"kind": "decFrac", "den": 100, "n": [1, 99], "ask": ["dec", "frac"]},
+    "3": {"kind": "decFrac", "den": 100, "n": [1, 99], "ask": ["dec", "frac"]}
+  } },
+  "DEC-03": { "valueMax": 40, "tiers": {
+    "1": {"kind": "decAdd", "a": [11, 59], "b": [11, 39], "ops": ["+"], "noRegroup": true},
+    "2": {"kind": "decAdd", "a": [11, 99], "b": [11, 99], "ops": ["+", "−"]},
+    "3": {"kind": "decAdd", "a": [11, 199], "b": [11, 99], "ops": ["+", "−"]}
+  } },
+  "DEC-04": { "valueMax": 1000, "tiers": {
+    "1": {"kind": "decShift", "a": [11, 99], "factors": [10], "ops": ["×"]},
+    "2": {"kind": "decShift", "a": [11, 99], "factors": [10], "ops": ["×", "÷"]},
+    "3": {"kind": "decShift", "a": [11, 99], "factors": [10, 100], "ops": ["×", "÷"]}
+  } },
+  "GEO-01": { "valueMax": 100, "tiers": {
+    "1": {"kind": "rect", "measure": "area", "l": [2, 5], "w": [2, 4], "grid": true},
+    "2": {"kind": "rect", "measure": "area", "l": [3, 8], "w": [2, 6], "grid": true},
+    "3": {"kind": "rect", "measure": "area", "l": [4, 10], "w": [3, 8], "grid": true}
+  } },
+  "GEO-02": { "valueMax": 100, "tiers": {
+    "1": {"kind": "rect", "measure": "perim", "l": [2, 6], "w": [1, 4], "grid": true},
+    "2": {"kind": "rect", "measure": "perim", "l": [3, 12], "w": [2, 9], "grid": false},
+    "3": {"kind": "rect", "measure": "perim", "l": [5, 25], "w": [3, 15], "grid": false}
+  } },
+  "GEO-03": { "valueMax": 300, "tiers": {
+    "1": {"kind": "rect", "measure": "area", "l": [2, 10], "w": [2, 6], "grid": false},
+    "2": {"kind": "rect", "measure": "area", "l": [3, 12], "w": [3, 12], "grid": false},
+    "3": {"kind": "rect", "measure": "area", "l": [11, 25], "w": [3, 9], "grid": false}
+  } },
+  "GEO-04": { "valueMax": 300, "tiers": {
+    "1": {"kind": "side", "of": ["area"], "l": [2, 10], "w": [2, 10]},
+    "2": {"kind": "side", "of": ["perim"], "l": [2, 12], "w": [2, 12]},
+    "3": {"kind": "side", "of": ["area", "perim"], "l": [3, 12], "w": [3, 15]}
+  } }
+}

@@ -1,7 +1,8 @@
 import { createRng, rngFor, type Rng } from '../rng';
 import { additionCarries, digitAt, regroupsAcrossZero, subtractionBorrows } from './digits';
 import { makeDistractors } from './distractors';
-import type { Blank, Item, ItemFormat, Skill, Tier, TierSpec } from './types';
+import { isTopicSpec, topicImpl } from './topicRegistry';
+import type { Arith, Blank, Item, ItemFormat, Skill, Tier, TierSpec } from './types';
 
 type Pair = readonly [number, number];
 const poolCache = new Map<string, { all: Pair[]; acrossZero: Pair[] }>();
@@ -55,6 +56,7 @@ function pool(skill: Skill, tier: Tier): { all: Pair[]; acrossZero: Pair[] } {
   const cached = poolCache.get(key);
   if (cached) return cached;
   const spec = skill.generator.tiers[String(tier) as '1' | '2' | '3'];
+  if (isTopicSpec(spec)) throw new Error(`${key} is an advanced-topic generator`);
   const max = skill.generator.valueMax;
   const all: Pair[] = [];
   const acrossZero: Pair[] = [];
@@ -126,8 +128,16 @@ export interface GenerateOptions {
 
 function buildCandidate(skill: Skill, tier: Tier, rng: Rng, seed: number, index: number, opts: GenerateOptions): Item {
   const spec = skill.generator.tiers[String(tier) as '1' | '2' | '3'];
+  if (isTopicSpec(spec)) {
+    // Advanced Worlds (decision 005): the topic module builds the question; every answer is still one number.
+    const built = topicImpl().build(spec, rng);
+    const f = opts.format ?? skill.formats[String(tier) as '1' | '2' | '3'];
+    const item: Item = { skillId: skill.id, tier, format: f === 'column' ? 'entry' : f, ...built, seed, index };
+    item.choices = rng.shuffle([item.answer, ...makeDistractors(item, skill, rng)]);
+    return item;
+  }
   const { all, acrossZero } = pool(skill, tier);
-  let operation = skill.operation;
+  let operation = skill.operation as Arith;
   let operands: [number, number, number];
   let blank: Blank;
   switch (spec.kind) {
@@ -214,11 +224,12 @@ export function sameItem(x: Item, y: Item): boolean {
     x.blank === y.blank &&
     x.operands[0] === y.operands[0] &&
     x.operands[1] === y.operands[1] &&
-    x.operands[2] === y.operands[2]
+    x.operands[2] === y.operands[2] &&
+    JSON.stringify(x.form) === JSON.stringify(y.form)
   );
 }
 
 /** ×0 / ×1 facts count against the per-set cap (P-06). */
 export function isTrivialFact(item: Item): boolean {
-  return item.operation === 'multiplication' && (item.operands[0] <= 1 || item.operands[1] <= 1);
+  return item.operation === 'multiplication' && !item.form && !item.dp && (item.operands[0] <= 1 || item.operands[1] <= 1);
 }

@@ -26,7 +26,7 @@ function supportsMin2(): boolean {
   return min2Supported;
 }
 
-/** ARCH §9.3: always pass numberingSystem explicitly; no grouping below 10,000. */
+/** ARCH §9.3: always pass numberingSystem explicitly; no grouping below 10,000; up to two decimal places. */
 export function formatNumber(n: number, opts: FormatOptions): string {
   const min2 = supportsMin2();
   const key = `${opts.locale}|${opts.numberStyle}|${min2 ? 'min2' : n >= 10000 ? 'g' : 'ng'}`;
@@ -35,7 +35,8 @@ export function formatNumber(n: number, opts: FormatOptions): string {
     f = new Intl.NumberFormat(intlLocale(opts.locale), {
       numberingSystem: opts.numberStyle,
       useGrouping: min2 ? 'min2' : n >= 10000,
-      maximumFractionDigits: 0,
+      // Decimals World values have at most two places (decision 005); whole numbers are unaffected.
+      maximumFractionDigits: 2,
     } as Intl.NumberFormatOptions);
     cache.set(key, f);
   }

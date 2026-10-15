@@ -7,13 +7,12 @@ import { ChoiceGroup, type ChoiceState } from '../../components/Answering';
 import { Button, IconButton } from '../../components/Button';
 import { ConfirmDialog } from '../../components/Dialog';
 import { Confetti, FeedbackBanner } from '../../components/Feedback';
-import { MathExpression } from '../../components/MathDisplay';
+import { ItemExpression, ItemPicture } from '../../components/MathDisplay';
 import { Manipulative } from '../../components/Manipulatives';
 import { FanakSays, Mascot } from '../../components/Mascot';
 import { ProgressDots, type DotState } from '../../components/Progress';
 import { LanguageSwitch, TopBar } from '../../components/TopBar';
-import { expressionTokens, spokenLabel } from '../../domain/math/present';
-import type { Item, Skill } from '../../domain/math/types';
+import type { Form, Item, Skill } from '../../domain/math/types';
 import { hasNarration, playNarration, playSfx, stopNarration } from '../../services/audio/audio';
 import type { FixedItem, Lesson } from '../../services/content/schemas';
 import { completeLesson } from '../rewards/engine';
@@ -31,7 +30,14 @@ function toItem(skill: Skill, fixed: FixedItem): Item {
   return {
     skillId: skill.id, tier: 1, format: 'choice', operation: fixed.operation, operands: [a, b, c], blank: fixed.blank,
     answer: fixed.blank === 'a' ? a : fixed.blank === 'b' ? b : c, choices: fixed.choices, seed: 0, index: 0,
+    ...(fixed.form ? { form: fixed.form as Form } : {}),
+    ...(fixed.dp ? { dp: fixed.dp } : {}),
   };
+}
+
+/** An advanced-World model step shows the form's picture with its helping structure (decision 005). */
+function pictureItem(skill: Skill, form: Form): Item {
+  return { skillId: skill.id, tier: 1, format: 'choice', operation: 'multiplication', operands: [0, 0, 0], blank: 'result', answer: 0, seed: 0, index: 0, form };
 }
 
 export function LessonPlayer({ skill, lesson }: { skill: Skill; lesson: Lesson }) {
@@ -122,7 +128,8 @@ export function LessonPlayer({ skill, lesson }: { skill: Skill; lesson: Lesson }
       body = (
         <>
           <FanakSays expression="happy" onSpeak={speak} canSpeak={canSpeak}>{t(step.textKey)}</FanakSays>
-          <Manipulative key={`${st.step}`} spec={step.model} mode="explore" />
+          {step.model && <Manipulative key={`${st.step}`} spec={step.model} mode="explore" />}
+          {step.form && <ItemPicture item={pictureItem(skill, step.form as Form)} hint size="l" />}
         </>
       );
       break;
@@ -131,13 +138,12 @@ export function LessonPlayer({ skill, lesson }: { skill: Skill; lesson: Lesson }
       const states: Record<number, ChoiceState> = {};
       for (const w of g.wrong) states[w] = 'tryAgain';
       if (g.correct || g.revealed) states[item.answer] = 'correct';
-      const sp = spokenLabel(item);
       body = (
         <>
           <FanakSays expression={g.correct ? 'cheer' : g.attempts ? 'thinking' : 'happy'} onSpeak={speak} canSpeak={canSpeak}>{t(step.textKey)}</FanakSays>
           <div className="item">
             <div className="item__work">
-              <MathExpression tokens={expressionTokens(item, g.correct || g.revealed)} label={t(sp.key, { a: n(sp.values.a), b: n(sp.values.b), c: n(sp.values.c) })} />
+              <ItemExpression item={item} showAnswer={g.correct || g.revealed} />
             </div>
             <div className="item__answer">
               <ChoiceGroup choices={item.choices ?? []} states={states} onChoose={(v) => onChoose(v, item)} label={t('answer.choices.label')} large={skill.stage === 1} disabled={g.correct || g.revealed} />
@@ -158,8 +164,7 @@ export function LessonPlayer({ skill, lesson }: { skill: Skill; lesson: Lesson }
           <FanakSays expression="happy" onSpeak={speak} canSpeak={canSpeak}>{t(step.textKey)}</FanakSays>
           {ex && (() => {
             const item = toItem(skill, { ...ex, choices: [0, 1, 2] });
-            const sp = spokenLabel(item);
-            return <MathExpression tokens={expressionTokens(item, true)} label={t(sp.key, { a: n(sp.values.a), b: n(sp.values.b), c: n(sp.values.c) })} />;
+            return <ItemExpression item={item} showAnswer />;
           })()}
         </>
       );

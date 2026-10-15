@@ -10,7 +10,8 @@ import { LanguageSwitch, TopBar } from '../components/TopBar';
 import { TrophyArt } from '../components/TrophyArt';
 import { isReviewDue } from '../domain/adaptivity/stars';
 import { isWorldOpen } from '../domain/adaptivity/unlock';
-import type { GameId, Skill, SkillId, Tier } from '../domain/math/types';
+import { isTopic, type GameId, type Skill, type SkillId, type Tier } from '../domain/math/types';
+import { TopicsGate } from '../components/TopicsGate';
 import { selectDailyMix, type MixCandidate } from '../domain/scheduler/dailyMix';
 import { createRng, randomSeed } from '../domain/rng';
 import { localDateString } from '../domain/time';
@@ -155,7 +156,7 @@ export function LessonPage() {
   const lesson = skill ? lessonFor(skill.id) : undefined;
   if (!skill || !lesson || !data) return <Navigate to={path('/home')} replace />;
   if (!skillUnlocked(data, skill)) return <Navigate to={path('/home')} replace />;
-  return <LessonPlayer skill={skill} lesson={lesson} />;
+  return <TopicsGate need={isTopic(skill.operation)}><LessonPlayer skill={skill} lesson={lesson} /></TopicsGate>;
 }
 
 export function PracticePage() {
@@ -168,7 +169,11 @@ export function PracticePage() {
   if (!skill || !data || skill.scope !== 'mvp') return <Navigate to={path('/home')} replace />;
   if (!skillUnlocked(data, skill)) return <Navigate to={path('/home')} replace />;
   const tier = (data.progress.get(skill.id)?.currentTier ?? 1) as Tier;
-  return <Runner kind="practice" plan={plan} startTier={tier} title={t('practice.title', { skill: t(skill.titleKey) })} exitTo={path(`/skill/${skill.id}`)} />;
+  return (
+    <TopicsGate need={isTopic(skill.operation)}>
+      <Runner kind="practice" plan={plan} startTier={tier} title={t('practice.title', { skill: t(skill.titleKey) })} exitTo={path(`/skill/${skill.id}`)} />
+    </TopicsGate>
+  );
 }
 
 export function DailyMixPage() {
@@ -200,7 +205,15 @@ export function DailyMixPage() {
   if (!data) return null;
   if (plan && plan.length === 0) return <Navigate to={path('/home')} replace />;
   if (!plan) return <div className="page-loading">{t('common.loading')}</div>;
-  return <Runner kind="dailyMix" plan={plan} startTier={1} title={t('dailyMix.title')} exitTo={path('/home')} />;
+  const needTopics = plan.some((p) => {
+    const s = getSkill(p.skillId);
+    return s !== undefined && isTopic(s.operation);
+  });
+  return (
+    <TopicsGate need={needTopics}>
+      <Runner kind="dailyMix" plan={plan} startTier={1} title={t('dailyMix.title')} exitTo={path('/home')} />
+    </TopicsGate>
+  );
 }
 
 /* ---------------- Games ---------------- */
@@ -268,6 +281,10 @@ export function GamePage() {
   const tier = (data.progress.get(skill.id)?.currentTier ?? 1) as Tier;
   const props = { skill, tier, profileId: data.profile.id };
   const key = `${gameId}-${skill.id}`;
+  return <TopicsGate need={isTopic(skill.operation)}>{gameFor(gameId, key, props)}</TopicsGate>;
+}
+
+function gameFor(gameId: GameId, key: string, props: { skill: Skill; tier: Tier; profileId: string }) {
   switch (gameId) {
     case 'bubble-pop':
       return <BubblePop key={key} {...props} />;
@@ -328,7 +345,7 @@ export function ProgressPage() {
         <h1>{t('progress.title')}</h1>
         <p className="lead">{t('progress.trophies', { count: data.trophies.length, n: n(data.trophies.length), total: n(TROPHIES.length) })}</p>
         <div className="progress-worlds">
-          {OPERATIONS.map((op) => {
+          {OPERATIONS.filter((op) => learnerSkillsOf(data, op).length > 0).map((op) => {
             const skills: Skill[] = learnerSkillsOf(data, op);
             const mastered = skills.filter((s) => starsOf(data, s.id) >= 3).length;
             const stars = skills.reduce((sum, s) => sum + starsOf(data, s.id), 0);

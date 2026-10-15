@@ -1,10 +1,16 @@
 import { digitAt, digitsOf } from './digits';
+import { isTopicItem, topicImpl } from './topicRegistry';
 import { OPERATOR_OF, type Item, type MathToken, type WorkedStep } from './types';
 
-/** Token list for MathExpression (ARCH §9.5): a ∘ b = c with the unknown as a blank. */
-export function expressionTokens(item: Item, showAnswer = false): MathToken[] {
+/**
+ * Token list for MathExpression (ARCH §9.5): a ∘ b = c with the unknown as a blank. `fill` shows that value in the
+ * blank instead (True or False shows a proposed answer).
+ */
+export function expressionTokens(item: Item, showAnswer = false, fill?: number): MathToken[] {
+  if (item.form) return topicImpl().tokens(item, showAnswer, fill);
   const [a, b, c] = item.operands;
-  const num = (v: number, isBlank: boolean): MathToken => (isBlank && !showAnswer ? { t: 'blank' } : { t: 'num', v });
+  const num = (v: number, isBlank: boolean): MathToken =>
+    isBlank && !showAnswer ? (fill === undefined ? { t: 'blank' } : { t: 'num', v: fill }) : { t: 'num', v };
   return [
     num(a, item.blank === 'a'),
     { t: 'op', v: OPERATOR_OF[item.operation] },
@@ -14,16 +20,25 @@ export function expressionTokens(item: Item, showAnswer = false): MathToken[] {
   ];
 }
 
+/** The question side (tokens before "="), for cards and tiles. */
+export function questionTokens(item: Item): MathToken[] {
+  const tokens = expressionTokens(item);
+  const eq = tokens.findIndex((tok) => tok.t === 'eq');
+  return eq < 0 ? tokens : tokens.slice(0, eq);
+}
+
 const OP_KEY = { addition: 'add', subtraction: 'sub', multiplication: 'mul', division: 'div' } as const;
 
 /** ICU message key + numeric values for the accessible spoken label (AX-03). */
-export function spokenLabel(item: Item): { key: string; values: { a: number; b: number; c: number } } {
+export function spokenLabel(item: Item): { key: string; values: Record<string, number> } {
+  if (item.form) return topicImpl().spoken(item);
   const [a, b, c] = item.operands;
   return { key: `math.spoken.${OP_KEY[item.operation]}.${item.blank}`, values: { a, b, c } };
 }
 
 /** Step-by-step solution; the last step's value always equals item.answer (P-11). */
 export function workedExample(item: Item): WorkedStep[] {
+  if (isTopicItem(item)) return topicImpl().worked(item);
   const [a, b, c] = item.operands;
   const steps: WorkedStep[] = [];
   if (item.blank !== 'result') {
@@ -129,4 +144,20 @@ function columnSteps(a: number, b: number, op: 'add' | 'sub', steps: WorkedStep[
     }
   }
   if (op === 'add' && carry) steps.push({ key: 'math.worked.col.carryOut', values: { carry: 1 }, value: 1 });
+}
+
+/** The instruction shown above an item: advanced-World questions say what to find (decision 005). */
+export function promptKey(item: Item): string {
+  const f = item.form;
+  if (!f) return item.blank === 'result' ? 'practice.prompt.solve' : 'practice.prompt.missing';
+  switch (f.k) {
+    case 'fracAdd':
+      return f.op === '+' ? 'math.ask.fracAdd' : 'math.ask.fracSub';
+    case 'decFrac':
+      return `math.ask.decFrac.${f.ask}`;
+    case 'rect':
+      return `math.ask.${f.measure}.${f.grid ? 'grid' : 'sides'}`;
+    default:
+      return `math.ask.${f.k}`;
+  }
 }

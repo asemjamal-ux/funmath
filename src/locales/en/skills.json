@@ -51,5 +51,18 @@
   "hint.DIV-03": "Think: what times the number makes the total?",
   "hint.DIV-04": "Think of the times 3 or times 4 facts.",
   "hint.DIV-05": "Think of the times 6 or times 7 facts.",
-  "hint.DIV-06": "Think of the times 8 or times 9 facts."
+  "hint.DIV-06": "Think of the times 8 or times 9 facts.",
+
+  "skill.FRA-01.title": "Parts of a whole",
+  "skill.FRA-02.title": "Fraction of a number",
+  "skill.FRA-03.title": "Equivalent fractions",
+  "skill.FRA-04.title": "Add & subtract fractions",
+  "skill.DEC-01.title": "Tenths",
+  "skill.DEC-02.title": "Hundredths",
+  "skill.DEC-03.title": "Add & subtract decimals",
+  "skill.DEC-04.title": "× and ÷ by 10 and 100",
+  "skill.GEO-01.title": "Area: count the squares",
+  "skill.GEO-02.title": "Perimeter",
+  "skill.GEO-03.title": "Area of rectangles",
+  "skill.GEO-04.title": "Find the missing side"
 }

@@ -1,9 +1,13 @@
+// The advanced Worlds' generators install themselves on import (decision 005).
+import '../src/domain/math/topics';
+import '../src/services/content/topicGenerators';
 import fc from 'fast-check';
 import { describe, expect, it } from 'vitest';
 import { MVP_SKILLS, getSkill } from '../src/services/content';
 import { generateItem, isTrivialFact, sameItem } from '../src/domain/math/generate';
 import { checkAnswer, parseDigits } from '../src/domain/math/check';
 import { itemViolations } from '../src/domain/math/validate';
+import { isTopicItem } from '../src/domain/math/topicRegistry';
 import { workedExample } from '../src/domain/math/present';
 import { additionCarries, regroupsAcrossZero, subtractionBorrows, digitAt } from '../src/domain/math/digits';
 import { nextSetItem, similarItem, MAX_TRIVIAL_FACTS_PER_SET } from '../src/domain/math/practiceSet';
@@ -25,7 +29,7 @@ function forAllItems(skill: Skill, tier: Tier, check: (item: Item) => void) {
 }
 
 describe('math engine invariants P-01..P-11', () => {
-  it('has 26 MVP skills', () => expect(MVP_SKILLS).toHaveLength(26));
+  it('has 38 MVP skills (26 arithmetic + 12 advanced, decision 005)', () => expect(MVP_SKILLS).toHaveLength(38));
 
   for (const skill of MVP_SKILLS) {
     for (const tier of TIERS) {
@@ -33,8 +37,9 @@ describe('math engine invariants P-01..P-11', () => {
         forAllItems(skill, tier, (item) => {
           expect(itemViolations(item, skill)).toEqual([]);
           const [a, b, c] = item.operands;
+          const arithmetic = !isTopicItem(item); // advanced-World operands are records, checked by itemViolations
           // P-04 regrouping rules
-          if (item.operation === 'subtraction') expect(c).toBeGreaterThanOrEqual(0);
+          if (arithmetic && item.operation === 'subtraction') expect(c).toBeGreaterThanOrEqual(0);
           const spec = skill.generator.tiers[String(tier) as '1'];
           if ('constraint' in spec && item.blank === 'result') {
             if (spec.constraint === 'noRegroup' || spec.constraint === 'noBridgeTen') {
@@ -45,7 +50,7 @@ describe('math engine invariants P-01..P-11', () => {
             }
           }
           // P-05
-          if (item.operation === 'division') {
+          if (arithmetic && item.operation === 'division') {
             expect(b).not.toBe(0);
             expect(a % b).toBe(0);
             if (a === 0) expect(['DIV-03', 'DIV-04', 'DIV-05', 'DIV-06']).toContain(skill.id);

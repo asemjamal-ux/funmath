@@ -11,7 +11,7 @@ import { Mascot } from '../../components/Mascot';
 import { ProgressDots, type DotState } from '../../components/Progress';
 import { LanguageSwitch, TopBar } from '../../components/TopBar';
 import { BUBBLE_POP_ITEMS, MATCH_PAIRS_PAIRS, NUMBER_LINE_HOP_ITEMS } from '../../domain/constants';
-import { expressionTokens } from '../../domain/math/present';
+import { questionTokens } from '../../domain/math/present';
 import { nextSetItem } from '../../domain/math/practiceSet';
 import type { GameId, Item, Skill, Tier } from '../../domain/math/types';
 import { createRng, randomSeed } from '../../domain/rng';
@@ -335,7 +335,7 @@ export function MatchPairs({ skill, tier, profileId }: GameProps) {
               aria-pressed={faceUp}
             >
               {faceUp ? (
-                card.kind === 'expr' ? <MathExpression tokens={expressionTokens(it).slice(0, 3)} label={spoken(it)} size="m" /> : <span className="card__num"><MathNumber value={it.answer} /></span>
+                card.kind === 'expr' ? <MathExpression tokens={questionTokens(it)} label={spoken(it)} size="m" /> : <span className="card__num"><MathNumber value={it.answer} /></span>
               ) : (
                 <span className="card__back" aria-hidden="true">?</span>
               )}

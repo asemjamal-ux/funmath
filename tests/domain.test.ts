@@ -1,3 +1,6 @@
+// The advanced Worlds' generators install themselves on import (decision 005).
+import '../src/domain/math/topics';
+import '../src/services/content/topicGenerators';
 import { describe, expect, it } from 'vitest';
 import { initialTierState, nextTierState, type ItemOutcome } from '../src/domain/adaptivity/tier';
 import { afterLesson, afterPracticeSet, afterReview, isReviewDue, qualifiesStar2, type MasteryState } from '../src/domain/adaptivity/stars';
@@ -9,6 +12,11 @@ import { createRng } from '../src/domain/rng';
 import { addDays } from '../src/domain/time';
 import { MVP_SKILLS, TROPHIES, getSkill, LESSONS } from '../src/services/content';
 import { formatNumber } from '../src/services/formatting/number';
+import { checkAnswer, parseDecimal } from '../src/domain/math/check';
+import { generateItem } from '../src/domain/math/generate';
+import { formAnswer, norm } from '../src/domain/math/topics';
+import { expressionTokens, workedExample } from '../src/domain/math/present';
+import { ADVANCED_FROM_STAGE, visibleSkills } from '../src/domain/adaptivity/unlock';
 import type { SkillId, Tier } from '../src/domain/math/types';
 
 const fresh: MasteryState = { stars: 0, tier3QualifyingDates: [], reviewStep: 0 };
@@ -131,9 +139,9 @@ describe('rewards (PRD §7)', () => {
     expect(first.map((t) => t.id)).toEqual(['TR-01']);
     expect(newlyEarnedTrophies(TROPHIES, snap, new Set(['TR-01']))).toEqual([]);
   });
-  it('all 18 trophies defined; all 26 lessons with 4–7 steps', () => {
+  it('all 18 trophies defined; all 38 lessons with 4–7 steps', () => {
     expect(TROPHIES).toHaveLength(18);
-    expect(LESSONS).toHaveLength(26);
+    expect(LESSONS).toHaveLength(38);
     for (const l of LESSONS) {
       expect(l.steps[0]?.kind).toBe('hook');
       expect(l.steps.at(-1)?.kind).toBe('ready');
@@ -162,7 +170,9 @@ describe('age-appropriate skills (decision 004)', () => {
     expect(s3).toContain('ADD-07');
     expect(s3).not.toContain('ADD-01');
     expect(s3).not.toContain('MUL-02');
-    expect(ids(visibleSkills(MVP_SKILLS, 5, false))).toEqual(s3);
+    // Stage 4–5 keep the Stage 3 arithmetic facts (decision 005 caps the cut-off per World).
+    const s5 = ids(visibleSkills(MVP_SKILLS, 5, false));
+    expect(s5.filter((id) => !/^(FRA|DEC|GEO)/.test(id))).toEqual(s3);
     expect(visibleSkills(MVP_SKILLS, 3, true)).toHaveLength(26);
   });
   it('trophies only count visible skills', async () => {
@@ -173,5 +183,91 @@ describe('age-appropriate skills (decision 004)', () => {
     expect(got).toContain('TR-06'); // Addition Explorer: only ADD-07 is in play
     expect(got).not.toContain('TR-10'); // Ten Friends needs ADD-03, which is hidden
     expect(got).not.toContain('TR-11'); // both regrouping skills hidden → not earnable
+  });
+});
+
+describe('advanced Worlds for older learners (decision 005)', () => {
+  const ids = (list: { id: string }[]) => list.map((s) => s.id);
+  const topic = (id: string) => /^(FRA|DEC|GEO)/.test(id);
+  const input = (startingStage: 1 | 2 | 3 | 4 | 5, unlockAll = false) => ({ skills: MVP_SKILLS, startingStage, unlockAll, stars: () => 0 });
+
+  it('Stages 1–3 never see fractions, decimals or area & perimeter, even with earlier skills shown', () => {
+    for (const stage of [1, 2, 3]) {
+      expect(ids(visibleSkills(MVP_SKILLS, stage, false)).some(topic)).toBe(false);
+      expect(ids(visibleSkills(MVP_SKILLS, stage, true)).some(topic)).toBe(false);
+      for (const op of ['fractions', 'decimals', 'geometry'] as const) expect(isWorldOpen(op, input(stage as 1 | 2 | 3))).toBe(false);
+    }
+    expect(ADVANCED_FROM_STAGE).toBe(4);
+  });
+
+  it('Stage 4 sees every advanced Skill plus the Stage 3 facts', () => {
+    const s4 = ids(visibleSkills(MVP_SKILLS, 4, false));
+    expect(s4.filter(topic)).toHaveLength(12);
+    expect(s4).toContain('MUL-06');
+    expect(s4).not.toContain('ADD-01');
+    for (const op of ['fractions', 'decimals', 'geometry'] as const) expect(isWorldOpen(op, input(4))).toBe(true);
+    // The first Skill of each advanced World is open; the next waits for 2 Stars.
+    expect(isSkillUnlocked(getSkill('FRA-01')!, input(4))).toBe(true);
+    expect(isSkillUnlocked(getSkill('FRA-02')!, input(4))).toBe(false);
+  });
+
+  it('Stage 5 goes straight to the Stage 5 advanced Skills', () => {
+    const s5 = ids(visibleSkills(MVP_SKILLS, 5, false)).filter(topic);
+    expect(s5.sort()).toEqual(['DEC-02', 'DEC-03', 'DEC-04', 'FRA-03', 'FRA-04', 'GEO-03', 'GEO-04']);
+    expect(isSkillUnlocked(getSkill('FRA-03')!, input(5))).toBe(true);
+    expect(isSkillUnlocked(getSkill('GEO-03')!, input(5))).toBe(true);
+    expect(isSkillUnlocked(getSkill('GEO-04')!, input(5))).toBe(false);
+    // Showing earlier skills brings back the Stage 4 ones.
+    expect(ids(visibleSkills(MVP_SKILLS, 5, true))).toContain('FRA-01');
+  });
+
+  it('a grown-up unlocking everything shows the advanced Worlds at any Stage', () => {
+    expect(visibleSkills(MVP_SKILLS, 1, false, true)).toHaveLength(38);
+  });
+
+  it('decimal answers: typed with ., ٫ or , and Eastern Arabic digits', () => {
+    expect(parseDecimal('3.5')).toBe(3.5);
+    expect(parseDecimal('٣٫٥')).toBe(3.5);
+    expect(parseDecimal('0,07')).toBe(0.07);
+    expect(parseDecimal('.7')).toBe(0.7);
+    expect(parseDecimal('3.')).toBe(3);
+    expect(parseDecimal('1.2.3')).toBeNull();
+    const item = generateItem(getSkill('DEC-03')!, 2, 42, 0);
+    expect(item.dp).toBe(1);
+    expect(checkAnswer(item, String(item.answer))).toBe(true);
+    expect(checkAnswer(item, norm(item.answer + 0.1))).toBe(false);
+  });
+
+  it('decimal values equal their written literals (no float noise)', () => {
+    for (let i = 0; i < 200; i++) {
+      const item = generateItem(getSkill('DEC-03')!, 3, i, i);
+      const [a, b, c] = item.operands;
+      expect(c).toBe(norm(item.operation === 'addition' ? a + b : a - b));
+      expect(String(c).split('.')[1]?.length ?? 0).toBeLessThanOrEqual(1);
+    }
+  });
+
+  it('every form question has its answer as the unknown and a worked example ending on it', () => {
+    for (const id of ['FRA-01', 'FRA-02', 'FRA-03', 'FRA-04', 'DEC-01', 'DEC-02', 'GEO-01', 'GEO-02', 'GEO-03', 'GEO-04']) {
+      for (const tier of [1, 2, 3] as Tier[]) {
+        const item = generateItem(getSkill(id)!, tier, 7, tier);
+        expect(item.form).toBeDefined();
+        expect(formAnswer(item.form!)).toBe(item.answer);
+        expect(item.operands[2]).toBe(item.answer);
+        const tokens = expressionTokens(item);
+        const unknowns = tokens.filter((t) => t.t === 'blank' || (t.t === 'frac' && (t.n === null || t.d === null)));
+        expect(unknowns).toHaveLength(1);
+        expect(workedExample(item).at(-1)?.value).toBe(item.answer);
+      }
+    }
+  });
+
+  it('pictures that would give the answer away are not asked as visual-only questions', () => {
+    const area = generateItem(getSkill('GEO-01')!, 1, 3, 0);
+    expect(area.form?.k).toBe('rect');
+    expect(area.answer).toBe((area.form as { l: number; w: number }).l * (area.form as { l: number; w: number }).w);
+    const perim = generateItem(getSkill('GEO-02')!, 2, 3, 0);
+    const f = perim.form as { l: number; w: number };
+    expect(perim.answer).toBe(2 * (f.l + f.w));
   });
 });

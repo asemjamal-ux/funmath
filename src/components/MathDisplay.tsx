@@ -1,3 +1,4 @@
+import type { ComponentType } from 'react';
 import { useFmt, useT } from '../app/hooks';
 import { digitAt, digitsOf } from '../domain/math/digits';
 import { expressionTokens, spokenLabel } from '../domain/math/present';
@@ -24,6 +25,8 @@ export interface MathExpressionProps {
 /** Token-based equation; container dir = Math Direction, independent of UI dir. */
 export function MathExpression({ tokens, label, size = 'xl', blankContent }: MathExpressionProps) {
   const fmt = useFmt();
+  const t = useT();
+  const part = (v: number | null) => (v === null ? <span className="math-expr__blank math-expr__blank--frac">{blankContent ?? '?'}</span> : <MathNumber value={v} />);
   return (
     <div className={`math-expr math-expr--${size} num-${fmt.numberStyle}`} dir={fmt.mathDirection} role="math" aria-label={label}>
       {tokens.map((tok, i) => {
@@ -36,6 +39,16 @@ export function MathExpression({ tokens, label, size = 'xl', blankContent }: Mat
             return <span key={i} aria-hidden="true" className="math-expr__op">=</span>;
           case 'blank':
             return <span key={i} aria-hidden="true" className="math-expr__blank">{blankContent ?? '?'}</span>;
+          case 'frac':
+            // Numerator over denominator; stacked the same way in every Math Direction.
+            return (
+              <span key={i} aria-hidden="true" className="math-frac">
+                <span className="math-frac__n">{part(tok.n)}</span>
+                <span className="math-frac__d">{part(tok.d)}</span>
+              </span>
+            );
+          case 'word':
+            return <span key={i} aria-hidden="true" className="math-expr__word">{t(tok.key)}</span>;
           default: {
             const never: never = tok;
             return never;
@@ -52,13 +65,51 @@ export function useSpoken() {
   const { n } = useFmt();
   return (item: Item) => {
     const { key, values } = spokenLabel(item);
-    return t(key, { a: n(values.a), b: n(values.b), c: n(values.c) });
+    return t(key, Object.fromEntries(Object.entries(values).map(([k, v]) => [k, n(v)])));
   };
 }
 
-export function ItemExpression({ item, size = 'xl', showAnswer = false, blankContent }: { item: Item; size?: 'xl' | 'l' | 'm'; showAnswer?: boolean; blankContent?: React.ReactNode }) {
+/** Props for the advanced Worlds' pictures (fraction shapes, decimal grids, rectangles — decision 005). */
+export interface TopicPictureProps {
+  item: Item;
+  showAnswer?: boolean;
+  /** Level-2 hint: the picture shows the helping structure (groups, rows, parts) as well. */
+  hint?: boolean;
+  size?: 'xl' | 'l' | 'm';
+}
+
+// The pictures load with the advanced Worlds' module (outside the startup bundle) and register here.
+let TopicPicture: ComponentType<TopicPictureProps> | null = null;
+export function installTopicPicture(c: ComponentType<TopicPictureProps>): void {
+  TopicPicture = c;
+}
+
+export function ItemPicture(props: TopicPictureProps) {
+  return props.item.form && TopicPicture ? <TopicPicture {...props} /> : null;
+}
+
+export interface ItemExpressionProps {
+  item: Item;
+  size?: 'xl' | 'l' | 'm';
+  showAnswer?: boolean;
+  /** Shows this value in the blank (True or False). */
+  fill?: number;
+  blankContent?: React.ReactNode;
+  /** Advanced-World items show their picture above the equation unless this is false. */
+  picture?: boolean;
+  label?: string;
+}
+
+export function ItemExpression({ item, size = 'xl', showAnswer = false, fill, blankContent, picture = true, label }: ItemExpressionProps) {
   const spoken = useSpoken();
-  return <MathExpression tokens={expressionTokens(item, showAnswer)} label={spoken(item)} size={size} blankContent={blankContent} />;
+  const expr = <MathExpression tokens={expressionTokens(item, showAnswer, fill)} label={label ?? spoken(item)} size={size} blankContent={blankContent} />;
+  if (!picture || !item.form) return expr;
+  return (
+    <div className="item-question">
+      <ItemPicture item={item} showAnswer={showAnswer} size={size} />
+      {expr}
+    </div>
+  );
 }
 
 export interface VerticalProblemProps {

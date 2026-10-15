@@ -13,6 +13,8 @@ import { TopBar, LanguageSwitch } from '../../components/TopBar';
 import { BreakReminder } from '../../components/BreakReminder';
 import { initialTierState, nextTierState, type TierState } from '../../domain/adaptivity/tier';
 import { checkAnswer } from '../../domain/math/check';
+import { promptKey } from '../../domain/math/present';
+import { ItemPicture } from '../../components/MathDisplay';
 import { canRequeue, nextSetItem, practiceSetLength, similarItem } from '../../domain/math/practiceSet';
 import type { Item, SkillId, Tier } from '../../domain/math/types';
 import { randomSeed } from '../../domain/rng';
@@ -276,6 +278,7 @@ export function Runner({ kind, plan, startTier, title, exitTo }: RunnerProps) {
 
   const a = s.answer;
   const hintSpec = modelSpecFor(item, skill.model);
+  const pictureHint = skill.model === 'form' && item.form !== undefined;
   const feedbackKind = s.phase === 'correct' ? 'correct' : a.attempts === 1 && s.phase === 'answering' ? 'tryAgain' : null;
 
   return (
@@ -299,13 +302,14 @@ export function Runner({ kind, plan, startTier, title, exitTo }: RunnerProps) {
         <h1 className="visually-hidden" tabIndex={-1} ref={heading}>{title}</h1>
         <div className="prompt">
           <Mascot expression={s.phase === 'correct' ? 'cheer' : a.attempts > 0 ? 'thinking' : 'happy'} size={64} />
-          <p className="prompt__text">{t(item.blank === 'result' ? 'practice.prompt.solve' : 'practice.prompt.missing')}</p>
+          <p className="prompt__text">{t(promptKey(item))}</p>
         </div>
         {a.hintLevel > 0 && s.phase === 'answering' && (
           <div className="hint" role="note">
             <p><strong>{t('practice.hint.title')}</strong> {t(`hint.${skill.id}`)}</p>
-            {a.hintLevel >= 2 && modelFits(hintSpec) && <Manipulative spec={hintSpec} mode="start" key={`${index}-hint`} />}
-            {a.hintLevel >= 2 && !modelFits(hintSpec) && <p>{t('practice.hint.level2')}</p>}
+            {a.hintLevel >= 2 && pictureHint && <ItemPicture item={item} hint size="l" />}
+            {a.hintLevel >= 2 && hintSpec && modelFits(hintSpec) && <Manipulative spec={hintSpec} mode="start" key={`${index}-hint`} />}
+            {a.hintLevel >= 2 && !pictureHint && !(hintSpec && modelFits(hintSpec)) && <p>{t('practice.hint.level2')}</p>}
           </div>
         )}
         {s.phase === 'worked' ? (

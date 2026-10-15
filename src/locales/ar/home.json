@@ -95,5 +95,9 @@
   "footer.made": "واحة الأرقام — صُنعت بعناية للأطفال الفضوليين من 6 إلى 12 سنة.",
   "footer.nav": "المزيد",
   "footer.worksheets": "أوراق العمل",
-  "footer.grownups": "للكبار"
+  "footer.grownups": "للكبار",
+
+  "world.fractions": "عالم الكسور",
+  "world.decimals": "عالم الأعداد العشرية",
+  "world.geometry": "عالم المساحة والمحيط"
 }

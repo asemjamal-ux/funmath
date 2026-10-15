@@ -27,7 +27,8 @@ export function useT() {
     (id: string, values?: Values) => {
       const text = intl.formatMessage({ id }, values as never) as string;
       if (DIGIT_SAMPLE_KEYS.test(id)) return text;
-      return text.replace(/\d+(?:,\d{3})*/g, (m) => n(Number(m.replace(/,/g, ''))));
+      // Digit runs that are part of a decimal (0.06) were formatted as values already; reformatting "06" would lose a zero.
+      return text.replace(/(?<![\d.٫])\d+(?:,\d{3})*(?!\d|[.٫]\d)/g, (m) => n(Number(m.replace(/,/g, ''))));
     },
     [intl, n],
   );

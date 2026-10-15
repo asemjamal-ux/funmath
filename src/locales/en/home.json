@@ -95,5 +95,9 @@
   "footer.made": "Number Oasis — made with care for curious kids aged 6 to 12.",
   "footer.nav": "More",
   "footer.worksheets": "Worksheets",
-  "footer.grownups": "For grown-ups"
+  "footer.grownups": "For grown-ups",
+
+  "world.fractions": "Fractions World",
+  "world.decimals": "Decimals World",
+  "world.geometry": "Area & Perimeter World"
 }

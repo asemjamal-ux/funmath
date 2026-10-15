@@ -15,13 +15,15 @@ export const LESSONS: readonly Lesson[] = lessonsJson as Lesson[];
 if (import.meta.env.DEV) {
   void import('./schemas').then(async ({ lessonSchema, skillSchema, trophySchema }) => {
     const { z } = await import('zod');
-    z.array(skillSchema).parse(skillsJson);
+    const { default: generators } = await import('../../content/topic-generators.json');
+    const gens = generators as Record<string, unknown>;
+    z.array(skillSchema).parse(skillsJson.map((s) => ({ ...s, generator: (s as { generator?: unknown }).generator ?? gens[s.id] })));
     z.array(lessonSchema).parse(lessonsJson);
     z.array(trophySchema).parse(trophiesJson);
   });
 }
 
-export const OPERATIONS: readonly Operation[] = ['addition', 'subtraction', 'multiplication', 'division'];
+export const OPERATIONS: readonly Operation[] = ['addition', 'subtraction', 'multiplication', 'division', 'fractions', 'decimals', 'geometry'];
 export const GAMES: readonly GameId[] = ['bubble-pop', 'number-line-hop', 'match-pairs', 'bingo', 'number-hunt', 'true-false'];
 
 const byId = new Map(SKILLS.map((s) => [s.id, s]));

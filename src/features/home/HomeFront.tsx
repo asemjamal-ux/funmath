@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useFmt, usePath, useReducedMotion, useT } from '../../app/hooks';
 import { learnerSkills, learnerSkillsOf, skillUnlocked, starsOf, useApp, worldOpen } from '../../app/store';
 import { ChoiceGroup, type ChoiceState } from '../../components/Answering';
-import { Avatar, OP_SHORT, OP_SYMBOL, SeedCounter } from '../../components/Progress';
+import { Avatar, OP_SHORT, OP_SYMBOL, SeedCounter, TopicGlyph } from '../../components/Progress';
 import { Confetti } from '../../components/Feedback';
 import { Icon } from '../../components/Icon';
 import { ItemExpression } from '../../components/MathDisplay';
@@ -13,7 +13,7 @@ import { LanguageSwitch, TopBar } from '../../components/TopBar';
 import { UpdatePrompt } from '../../components/UpdatePrompt';
 import { isReviewDue } from '../../domain/adaptivity/stars';
 import { nextSetItem } from '../../domain/math/practiceSet';
-import type { Item, Operation, Skill, Tier } from '../../domain/math/types';
+import { isTopic, type Item, type Operation, type Skill, type Tier } from '../../domain/math/types';
 import { seedsToNextStage } from '../../domain/rewards/rewards';
 import { randomSeed } from '../../domain/rng';
 import { localDateString } from '../../domain/time';
@@ -28,15 +28,13 @@ import { getSkill, OPERATIONS, TROPHIES } from '../../services/content';
 
 const QC_GOAL = 5;
 
-function useSuggestion(): Skill | undefined {
+/** The next Skill to work on; learners who start at a higher Stage are pointed at their own Stage first (decision 005). */
+function useSuggestion(arithmeticOnly = false): Skill | undefined {
   const data = useApp((s) => s.data);
   if (!data) return undefined;
-  for (const op of OPERATIONS) {
-    if (!worldOpen(data, op)) continue;
-    const s = learnerSkillsOf(data, op).find((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2);
-    if (s) return s;
-  }
-  return undefined;
+  const open = OPERATIONS.filter((op) => worldOpen(data, op) && !(arithmeticOnly && isTopic(op)));
+  const todo = open.flatMap((op) => learnerSkillsOf(data, op)).filter((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2);
+  return todo.find((sk) => sk.stage >= data.profile.startingStage) ?? todo[0];
 }
 
 function Eyebrow({ children }: { children: React.ReactNode }) {
@@ -55,7 +53,7 @@ function WorldChip({ op }: { op: Operation }) {
   const mastered = skills.filter((s) => starsOf(data, s.id) >= 3).length;
   const body = (
     <>
-      <span className="world-chip__sym" aria-hidden="true">{open ? OP_SYMBOL[op] : <Icon name="lock" size={48} />}</span>
+      <span className="world-chip__sym" aria-hidden="true">{!open ? <Icon name="lock" size={48} /> : isTopic(op) ? <TopicGlyph topic={op} size={64} /> : OP_SYMBOL[op]}</span>
       <span className="world-chip__name">{t(`world.${op}`)}</span>
       <small className="world-chip__count">{open ? t('world.masteredCount', { mastered: n(mastered), total: n(skills.length) }) : t('world.locked')}</small>
     </>
@@ -150,11 +148,13 @@ export function HomePage() {
   const navigate = useNavigate();
   const data = useApp((s) => s.data);
   const suggestion = useSuggestion();
+  // The quick challenge stays with arithmetic: the advanced Worlds' questions load with their own pages.
+  const qcSuggestion = useSuggestion(true);
   useEffect(() => {
     setMusic(true);
     return () => setMusic(false);
   }, []);
-  const qcSkill = useMemo(() => suggestion ?? learnerSkills(data)[0] ?? getSkill('ADD-01'), [suggestion, data]);
+  const qcSkill = useMemo(() => qcSuggestion ?? learnerSkills(data).find((s) => !isTopic(s.operation)) ?? getSkill('ADD-01'), [qcSuggestion, data]);
   if (!data || !qcSkill) return null;
 
   const today = localDateString(appClock.now());
@@ -226,7 +226,7 @@ export function HomePage() {
             <p className="lead">{t('home.pick.lead')}</p>
           </div>
           <ul className="world-picker">
-            {OPERATIONS.map((op) => <WorldChip key={op} op={op} />)}
+            {OPERATIONS.filter((op) => learnerSkillsOf(data, op).length > 0).map((op) => <WorldChip key={op} op={op} />)}
             <li className={`world-chip world-chip--mix${anyStar ? '' : ' world-chip--locked'}`}>
               <button type="button" className="world-chip__link" onClick={() => anyStar && navigate(path('/daily-mix'))} aria-disabled={!anyStar || undefined}>
                 <span className="world-chip__sym" aria-hidden="true"><Icon name="shuffle" size={48} /></span>

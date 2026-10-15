@@ -5,9 +5,9 @@ import { FeedbackBanner } from '../../components/Feedback';
 import { Icon } from '../../components/Icon';
 import { ItemExpression, MathExpression, MathNumber, useSpoken } from '../../components/MathDisplay';
 import type { DotState } from '../../components/Progress';
-import { expressionTokens } from '../../domain/math/present';
+import { expressionTokens, questionTokens } from '../../domain/math/present';
 import { nextSetItem } from '../../domain/math/practiceSet';
-import type { Item, MathToken, Tier } from '../../domain/math/types';
+import type { Item, Tier } from '../../domain/math/types';
 import { createRng, randomSeed } from '../../domain/rng';
 import { playSfx } from '../../services/audio/audio';
 import { GameFrame, RoundSummary, type GameProps } from './Games';
@@ -235,7 +235,7 @@ export function NumberHunt({ skill, tier, profileId }: GameProps) {
             aria-label={spoken({ ...tile, blank: 'result' })}
             onClick={() => void tap(i)}
           >
-            <MathExpression tokens={expressionTokens(tile).slice(0, 3)} label={spoken(tile)} size="m" />
+            <MathExpression tokens={questionTokens(tile)} label={spoken(tile)} size="m" />
           </button>
         ))}
       </div>
@@ -266,15 +266,10 @@ function buildTf(skill: GameProps['skill'], tier: Tier, seed: number): TfQuestio
   });
 }
 
-/** The whole equation with the unknown filled by the value shown to the learner. */
-function shownTokens(q: TfQuestion): MathToken[] {
-  const blankPos = q.item.blank === 'a' ? 0 : q.item.blank === 'b' ? 2 : 4;
-  return expressionTokens(q.item, true).map((tok, i) => (i === blankPos ? { t: 'num', v: q.shown } : tok));
-}
-
 export function TrueFalse({ skill, tier, profileId }: GameProps) {
   const t = useT();
   const { n } = useFmt();
+  const spoken = useSpoken();
   const [round, setRound] = useState(0);
   const qs = useMemo(() => buildTf(skill, tier, randomSeed(Math.random)), [skill, tier, round]);
   const game = useGameRound(profileId, 'true-false', skill);
@@ -285,8 +280,11 @@ export function TrueFalse({ skill, tier, profileId }: GameProps) {
   const [done, setDone] = useState(false);
   const q = qs[idx] as TfQuestion;
   const [a, , c] = q.item.operands;
-  const values = shownTokens(q).filter((x): x is { t: 'num'; v: number } => x.t === 'num').map((x) => n(x.v));
-  const label = t(`games.true-false.say.${OP_KEY[q.item.operation]}`, { a: values[0] ?? n(a), b: values[1] ?? '', c: values[2] ?? n(c) });
+  // The whole equation with the unknown filled by the value shown to the learner.
+  const values = expressionTokens(q.item, false, q.shown).filter((x): x is { t: 'num'; v: number } => x.t === 'num').map((x) => n(x.v));
+  const label = q.item.form
+    ? t('games.true-false.sayForm', { question: spoken(q.item), value: n(q.shown) })
+    : t(`games.true-false.say.${OP_KEY[q.item.operation]}`, { a: values[0] ?? n(a), b: values[1] ?? '', c: values[2] ?? n(c) });
 
   const choose = async (v: boolean) => {
     if (solved || wrong === v) return;
@@ -328,7 +326,7 @@ export function TrueFalse({ skill, tier, profileId }: GameProps) {
     <GameFrame title={t('games.true-false.title')} gameId="true-false" dots={dots} current={idx} total={qs.length}>
       <p className="game__prompt">{t('games.true-false.prompt')}</p>
       <div className={`tf-card${solved ? (q.isTrue ? ' tf-card--true' : ' tf-card--false') : ''}`}>
-        <MathExpression tokens={shownTokens(q)} label={label} size="xl" />
+        <ItemExpression item={q.item} fill={q.shown} label={label} size="xl" />
       </div>
       <div className="tf-buttons">
         <button type="button" className="tf-btn tf-btn--true" aria-disabled={solved || wrong === true || undefined} onClick={() => void choose(true)}>

@@ -6,7 +6,9 @@ import { useApp } from '../../app/store';
 import { Button, IconButton } from '../../components/Button';
 import { LanguageSwitch, TopBar } from '../../components/TopBar';
 import { nextSetItem } from '../../domain/math/practiceSet';
-import { OPERATOR_OF, type Blank, type Item, type Skill, type Tier } from '../../domain/math/types';
+import { isTopicSpec } from '../../domain/math/topicRegistry';
+import { isTopic, OPERATOR_OF, type Blank, type Item, type Skill, type Tier } from '../../domain/math/types';
+import { ItemExpression } from '../../components/MathDisplay';
 import { createRng, randomSeed } from '../../domain/rng';
 import { localDateString } from '../../domain/time';
 import { appClock } from '../../services/clock';
@@ -45,7 +47,9 @@ function hideFor(item: Item, wantMissing: boolean, pickA: boolean): Blank {
   return ok(first) ? first : ok(second) ? second : 'result';
 }
 
-function makeProblems(skill: Skill, tier: Tier, count: number, seed: number, missing: boolean): Problem[] {
+function makeProblems(skill: Skill, tier: Tier, count: number, seed: number, missingAsked: boolean): Problem[] {
+  // Advanced-World questions (decision 005) always ask for the result.
+  const missing = missingAsked && !isTopic(skill.operation);
   const items: Item[] = [];
   for (let i = 0; i < count; i++) {
     items.push(nextSetItem(skill, tier, seed, i, items, { format: 'entry', reject: missing ? (c) => c.blank !== 'result' : undefined }));
@@ -56,6 +60,17 @@ function makeProblems(skill: Skill, tier: Tier, count: number, seed: number, mis
     const [a, b, c] = item.operands;
     return { item, hide, answer: hide === 'a' ? a : hide === 'b' ? b : c };
   });
+}
+
+/** An advanced-World question: its picture and equation, with the answer filled in on the key (decision 005). */
+function TopicProblem({ p, index, showAnswer }: { p: Problem; index: number; showAnswer?: boolean }) {
+  const { n } = useFmt();
+  return (
+    <div className="ws-prob ws-prob--topic">
+      <span className="ws-prob__num">{n(index + 1)}.</span>
+      <ItemExpression item={p.item} size="m" showAnswer={showAnswer} blankContent=" " />
+    </div>
+  );
 }
 
 function WsBlank({ text }: { text?: string }) {
@@ -123,8 +138,9 @@ export function WorksheetsPage() {
   const [extra, setExtra] = useState<{ locale: string; messages: Messages } | null>(null);
   useEffect(() => {
     let alive = true;
-    void loadLazyMessages(locale, 'worksheets').then((messages) => {
-      if (alive) setExtra({ locale, messages });
+    // The advanced Worlds' generators, pictures and words come along: any Skill can be printed (decision 005).
+    void Promise.all([loadLazyMessages(locale, 'worksheets'), loadLazyMessages(locale, 'topics'), import('../topics')]).then(([ws, topics]) => {
+      if (alive) setExtra({ locale, messages: { ...topics, ...ws } });
     });
     return () => {
       alive = false;
@@ -159,7 +175,8 @@ function WorksheetsBody() {
   const isProblems = type === 'practice' || type === 'missing';
   // Stacked columns only make sense when the result is always the unknown.
   const spec = skill.generator.tiers[String(tier) as '1' | '2' | '3'];
-  const canStack = type === 'practice' && skill.operation !== 'division' && spec.kind !== 'family' && spec.blank.every((b) => b === 'result');
+  const topic = isTopic(skill.operation);
+  const canStack = type === 'practice' && !isTopicSpec(spec) && skill.operation !== 'division' && spec.kind !== 'family' && spec.blank.every((b) => b === 'result');
   const problems = useMemo(
     () => (isProblems ? makeProblems(skill, tier, count, seed, type === 'missing') : []),
     [isProblems, skill, tier, count, seed, type],
@@ -172,12 +189,18 @@ function WorksheetsBody() {
   const today = formatDate(localDateString(appClock.now()), { locale: fmt.locale, numberStyle: fmt.numberStyle, calendar: device?.calendar ?? 'gregory' });
   const stacked = canStack && layout === 'stacked';
   const title =
-    type === 'practice' ? t(skill.titleKey)
+    type === 'practice' || (type === 'missing' && topic) ? t(skill.titleKey)
     : type === 'missing' ? t('ws.title.missing', { skill: t(skill.titleKey) })
     : type === 'chart-blank' ? t('ws.title.chartBlank')
     : type === 'chart-full' ? t('ws.title.chartFull')
     : t('ws.title.skip');
   const subtitle = isProblems ? t(`ws.level.${tier}`) : type === 'skip' ? t('ws.sub.skip') : type === 'chart-blank' ? t('ws.sub.chartBlank') : t('ws.sub.chartFull');
+
+  const problemView = (p: Problem, i: number, showAnswer: boolean) => {
+    if (topic) return <TopicProblem key={i} p={p} index={i} showAnswer={showAnswer} />;
+    if (stacked) return <StackedProblem key={i} p={p} showAnswer={showAnswer} />;
+    return <AcrossProblem key={i} p={p} index={i} showAnswer={showAnswer} />;
+  };
 
   const toggleTable = (n: number) => setTables(tables.includes(n) ? tables.filter((x) => x !== n) : [...tables, n]);
 
@@ -222,7 +245,7 @@ function WorksheetsBody() {
               <span className="ws-field__label">{t('ws.type')}</span>
               <select className="select" value={type} onChange={(e) => setType(e.target.value as SheetType)}>
                 <option value="practice">{t('ws.type.practice')}</option>
-                <option value="missing">{t('ws.type.missing')}</option>
+                {!topic && <option value="missing">{t('ws.type.missing')}</option>}
                 <option value="skip">{t('ws.type.skip')}</option>
                 <option value="chart-blank">{t('ws.type.chartBlank')}</option>
                 <option value="chart-full">{t('ws.type.chartFull')}</option>
@@ -304,16 +327,16 @@ function WorksheetsBody() {
 
             {isProblems && (
               <>
-                <div className={`ws-grid${stacked ? ' ws-grid--stacked' : ''}`}>
-                  {problems.map((p, i) => (stacked ? <StackedProblem key={i} p={p} /> : <AcrossProblem key={i} p={p} index={i} />))}
+                <div className={`ws-grid${stacked ? ' ws-grid--stacked' : ''}${topic ? ' ws-grid--topic' : ''}`}>
+                  {problems.map((p, i) => problemView(p, i, false))}
                 </div>
                 <p className="ws-stars" aria-hidden="true">☆ ☆ ☆ ☆ ☆</p>
                 {sheetFooter(true)}
                 {withKey && (
                   <div className="ws-page-break">
                     {head(t('ws.key', { title }), t('ws.forGrownups'))}
-                    <div className={`ws-grid ws-grid--key${stacked ? ' ws-grid--stacked' : ''}`}>
-                      {problems.map((p, i) => (stacked ? <StackedProblem key={i} p={p} showAnswer /> : <AcrossProblem key={i} p={p} index={i} showAnswer />))}
+                    <div className={`ws-grid ws-grid--key${stacked ? ' ws-grid--stacked' : ''}${topic ? ' ws-grid--topic' : ''}`}>
+                      {problems.map((p, i) => problemView(p, i, true))}
                     </div>
                   </div>
                 )}

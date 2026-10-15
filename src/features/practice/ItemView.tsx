@@ -1,5 +1,5 @@
 import { useFmt, useT } from '../../app/hooks';
-import { AnswerField, ChoiceGroup, MAX_ENTRY_DIGITS, NumberPad, type ChoiceState } from '../../components/Answering';
+import { AnswerField, ChoiceGroup, formatEntry, MAX_ENTRY_DIGITS, NumberPad, type ChoiceState } from '../../components/Answering';
 import { ItemExpression, VerticalProblem, operatorFor, useSpoken } from '../../components/MathDisplay';
 import { digitsOf } from '../../domain/math/digits';
 import type { Item } from '../../domain/math/types';
@@ -98,20 +98,28 @@ export function ItemView({ item, stage, state, locked, onState, onSubmit }: Item
     );
   }
 
-  // Number entry
+  // Number entry; decimal answers get a decimal-point key and at most the item's decimal places (decision 005).
+  const dp = item.dp ?? 0;
   const typeDigit = (d: number) => {
     if (state.entry.length >= MAX_ENTRY_DIGITS) return;
+    const point = state.entry.indexOf('.');
+    if (point >= 0 && state.entry.length - point - 1 >= dp) return;
     onState({ ...state, entry: state.entry === '0' ? String(d) : state.entry + String(d) });
+  };
+  const typePoint = () => {
+    if (state.entry.includes('.') || state.entry.length >= MAX_ENTRY_DIGITS - 1) return;
+    onState({ ...state, entry: `${state.entry === '' ? '0' : state.entry}.` });
   };
   return (
     <div className="item">
       <div className="item__work">
-        <ItemExpression item={item} blankContent={state.entry !== '' ? fmt.n(Number(state.entry)) : undefined} />
+        <ItemExpression item={item} blankContent={state.entry !== '' ? formatEntry(state.entry, fmt) : undefined} />
       </div>
       <div className="item__answer">
         <AnswerField value={state.solved ? String(item.answer) : state.entry} state={state.solved ? 'correct' : 'default'} />
         <NumberPad
           onDigit={typeDigit}
+          onPoint={dp > 0 ? typePoint : undefined}
           onBackspace={() => onState({ ...state, entry: state.entry.slice(0, -1) })}
           onSubmit={() => state.entry !== '' && onSubmit(Number(state.entry))}
           large={large}

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { useFmt, useLocale, useT } from '../app/hooks';
+import { useFmt, useLocale, useT, type Fmt } from '../app/hooks';
 import { parseDigits } from '../domain/math/check';
 import { Icon } from './Icon';
 import { MathNumber } from './MathDisplay';
@@ -55,7 +55,7 @@ export function ChoiceGroup({ choices, states, onChoose, label, large, disabled 
             aria-checked={st === 'correct'}
             aria-disabled={inactive || undefined}
             tabIndex={i === 0 ? 0 : -1}
-            className={`choice choice--${st}`}
+            className={`choice choice--${st}${String(c).length > 3 ? ' choice--long' : ''}`}
             onKeyDown={(e) => onKey(e, i)}
             onClick={() => {
               if (!inactive) onChoose(c);
@@ -71,10 +71,20 @@ export function ChoiceGroup({ choices, states, onChoose, label, large, disabled 
   );
 }
 
+/** A typed answer for display; a decimal still being typed ("3.") keeps its point (decimals World). */
+export function formatEntry(value: string, fmt: Fmt): string {
+  const [whole = '', frac] = value.split('.');
+  if (frac === undefined) return fmt.n(Number(whole));
+  const point = fmt.n(1.5).replace(/[^.,\u066b]/g, '') || '.';
+  return fmt.n(Number(whole || '0')) + point + [...frac].map((d) => fmt.n(Number(d))).join('');
+}
+
 export interface NumberPadProps {
   onDigit: (d: number) => void;
   onBackspace: () => void;
   onSubmit: () => void;
+  /** Adds a decimal-point key (decimals World); the pad gains a row. */
+  onPoint?: () => void;
   large?: boolean;
   disabled?: boolean;
   submitDisabled?: boolean;
@@ -83,11 +93,11 @@ export interface NumberPadProps {
 }
 
 /** 3 × 4 pad, never mirrored (DS §8.2); digits shown in the active Number Style. */
-export function NumberPad({ onDigit, onBackspace, onSubmit, large, disabled, submitDisabled, captureKeyboard = true }: NumberPadProps) {
+export function NumberPad({ onDigit, onBackspace, onSubmit, onPoint, large, disabled, submitDisabled, captureKeyboard = true }: NumberPadProps) {
   const t = useT();
   const fmt = useFmt();
-  const handlers = useRef({ onDigit, onBackspace, onSubmit, disabled, submitDisabled });
-  handlers.current = { onDigit, onBackspace, onSubmit, disabled, submitDisabled };
+  const handlers = useRef({ onDigit, onBackspace, onSubmit, onPoint, disabled, submitDisabled });
+  handlers.current = { onDigit, onBackspace, onSubmit, onPoint, disabled, submitDisabled };
 
   useEffect(() => {
     if (!captureKeyboard) return;
@@ -100,6 +110,9 @@ export function NumberPad({ onDigit, onBackspace, onSubmit, large, disabled, sub
       if (d !== null && e.key.length === 1) {
         e.preventDefault();
         h.onDigit(d);
+      } else if (h.onPoint && (e.key === '.' || e.key === ',' || e.key === '\u066b')) {
+        e.preventDefault();
+        h.onPoint();
       } else if (e.key === 'Backspace') {
         e.preventDefault();
         h.onBackspace();
@@ -114,7 +127,7 @@ export function NumberPad({ onDigit, onBackspace, onSubmit, large, disabled, sub
 
   const keys = [1, 2, 3, 4, 5, 6, 7, 8, 9];
   return (
-    <div className={`numpad${large ? ' numpad--large' : ''} num-${fmt.numberStyle}`} dir="ltr" role="group" aria-label={t('answer.pad.label')}>
+    <div className={`numpad${large ? ' numpad--large' : ''}${onPoint ? ' numpad--decimal' : ''} num-${fmt.numberStyle}`} dir="ltr" role="group" aria-label={t('answer.pad.label')}>
       {keys.map((k) => (
         <button key={k} type="button" className="numpad__key" disabled={disabled} onClick={() => onDigit(k)} aria-label={fmt.n(k)}>
           {fmt.n(k)}
@@ -126,6 +139,11 @@ export function NumberPad({ onDigit, onBackspace, onSubmit, large, disabled, sub
       <button type="button" className="numpad__key" disabled={disabled} onClick={() => onDigit(0)} aria-label={fmt.n(0)}>
         {fmt.n(0)}
       </button>
+      {onPoint && (
+        <button type="button" className="numpad__key numpad__key--fn" disabled={disabled} onClick={onPoint} aria-label={t('answer.pad.point')}>
+          <span aria-hidden="true">{formatEntry('0.', fmt).slice(-1)}</span>
+        </button>
+      )}
       <button type="button" className="numpad__key numpad__key--ok" disabled={disabled || submitDisabled} onClick={onSubmit} aria-label={t('answer.pad.check')}>
         <Icon name="check" size={32} />
       </button>
@@ -138,13 +156,14 @@ export function AnswerField({ value, state = 'default' }: { value: string; state
   const t = useT();
   const fmt = useFmt();
   const n = value === '' ? null : Number(value);
+  const typing = value.includes('.');
   return (
     <div className={`answer-field answer-field--${state} num-${fmt.numberStyle}`}>
       <span className="visually-hidden" aria-live="polite">
-        {n === null ? t('answer.field.empty') : t('answer.field.value', { value: fmt.n(n) })}
+        {n === null ? t('answer.field.empty') : t('answer.field.value', { value: typing ? formatEntry(value, fmt) : fmt.n(n) })}
       </span>
       <span aria-hidden="true" className="answer-field__value">
-        {n !== null && <MathNumber value={n} />}
+        {n !== null && (typing ? <bdi dir="ltr" className={`math-number num-${fmt.numberStyle}`}>{formatEntry(value, fmt)}</bdi> : <MathNumber value={n} />)}
         {state === 'default' && <span className="answer-field__caret" />}
       </span>
     </div>

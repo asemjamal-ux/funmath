@@ -1,5 +1,6 @@
 import type { Rng } from '../rng';
 import { additionWithoutCarry, subtractionSmallerFromLarger } from './digits';
+import { isTopicItem, topicImpl } from './topicRegistry';
 import type { Item, Skill } from './types';
 
 export function distractorCount(skill: Skill): number {
@@ -39,6 +40,7 @@ function patternCandidates(item: Item): number[] {
  */
 export function makeDistractors(item: Item, skill: Skill, rng: Rng): number[] {
   const want = distractorCount(skill);
+  if (isTopicItem(item)) return topicImpl().distractors(item, want, skill.generator.valueMax, rng);
   const max = skill.generator.valueMax;
   const ans = item.answer;
   const chosen: number[] = [];

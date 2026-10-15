@@ -2173,5 +2173,1229 @@
         "audioKey": "ui.ready"
       }
     ]
+  },
+  {
+    "id": "lesson-FRA-01",
+    "skillId": "FRA-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.FRA-01.hook",
+        "audioKey": "FRA-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.FRA-01.model",
+        "audioKey": "FRA-01.model",
+        "form": {
+          "k": "fracName",
+          "n": 3,
+          "d": 4,
+          "shape": "circle"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-01.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            1,
+            2,
+            1
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracName",
+            "n": 1,
+            "d": 2,
+            "shape": "bar"
+          },
+          "choices": [
+            1,
+            2,
+            0,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-01.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            2,
+            3,
+            2
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracName",
+            "n": 2,
+            "d": 3,
+            "shape": "circle"
+          },
+          "choices": [
+            2,
+            3,
+            1,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.FRA-01.keyIdea",
+        "audioKey": "FRA-01.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            3,
+            8,
+            3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracName",
+            "n": 3,
+            "d": 8,
+            "shape": "bar"
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-FRA-02",
+    "skillId": "FRA-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.FRA-02.hook",
+        "audioKey": "FRA-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.FRA-02.model",
+        "audioKey": "FRA-02.model",
+        "form": {
+          "k": "fracOf",
+          "n": 1,
+          "d": 4,
+          "q": 12
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-02.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            10,
+            2,
+            5
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracOf",
+            "n": 1,
+            "d": 2,
+            "q": 10
+          },
+          "choices": [
+            2,
+            5,
+            10,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-02.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            12,
+            3,
+            4
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracOf",
+            "n": 1,
+            "d": 3,
+            "q": 12
+          },
+          "choices": [
+            4,
+            3,
+            9,
+            6
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-02.guided3",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            8,
+            4,
+            6
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracOf",
+            "n": 3,
+            "d": 4,
+            "q": 8
+          },
+          "choices": [
+            6,
+            2,
+            3,
+            8
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.FRA-02.keyIdea",
+        "audioKey": "FRA-02.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            12,
+            3,
+            8
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracOf",
+            "n": 2,
+            "d": 3,
+            "q": 12
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-FRA-03",
+    "skillId": "FRA-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.FRA-03.hook",
+        "audioKey": "FRA-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.FRA-03.model",
+        "audioKey": "FRA-03.model",
+        "form": {
+          "k": "fracEquiv",
+          "n": 1,
+          "d": 2,
+          "m": 2,
+          "ask": "n",
+          "simplify": false
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-03.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            1,
+            3,
+            2
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracEquiv",
+            "n": 1,
+            "d": 3,
+            "m": 2,
+            "ask": "n",
+            "simplify": false
+          },
+          "choices": [
+            1,
+            2,
+            4,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-03.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            3,
+            4,
+            6
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracEquiv",
+            "n": 3,
+            "d": 4,
+            "m": 2,
+            "ask": "n",
+            "simplify": false
+          },
+          "choices": [
+            6,
+            3,
+            7,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.FRA-03.keyIdea",
+        "audioKey": "FRA-03.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            2,
+            3,
+            4
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracEquiv",
+            "n": 2,
+            "d": 3,
+            "m": 2,
+            "ask": "n",
+            "simplify": false
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-FRA-04",
+    "skillId": "FRA-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.FRA-04.hook",
+        "audioKey": "FRA-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.FRA-04.model",
+        "audioKey": "FRA-04.model",
+        "form": {
+          "k": "fracAdd",
+          "a": 2,
+          "b": 3,
+          "d": 7,
+          "op": "+"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-04.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            1,
+            2,
+            3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracAdd",
+            "a": 1,
+            "b": 2,
+            "d": 5,
+            "op": "+"
+          },
+          "choices": [
+            2,
+            3,
+            4,
+            1
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "FRA-04.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            5,
+            3,
+            2
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracAdd",
+            "a": 5,
+            "b": 3,
+            "d": 8,
+            "op": "−"
+          },
+          "choices": [
+            2,
+            8,
+            1,
+            3
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.FRA-04.keyIdea",
+        "audioKey": "FRA-04.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            2,
+            3,
+            5
+          ],
+          "blank": "result",
+          "form": {
+            "k": "fracAdd",
+            "a": 2,
+            "b": 3,
+            "d": 7,
+            "op": "+"
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DEC-01",
+    "skillId": "DEC-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DEC-01.hook",
+        "audioKey": "DEC-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DEC-01.model",
+        "audioKey": "DEC-01.model",
+        "form": {
+          "k": "decFrac",
+          "n": 3,
+          "den": 10,
+          "ask": "dec"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-01.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            7,
+            10,
+            0.7
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 7,
+            "den": 10,
+            "ask": "dec"
+          },
+          "dp": 1,
+          "choices": [
+            0.07,
+            0.7,
+            7,
+            1.7
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-01.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            0.4,
+            10,
+            4
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 4,
+            "den": 10,
+            "ask": "frac"
+          },
+          "choices": [
+            4,
+            40,
+            1,
+            6
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DEC-01.keyIdea",
+        "audioKey": "DEC-01.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            13,
+            10,
+            1.3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 13,
+            "den": 10,
+            "ask": "dec"
+          },
+          "dp": 1
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DEC-02",
+    "skillId": "DEC-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DEC-02.hook",
+        "audioKey": "DEC-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DEC-02.model",
+        "audioKey": "DEC-02.model",
+        "form": {
+          "k": "decFrac",
+          "n": 35,
+          "den": 100,
+          "ask": "dec"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-02.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            7,
+            100,
+            0.07
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 7,
+            "den": 100,
+            "ask": "dec"
+          },
+          "dp": 2,
+          "choices": [
+            0.7,
+            0.07,
+            7,
+            0.17
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-02.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            0.42,
+            100,
+            42
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 42,
+            "den": 100,
+            "ask": "frac"
+          },
+          "choices": [
+            42,
+            4,
+            420,
+            24
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DEC-02.keyIdea",
+        "audioKey": "DEC-02.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            25,
+            100,
+            0.25
+          ],
+          "blank": "result",
+          "form": {
+            "k": "decFrac",
+            "n": 25,
+            "den": 100,
+            "ask": "dec"
+          },
+          "dp": 2
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DEC-03",
+    "skillId": "DEC-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DEC-03.hook",
+        "audioKey": "DEC-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DEC-03.model",
+        "audioKey": "DEC-03.model",
+        "form": {
+          "k": "decFrac",
+          "n": 24,
+          "den": 10,
+          "ask": "dec"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-03.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            1.2,
+            2.5,
+            3.7
+          ],
+          "blank": "result",
+          "dp": 1,
+          "choices": [
+            3.6,
+            3.7,
+            4.7,
+            1.3
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-03.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            4.6,
+            1.3,
+            3.3
+          ],
+          "blank": "result",
+          "dp": 1,
+          "choices": [
+            3.3,
+            5.9,
+            3.2,
+            2.3
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DEC-03.keyIdea",
+        "audioKey": "DEC-03.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            2.8,
+            1.5,
+            4.3
+          ],
+          "blank": "result",
+          "dp": 1
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DEC-04",
+    "skillId": "DEC-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DEC-04.hook",
+        "audioKey": "DEC-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DEC-04.model",
+        "audioKey": "DEC-04.model",
+        "form": {
+          "k": "decFrac",
+          "n": 34,
+          "den": 10,
+          "ask": "dec"
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-04.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            2.5,
+            10,
+            25
+          ],
+          "blank": "result",
+          "dp": 1,
+          "choices": [
+            0.25,
+            25,
+            250,
+            2.5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DEC-04.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            47,
+            10,
+            4.7
+          ],
+          "blank": "result",
+          "dp": 1,
+          "choices": [
+            4.7,
+            470,
+            0.47,
+            47
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DEC-04.keyIdea",
+        "audioKey": "DEC-04.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            3.4,
+            100,
+            340
+          ],
+          "blank": "result",
+          "dp": 1
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-GEO-01",
+    "skillId": "GEO-01",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.GEO-01.hook",
+        "audioKey": "GEO-01.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.GEO-01.model",
+        "audioKey": "GEO-01.model",
+        "form": {
+          "k": "rect",
+          "measure": "area",
+          "l": 4,
+          "w": 3,
+          "grid": true
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-01.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            3,
+            2,
+            6
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 3,
+            "w": 2,
+            "grid": true
+          },
+          "choices": [
+            5,
+            6,
+            10,
+            7
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-01.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            5,
+            3,
+            15
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 5,
+            "w": 3,
+            "grid": true
+          },
+          "choices": [
+            15,
+            16,
+            8,
+            14
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.GEO-01.keyIdea",
+        "audioKey": "GEO-01.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            4,
+            3,
+            12
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 4,
+            "w": 3,
+            "grid": true
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-GEO-02",
+    "skillId": "GEO-02",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.GEO-02.hook",
+        "audioKey": "GEO-02.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.GEO-02.model",
+        "audioKey": "GEO-02.model",
+        "form": {
+          "k": "rect",
+          "measure": "perim",
+          "l": 4,
+          "w": 2,
+          "grid": true
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-02.guided1",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            3,
+            2,
+            10
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "perim",
+            "l": 3,
+            "w": 2,
+            "grid": true
+          },
+          "choices": [
+            6,
+            10,
+            5,
+            12
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-02.guided2",
+        "item": {
+          "operation": "addition",
+          "operands": [
+            6,
+            4,
+            20
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "perim",
+            "l": 6,
+            "w": 4,
+            "grid": false
+          },
+          "choices": [
+            20,
+            24,
+            10,
+            22
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.GEO-02.keyIdea",
+        "audioKey": "GEO-02.keyIdea",
+        "expression": {
+          "operation": "addition",
+          "operands": [
+            5,
+            3,
+            16
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "perim",
+            "l": 5,
+            "w": 3,
+            "grid": false
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-GEO-03",
+    "skillId": "GEO-03",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.GEO-03.hook",
+        "audioKey": "GEO-03.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.GEO-03.model",
+        "audioKey": "GEO-03.model",
+        "form": {
+          "k": "rect",
+          "measure": "area",
+          "l": 6,
+          "w": 4,
+          "grid": false
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-03.guided1",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            7,
+            3,
+            21
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 7,
+            "w": 3,
+            "grid": false
+          },
+          "choices": [
+            10,
+            21,
+            20,
+            24
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-03.guided2",
+        "item": {
+          "operation": "multiplication",
+          "operands": [
+            8,
+            5,
+            40
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 8,
+            "w": 5,
+            "grid": false
+          },
+          "choices": [
+            40,
+            26,
+            13,
+            45
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.GEO-03.keyIdea",
+        "audioKey": "GEO-03.keyIdea",
+        "expression": {
+          "operation": "multiplication",
+          "operands": [
+            9,
+            4,
+            36
+          ],
+          "blank": "result",
+          "form": {
+            "k": "rect",
+            "measure": "area",
+            "l": 9,
+            "w": 4,
+            "grid": false
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-GEO-04",
+    "skillId": "GEO-04",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.GEO-04.hook",
+        "audioKey": "GEO-04.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.GEO-04.model",
+        "audioKey": "GEO-04.model",
+        "form": {
+          "k": "side",
+          "of": "area",
+          "l": 6,
+          "w": 4
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-04.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            15,
+            5,
+            3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "side",
+            "of": "area",
+            "l": 5,
+            "w": 3
+          },
+          "choices": [
+            10,
+            3,
+            5,
+            4
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "GEO-04.guided2",
+        "item": {
+          "operation": "subtraction",
+          "operands": [
+            16,
+            6,
+            2
+          ],
+          "blank": "result",
+          "form": {
+            "k": "side",
+            "of": "perim",
+            "l": 6,
+            "w": 2
+          },
+          "choices": [
+            2,
+            10,
+            4,
+            8
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.GEO-04.keyIdea",
+        "audioKey": "GEO-04.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            24,
+            8,
+            3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "side",
+            "of": "area",
+            "l": 8,
+            "w": 3
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
   }
 ]

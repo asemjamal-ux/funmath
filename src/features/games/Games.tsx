@@ -18,19 +18,19 @@ import { createRng, randomSeed } from '../../domain/rng';
 import { playSfx, setMusic } from '../../services/audio/audio';
 import { useGameRound } from './useGameRound';
 
-interface GameProps {
+export interface GameProps {
   skill: Skill;
   tier: Tier;
   profileId: string;
 }
 
-function makeItems(skill: Skill, tier: Tier, count: number, seed: number, reject?: (i: Item) => boolean): Item[] {
+export function makeItems(skill: Skill, tier: Tier, count: number, seed: number, reject?: (i: Item) => boolean): Item[] {
   const out: Item[] = [];
   for (let i = 0; i < count; i++) out.push(nextSetItem(skill, tier, seed, i, out, { format: 'choice', reject }));
   return out;
 }
 
-function GameFrame({ title, gameId, dots, current, total, children }: { title: string; gameId: GameId; dots: DotState[]; current: number; total: number; children: React.ReactNode }) {
+export function GameFrame({ title, gameId, dots, current, total, children }: { title: string; gameId: GameId; dots: DotState[]; current: number; total: number; children: React.ReactNode }) {
   const t = useT();
   const path = usePath();
   const navigate = useNavigate();
@@ -58,7 +58,7 @@ function GameFrame({ title, gameId, dots, current, total, children }: { title: s
   );
 }
 
-function RoundSummary({ correct, total, seeds, skill, gameId, onAgain }: { correct: number; total: number; seeds: number; skill: Skill; gameId: GameId; onAgain: () => void }) {
+export function RoundSummary({ correct, total, seeds, skill, gameId, onAgain }: { correct: number; total: number; seeds: number; skill: Skill; gameId: GameId; onAgain: () => void }) {
   const t = useT();
   const { n } = useFmt();
   const path = usePath();

@@ -152,3 +152,26 @@ describe('formatting (agent-instructions §7.4)', () => {
     expect(formatNumber(3456, { locale: 'en', numberStyle: 'latn' })).toBe('3456');
   });
 });
+
+describe('age-appropriate skills (decision 004)', () => {
+  const ids = (list: { id: string }[]) => list.map((s) => s.id);
+  it('stage 1 sees everything; stage 3 starts at its own stage', async () => {
+    const { visibleSkills } = await import('../src/domain/adaptivity/unlock');
+    expect(visibleSkills(MVP_SKILLS, 1, false)).toHaveLength(26);
+    const s3 = ids(visibleSkills(MVP_SKILLS, 3, false));
+    expect(s3).toContain('ADD-07');
+    expect(s3).not.toContain('ADD-01');
+    expect(s3).not.toContain('MUL-02');
+    expect(ids(visibleSkills(MVP_SKILLS, 5, false))).toEqual(s3);
+    expect(visibleSkills(MVP_SKILLS, 3, true)).toHaveLength(26);
+  });
+  it('trophies only count visible skills', async () => {
+    const { visibleSkills } = await import('../src/domain/adaptivity/unlock');
+    const visible = visibleSkills(MVP_SKILLS, 3, false).map((s) => s.id);
+    const snap: TrophySnapshot = { counters: {}, stars: new Map([['ADD-07', 2]]), mvpSkills: visible, oasisStage: 1, gamesPlayed: 0 };
+    const got = newlyEarnedTrophies(TROPHIES, snap, new Set()).map((t) => t.id);
+    expect(got).toContain('TR-06'); // Addition Explorer: only ADD-07 is in play
+    expect(got).not.toContain('TR-10'); // Ten Friends needs ADD-03, which is hidden
+    expect(got).not.toContain('TR-11'); // both regrouping skills hidden → not earnable
+  });
+});

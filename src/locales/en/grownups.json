@@ -99,5 +99,7 @@
   "privacy.leavingTitle": "You are leaving Number Oasis",
   "privacy.leavingBody": "This opens your email app to send us feedback.",
   "privacy.continue": "Continue",
-  "grownups.nav.worksheets": "Worksheets"
+  "grownups.nav.worksheets": "Worksheets",
+  "settings.showEarlier": "Show skills from earlier stages",
+  "settings.showEarlierNote": "Off: a child who starts at a higher stage goes straight to their own skills, and basics from earlier stages are hidden. To move a child up as they grow, change their starting stage in Profiles."
 }

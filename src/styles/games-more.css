@@ -1,0 +1,194 @@
+/* Bingo, Number Hunt, True or False (decision 004). Wrong taps wobble in amber — never red, never a penalty. */
+
+.game-list li:nth-child(4) .game-card__art { background: var(--pop-sun); }
+.game-list li:nth-child(5) .game-card__art { background: var(--pop-lime); }
+.game-list li:nth-child(6) .game-card__art { background: var(--pop-grape); }
+
+/* ---------- Bingo ---------- */
+.bingo-card {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(80px, 120px));
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  margin-inline: auto;
+  border: var(--outline);
+  border-radius: var(--radius-l);
+  background: var(--pop-grape-soft);
+  box-shadow: var(--shadow-sticker);
+}
+
+.bingo-card--win {
+  background: var(--pop-sun-soft);
+}
+
+.bingo-cell {
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  border: var(--outline);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker-sm);
+  color: var(--color-ink);
+  font: var(--type-math-m);
+  font-family: var(--font-math, var(--font-display));
+  transition: transform var(--motion-instant), background var(--motion-quick);
+}
+
+.bingo-cell:active:not(.bingo-cell--marked):not(.bingo-cell--free) {
+  transform: translate(calc(3px * var(--dir-sign)), 3px);
+  box-shadow: none;
+}
+
+.bingo-cell--free {
+  background: var(--pop-sun);
+  cursor: default;
+}
+
+.bingo-cell--marked {
+  background: var(--pop-lime);
+  rotate: calc(-4deg * var(--dir-sign));
+  animation: pop-in 320ms var(--ease-out) 1;
+}
+
+.bingo-cell--wobble {
+  background: var(--pop-sun-soft);
+  animation: wobble 400ms var(--ease-standard) 1;
+}
+
+/* ---------- Number Hunt ---------- */
+.hunt-target {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+}
+
+.hunt-target__num {
+  display: inline-block;
+  padding-inline: var(--space-4);
+  border: var(--outline);
+  border-radius: var(--radius-m);
+  background: var(--pop-sun);
+  box-shadow: var(--shadow-sticker-sm);
+  font: var(--type-math-l);
+  font-family: var(--font-math, var(--font-display));
+}
+
+.hunt-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  max-inline-size: 560px;
+  margin-inline: auto;
+  inline-size: 100%;
+}
+
+.hunt-tile {
+  min-block-size: 88px;
+  display: grid;
+  place-items: center;
+  padding: var(--space-2);
+  border: var(--outline);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker-sm);
+  color: var(--color-ink);
+  transition: transform var(--motion-instant), background var(--motion-quick);
+}
+
+.hunt-tile .math-expr--m {
+  font-size: 26px;
+  line-height: 32px;
+}
+
+.hunt-tile:active:not(.hunt-tile--hit) {
+  transform: translate(calc(3px * var(--dir-sign)), 3px);
+  box-shadow: none;
+}
+
+.hunt-tile--hit {
+  background: var(--pop-lime);
+  rotate: calc(-3deg * var(--dir-sign));
+  animation: pop-in 320ms var(--ease-out) 1;
+}
+
+.hunt-tile--miss {
+  background: var(--color-surface-sunken);
+  border-style: dashed;
+  box-shadow: none;
+  animation: wobble 400ms var(--ease-standard) 1;
+}
+
+/* ---------- True or False ---------- */
+.tf-card {
+  display: flex;
+  justify-content: center;
+  padding: var(--space-5);
+  margin-block: var(--space-3);
+  border: var(--outline);
+  border-radius: var(--radius-l);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker);
+}
+
+.tf-card--true {
+  background: var(--pop-lime);
+}
+
+.tf-card--false {
+  background: var(--pop-sun-soft);
+}
+
+.tf-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  max-inline-size: 520px;
+  margin-inline: auto;
+  inline-size: 100%;
+}
+
+.tf-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-block-size: 80px;
+  border: var(--outline);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-sticker);
+  color: var(--color-ink);
+  font: 700 26px/1 var(--font-display);
+  transition: transform var(--motion-instant), box-shadow var(--motion-instant);
+}
+
+.tf-btn--true { background: var(--pop-teal); }
+.tf-btn--false { background: var(--pop-grape); }
+
+.tf-btn:active:not([aria-disabled]) {
+  transform: translate(calc(4px * var(--dir-sign)), 4px);
+  box-shadow: none;
+}
+
+.tf-btn[aria-disabled] {
+  opacity: 0.45;
+  box-shadow: none;
+  cursor: not-allowed;
+}
+
+.tf-fix {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  font: 600 20px/1.4 var(--font-display);
+}
+
+:root[data-motion='reduced'] .bingo-cell--marked,
+:root[data-motion='reduced'] .hunt-tile--hit {
+  rotate: 0deg;
+}

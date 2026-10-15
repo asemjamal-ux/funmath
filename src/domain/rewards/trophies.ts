@@ -22,6 +22,7 @@ export interface TrophyDefinition {
 export interface TrophySnapshot {
   counters: Partial<Record<CounterId, number>>;
   stars: ReadonlyMap<SkillId, number>;
+  /** The skills this learner can see (decision 004); hidden earlier-Stage skills don't count either way. */
   mvpSkills: readonly SkillId[];
   oasisStage: number;
   gamesPlayed: number;
@@ -35,9 +36,11 @@ export function ruleSatisfied(rule: TrophyRule, s: TrophySnapshot): boolean {
     case 'anySkillAtStars':
       return s.mvpSkills.some((id) => starsOf(id) >= rule.stars);
     case 'skillAtStars':
-      return starsOf(rule.skill) >= rule.stars;
-    case 'allSkillsAtStars':
-      return rule.skills.every((id) => starsOf(id) >= rule.stars);
+      return s.mvpSkills.includes(rule.skill) && starsOf(rule.skill) >= rule.stars;
+    case 'allSkillsAtStars': {
+      const inPlay = rule.skills.filter((id) => s.mvpSkills.includes(id));
+      return inPlay.length > 0 && inPlay.every((id) => starsOf(id) >= rule.stars);
+    }
     case 'allMvpSkillsAtStars':
       return s.mvpSkills.length > 0 && s.mvpSkills.every((id) => starsOf(id) >= rule.stars);
     case 'oasisStageAtLeast':

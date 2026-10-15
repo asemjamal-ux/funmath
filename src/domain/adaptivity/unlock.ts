@@ -8,6 +8,18 @@ export interface UnlockInput {
   stars: (id: SkillId) => number;
 }
 
+/**
+ * Skills a learner sees (decision 004): a profile started at a higher Stage goes straight to its own skills, so
+ * basics from earlier Stages are hidden unless a grown-up turns "show earlier skills" on. Stage 4–5 profiles see the
+ * top MVP Stage, because Stages 4–5 have no MVP skills yet.
+ */
+export function visibleSkills<S extends { stage: number }>(skills: readonly S[], startingStage: number, showEarlier: boolean): S[] {
+  if (showEarlier) return [...skills];
+  const topStage = Math.max(...skills.map((s) => s.stage));
+  const from = Math.min(startingStage, topStage);
+  return skills.filter((s) => s.stage >= from);
+}
+
 /** PRD §6.9 World unlock rules. */
 export function isWorldOpen(op: Operation, input: UnlockInput): boolean {
   if (input.unlockAll) return true;

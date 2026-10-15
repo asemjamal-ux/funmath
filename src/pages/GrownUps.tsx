@@ -386,6 +386,8 @@ export function SettingsPage() {
               </select>
             </label>
             <Toggle label={t('settings.unlockAll')} checked={p.unlockAll} onChange={(v) => void setUnlockAll(v)} />
+            <Toggle label={t('settings.showEarlier')} checked={p.prefs.showEarlierSkills ?? false} onChange={(v) => void setPref({ showEarlierSkills: v })} />
+            <p className="field__note">{t('settings.showEarlierNote')}</p>
           </div>
         </section>
       )}

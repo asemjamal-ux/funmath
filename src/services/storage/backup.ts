@@ -28,6 +28,7 @@ const backupDataSchema = z.object({
       calmMode: z.boolean(),
       breakReminderMinutes: z.union([z.literal(0), z.literal(10), z.literal(15), z.literal(20), z.literal(30), z.literal(45)]),
       arabicDefaultsApplied: z.boolean(),
+      showEarlierSkills: z.boolean().optional(),
     }),
   }),
   skillProgress: z.array(z.record(z.string(), z.unknown())),

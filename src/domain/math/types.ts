@@ -7,7 +7,7 @@ export type ItemFormat = 'choice' | 'entry' | 'column';
 /** Position of the unknown: operand a, operand b, or the result. */
 export type Blank = 'a' | 'b' | 'result';
 export type ModelKind = 'counters' | 'tenFrame' | 'numberLine' | 'baseTen' | 'array' | 'plates' | 'groups';
-export type GameId = 'bubble-pop' | 'number-line-hop' | 'match-pairs';
+export type GameId = 'bubble-pop' | 'number-line-hop' | 'match-pairs' | 'bingo' | 'number-hunt' | 'true-false';
 
 export type Constraint =
   | 'none'

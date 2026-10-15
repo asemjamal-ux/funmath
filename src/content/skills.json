@@ -2,7 +2,7 @@
   {
     "id": "ADD-01", "operation": "addition", "stage": 1, "order": 1, "prerequisites": [], "scope": "mvp",
     "titleKey": "skill.ADD-01.title", "model": "counters", "lessonId": "lesson-ADD-01",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 5, "tiers": {
       "1": { "kind": "add", "a": [1, 3], "b": [1, 2], "sumMax": 5, "blank": ["result"] },
@@ -13,7 +13,7 @@
   {
     "id": "ADD-02", "operation": "addition", "stage": 1, "order": 2, "prerequisites": ["ADD-01"], "scope": "mvp",
     "titleKey": "skill.ADD-02.title", "model": "tenFrame", "lessonId": "lesson-ADD-02",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 10, "tiers": {
       "1": { "kind": "add", "a": [1, 8], "b": [1, 2], "sumMax": 10, "blank": ["result"] },
@@ -24,7 +24,7 @@
   {
     "id": "ADD-03", "operation": "addition", "stage": 1, "order": 3, "prerequisites": ["ADD-02"], "scope": "mvp",
     "titleKey": "skill.ADD-03.title", "model": "tenFrame", "lessonId": "lesson-ADD-03",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 10, "tiers": {
       "1": { "kind": "add", "a": [5, 9], "b": [1, 5], "sumMax": 10, "sumExact": 10, "blank": ["b"] },
@@ -35,7 +35,7 @@
   {
     "id": "ADD-04", "operation": "addition", "stage": 1, "order": 4, "prerequisites": ["ADD-03"], "scope": "mvp",
     "titleKey": "skill.ADD-04.title", "model": "numberLine", "lessonId": "lesson-ADD-04",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 20, "tiers": {
       "1": { "kind": "add", "a": [10, 18], "b": [1, 5], "sumMax": 20, "constraint": "noBridgeTen", "blank": ["result"] },
@@ -46,7 +46,7 @@
   {
     "id": "ADD-05", "operation": "addition", "stage": 2, "order": 5, "prerequisites": ["ADD-04"], "scope": "mvp",
     "titleKey": "skill.ADD-05.title", "model": "baseTen", "lessonId": "lesson-ADD-05",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 99, "tiers": {
       "1": { "kind": "add", "a": [11, 89], "b": [10, 80], "bMultipleOf": 10, "sumMax": 99, "constraint": "noRegroup", "blank": ["result"] },
@@ -57,7 +57,7 @@
   {
     "id": "ADD-06", "operation": "addition", "stage": 2, "order": 6, "prerequisites": ["ADD-05"], "scope": "mvp",
     "titleKey": "skill.ADD-06.title", "model": "baseTen", "lessonId": "lesson-ADD-06",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "entry", "3": "column" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "add", "a": [11, 89], "b": [2, 9], "sumMax": 100, "constraint": "regroupOnes", "blank": ["result"] },
@@ -68,7 +68,7 @@
   {
     "id": "ADD-07", "operation": "addition", "stage": 3, "order": 7, "prerequisites": ["ADD-06"], "scope": "mvp",
     "titleKey": "skill.ADD-07.title", "model": "baseTen", "lessonId": "lesson-ADD-07",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "column", "3": "column" },
     "generator": { "valueMax": 1000, "tiers": {
       "1": { "kind": "add", "a": [100, 899], "b": [100, 899], "sumMax": 999, "constraint": "noRegroup", "blank": ["result"] },
@@ -79,7 +79,7 @@
   {
     "id": "SUB-01", "operation": "subtraction", "stage": 1, "order": 1, "prerequisites": [], "scope": "mvp",
     "titleKey": "skill.SUB-01.title", "model": "counters", "lessonId": "lesson-SUB-01",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 5, "tiers": {
       "1": { "kind": "sub", "a": [2, 5], "b": [1, 2], "blank": ["result"] },
@@ -90,7 +90,7 @@
   {
     "id": "SUB-02", "operation": "subtraction", "stage": 1, "order": 2, "prerequisites": ["SUB-01"], "scope": "mvp",
     "titleKey": "skill.SUB-02.title", "model": "tenFrame", "lessonId": "lesson-SUB-02",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 10, "tiers": {
       "1": { "kind": "sub", "a": [3, 10], "b": [1, 2], "blank": ["result"] },
@@ -101,7 +101,7 @@
   {
     "id": "SUB-03", "operation": "subtraction", "stage": 1, "order": 3, "prerequisites": ["SUB-02"], "scope": "mvp",
     "titleKey": "skill.SUB-03.title", "model": "counters", "lessonId": "lesson-SUB-03",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 10, "tiers": {
       "1": { "kind": "family", "c": [3, 6], "forms": ["add_b"] },
@@ -112,7 +112,7 @@
   {
     "id": "SUB-04", "operation": "subtraction", "stage": 1, "order": 4, "prerequisites": ["SUB-03"], "scope": "mvp",
     "titleKey": "skill.SUB-04.title", "model": "numberLine", "lessonId": "lesson-SUB-04",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 20, "tiers": {
       "1": { "kind": "sub", "a": [11, 19], "b": [1, 8], "constraint": "noBridgeTen", "blank": ["result"] },
@@ -123,7 +123,7 @@
   {
     "id": "SUB-05", "operation": "subtraction", "stage": 2, "order": 5, "prerequisites": ["SUB-04"], "scope": "mvp",
     "titleKey": "skill.SUB-05.title", "model": "baseTen", "lessonId": "lesson-SUB-05",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 99, "tiers": {
       "1": { "kind": "sub", "a": [11, 99], "b": [1, 9], "constraint": "noRegroup", "blank": ["result"] },
@@ -134,7 +134,7 @@
   {
     "id": "SUB-06", "operation": "subtraction", "stage": 2, "order": 6, "prerequisites": ["SUB-05"], "scope": "mvp",
     "titleKey": "skill.SUB-06.title", "model": "baseTen", "lessonId": "lesson-SUB-06",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "entry", "3": "column" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "sub", "a": [20, 100], "b": [1, 9], "constraint": "regroupOnes", "blank": ["result"] },
@@ -145,7 +145,7 @@
   {
     "id": "SUB-07", "operation": "subtraction", "stage": 3, "order": 7, "prerequisites": ["SUB-06"], "scope": "mvp",
     "titleKey": "skill.SUB-07.title", "model": "baseTen", "lessonId": "lesson-SUB-07",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "column", "3": "column" },
     "generator": { "valueMax": 999, "tiers": {
       "1": { "kind": "sub", "a": [200, 999], "b": [100, 899], "constraint": "noRegroup", "blank": ["result"] },
@@ -156,7 +156,7 @@
   {
     "id": "MUL-01", "operation": "multiplication", "stage": 2, "order": 1, "prerequisites": [], "scope": "mvp",
     "titleKey": "skill.MUL-01.title", "model": "groups", "lessonId": "lesson-MUL-01",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 25, "tiers": {
       "1": { "kind": "mul", "keys": [2, 3], "other": [2, 3], "order": "keyFirst", "blank": ["result"] },
@@ -167,7 +167,7 @@
   {
     "id": "MUL-02", "operation": "multiplication", "stage": 2, "order": 2, "prerequisites": ["MUL-01"], "scope": "mvp",
     "titleKey": "skill.MUL-02.title", "model": "array", "lessonId": "lesson-MUL-02",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 25, "tiers": {
       "1": { "kind": "mul", "keys": [2, 3], "other": [1, 3], "order": "keyFirst", "blank": ["result"] },
@@ -178,7 +178,7 @@
   {
     "id": "MUL-03", "operation": "multiplication", "stage": 3, "order": 3, "prerequisites": ["MUL-02"], "scope": "mvp",
     "titleKey": "skill.MUL-03.title", "model": "array", "lessonId": "lesson-MUL-03",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "mul", "keys": [2, 5, 10], "other": [0, 5], "order": "keyFirst", "blank": ["result"] },
@@ -189,7 +189,7 @@
   {
     "id": "MUL-04", "operation": "multiplication", "stage": 3, "order": 4, "prerequisites": ["MUL-03"], "scope": "mvp",
     "titleKey": "skill.MUL-04.title", "model": "array", "lessonId": "lesson-MUL-04",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "mul", "keys": [3, 4], "other": [0, 5], "order": "keyFirst", "blank": ["result"] },
@@ -200,7 +200,7 @@
   {
     "id": "MUL-05", "operation": "multiplication", "stage": 3, "order": 5, "prerequisites": ["MUL-04"], "scope": "mvp",
     "titleKey": "skill.MUL-05.title", "model": "array", "lessonId": "lesson-MUL-05",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "mul", "keys": [6, 7], "other": [0, 5], "order": "keyFirst", "blank": ["result"] },
@@ -211,7 +211,7 @@
   {
     "id": "MUL-06", "operation": "multiplication", "stage": 3, "order": 6, "prerequisites": ["MUL-05"], "scope": "mvp",
     "titleKey": "skill.MUL-06.title", "model": "array", "lessonId": "lesson-MUL-06",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "mul", "keys": [8, 9], "other": [0, 5], "order": "keyFirst", "blank": ["result"] },
@@ -222,7 +222,7 @@
   {
     "id": "DIV-01", "operation": "division", "stage": 2, "order": 1, "prerequisites": [], "scope": "mvp",
     "titleKey": "skill.DIV-01.title", "model": "plates", "lessonId": "lesson-DIV-01",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 20, "tiers": {
       "1": { "kind": "div", "divisors": [2], "quotient": [1, 5], "blank": ["result"] },
@@ -233,7 +233,7 @@
   {
     "id": "DIV-02", "operation": "division", "stage": 3, "order": 2, "prerequisites": ["DIV-01"], "scope": "mvp",
     "titleKey": "skill.DIV-02.title", "model": "groups", "lessonId": "lesson-DIV-02",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 30, "tiers": {
       "1": { "kind": "div", "divisors": [2, 3], "quotient": [1, 5], "blank": ["result"] },
@@ -244,7 +244,7 @@
   {
     "id": "DIV-03", "operation": "division", "stage": 3, "order": 3, "prerequisites": ["DIV-02"], "scope": "mvp",
     "titleKey": "skill.DIV-03.title", "model": "groups", "lessonId": "lesson-DIV-03",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "div", "divisors": [2, 10], "quotient": [1, 5], "blank": ["result"] },
@@ -255,7 +255,7 @@
   {
     "id": "DIV-04", "operation": "division", "stage": 3, "order": 4, "prerequisites": ["DIV-03"], "scope": "mvp",
     "titleKey": "skill.DIV-04.title", "model": "groups", "lessonId": "lesson-DIV-04",
-    "games": ["bubble-pop", "number-line-hop", "match-pairs"],
+    "games": ["bubble-pop", "number-line-hop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "div", "divisors": [3, 4], "quotient": [1, 5], "blank": ["result"] },
@@ -266,7 +266,7 @@
   {
     "id": "DIV-05", "operation": "division", "stage": 3, "order": 5, "prerequisites": ["DIV-04"], "scope": "mvp",
     "titleKey": "skill.DIV-05.title", "model": "groups", "lessonId": "lesson-DIV-05",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "div", "divisors": [6, 7], "quotient": [1, 5], "blank": ["result"] },
@@ -277,7 +277,7 @@
   {
     "id": "DIV-06", "operation": "division", "stage": 3, "order": 6, "prerequisites": ["DIV-05"], "scope": "mvp",
     "titleKey": "skill.DIV-06.title", "model": "groups", "lessonId": "lesson-DIV-06",
-    "games": ["bubble-pop", "match-pairs"],
+    "games": ["bubble-pop", "match-pairs", "bingo", "number-hunt", "true-false"],
     "formats": { "1": "choice", "2": "choice", "3": "entry" },
     "generator": { "valueMax": 100, "tiers": {
       "1": { "kind": "div", "divisors": [8, 9], "quotient": [1, 5], "blank": ["result"] },

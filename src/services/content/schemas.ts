@@ -4,7 +4,7 @@ const range = z.tuple([z.number().int().min(0), z.number().int().min(0)]);
 const blank = z.enum(['a', 'b', 'result']);
 const constraint = z.enum(['none', 'noBridgeTen', 'bridgeTen', 'noRegroup', 'regroupOnes', 'regroupExactlyOne', 'regroupAtLeastOne']);
 const skillId = z.string().regex(/^(ADD|SUB|MUL|DIV)-\d\d$/);
-const gameId = z.enum(['bubble-pop', 'number-line-hop', 'match-pairs']);
+const gameId = z.enum(['bubble-pop', 'number-line-hop', 'match-pairs', 'bingo', 'number-hunt', 'true-false']);
 const format = z.enum(['choice', 'entry', 'column']);
 const model = z.enum(['counters', 'tenFrame', 'numberLine', 'baseTen', 'array', 'plates', 'groups']);
 

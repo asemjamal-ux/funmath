@@ -43,6 +43,7 @@ export function defaultPrefs(locale: Locale, stage: Stage): ProfilePrefs {
     calmMode: false,
     breakReminderMinutes: 20,
     arabicDefaultsApplied: locale === 'ar',
+    showEarlierSkills: false,
   };
 }
 

@@ -1,9 +1,9 @@
-import { useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import { Navigate, Outlet, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { useFmt, usePath, useT } from '../app/hooks';
-import { skillUnlocked, starsOf, unlockInputFor, useApp, worldOpen } from '../app/store';
+import { learnerSkills, learnerSkillsOf, skillUnlocked, starsOf, unlockInputFor, useApp, worldOpen } from '../app/store';
 import { Button, IconButton } from '../components/Button';
-import { Icon } from '../components/Icon';
+import { Icon, type IconName } from '../components/Icon';
 import { FanakSays, Mascot } from '../components/Mascot';
 import { Avatar, OP_SHORT, OpBadge, SeedCounter, StarRating } from '../components/Progress';
 import { LanguageSwitch, TopBar } from '../components/TopBar';
@@ -15,10 +15,15 @@ import { selectDailyMix, type MixCandidate } from '../domain/scheduler/dailyMix'
 import { createRng, randomSeed } from '../domain/rng';
 import { localDateString } from '../domain/time';
 import { BubblePop, MatchPairs, NumberLineHop } from '../features/games/Games';
+// The extra games load on demand to keep the startup bundle inside NFR-01 (decision 004).
+const moreGames = () => import('../features/games/MoreGames');
+const Bingo = lazy(async () => ({ default: (await moreGames()).Bingo }));
+const NumberHunt = lazy(async () => ({ default: (await moreGames()).NumberHunt }));
+const TrueFalse = lazy(async () => ({ default: (await moreGames()).TrueFalse }));
 import { LessonPlayer } from '../features/lesson/LessonPlayer';
 import { practiceSlots, Runner } from '../features/practice/Runner';
 import { appClock } from '../services/clock';
-import { GAMES, getSkill, isGameId, isOperation, lessonFor, MVP_SKILLS, OPERATIONS, skillsOf, TROPHIES } from '../services/content';
+import { GAMES, getSkill, isGameId, isOperation, lessonFor, OPERATIONS, TROPHIES } from '../services/content';
 import { responsesFor } from '../services/storage/repo';
 
 /** Learner routes need an active profile; otherwise back to the picker (ARCH §2). */
@@ -68,7 +73,7 @@ export function WorldPage() {
   if (!data) return null;
   if (!worldOpen(data, operation)) return <Navigate to={path('/home')} replace />;
   const today = localDateString(appClock.now());
-  const skills = skillsOf(operation);
+  const skills = learnerSkillsOf(data, operation);
   return (
     <div className={`page world world--${OP_SHORT[operation]}`}>
       <LearnerTopBar back={path('/home')} />
@@ -93,7 +98,7 @@ export function WorldPage() {
                   aria-describedby={lockedMsg === s.id ? `lock-${s.id}` : undefined}
                 >
                   <span className="skill-node__circle">
-                    {unlocked ? <span className="skill-node__num">{n(s.order)}</span> : <Icon name="lock" size={32} />}
+                    {unlocked ? <span className="skill-node__num">{n(i + 1)}</span> : <Icon name="lock" size={32} />}
                     {due && <span className="skill-node__leaf" title={t('world.reviewLeaf')}><Icon name="leaf" /></span>}
                   </span>
                   <span className="skill-node__title">{t(s.titleKey)}</span>
@@ -178,7 +183,7 @@ export function DailyMixPage() {
       const today = localDateString(appClock.now());
       const since = new Date(appClock.now().getTime() - 30 * 86_400_000).toISOString();
       const responses = (await responsesFor(data.profile.id)).filter((r) => r.answeredAt >= since);
-      const candidates: MixCandidate[] = MVP_SKILLS.filter((s) => skillUnlocked(data, s)).map((s) => {
+      const candidates: MixCandidate[] = learnerSkills(data).filter((s) => skillUnlocked(data, s)).map((s) => {
         const p = data.progress.get(s.id);
         const rs = responses.filter((r) => r.skillId === s.id);
         return { skillId: s.id, stars: p?.stars ?? 0, due: p ? isReviewDue(p, today) : false, accuracy: rs.length ? rs.filter((r) => r.firstTry).length / rs.length : null };
@@ -199,6 +204,11 @@ export function DailyMixPage() {
 }
 
 /* ---------------- Games ---------------- */
+const GAME_ICON: Record<GameId, IconName> = {
+  'bubble-pop': 'seed', 'number-line-hop': 'arrow-forward', 'match-pairs': 'shuffle',
+  bingo: 'star', 'number-hunt': 'lightbulb', 'true-false': 'check',
+};
+
 export function GamesHubPage() {
   const t = useT();
   const path = usePath();
@@ -208,7 +218,7 @@ export function GamesHubPage() {
   const preselect = getSkill(params.get('skill') ?? '');
   const [game, setGame] = useState<GameId | null>(null);
   if (!data) return null;
-  const unlocked = MVP_SKILLS.filter((s) => skillUnlocked(data, s));
+  const unlocked = learnerSkills(data).filter((s) => skillUnlocked(data, s));
   const choose = (g: GameId) => {
     if (preselect && preselect.games.includes(g) && skillUnlocked(data, preselect)) navigate(path(`/games/${g}?skill=${preselect.id}`));
     else setGame(g);
@@ -223,7 +233,7 @@ export function GamesHubPage() {
             {GAMES.map((g) => (
               <li key={g}>
                 <button type="button" className={`game-card game-card--${g}`} onClick={() => choose(g)}>
-                  <span className="game-card__art" aria-hidden="true"><Icon name={g === 'bubble-pop' ? 'seed' : g === 'number-line-hop' ? 'arrow-forward' : 'shuffle'} size={48} /></span>
+                  <span className="game-card__art" aria-hidden="true"><Icon name={GAME_ICON[g]} size={48} /></span>
                   <span className="game-card__title">{t(`games.${g}.title`)}</span>
                   <span className="game-card__desc">{t(`games.${g}.desc`)}</span>
                 </button>
@@ -265,6 +275,12 @@ export function GamePage() {
       return <NumberLineHop key={key} {...props} />;
     case 'match-pairs':
       return <MatchPairs key={key} {...props} />;
+    case 'bingo':
+      return <Suspense fallback={<div className="boot" aria-busy="true" />}><Bingo key={key} {...props} /></Suspense>;
+    case 'number-hunt':
+      return <Suspense fallback={<div className="boot" aria-busy="true" />}><NumberHunt key={key} {...props} /></Suspense>;
+    case 'true-false':
+      return <Suspense fallback={<div className="boot" aria-busy="true" />}><TrueFalse key={key} {...props} /></Suspense>;
   }
 }
 
@@ -313,7 +329,7 @@ export function ProgressPage() {
         <p className="lead">{t('progress.trophies', { count: data.trophies.length, n: n(data.trophies.length), total: n(TROPHIES.length) })}</p>
         <div className="progress-worlds">
           {OPERATIONS.map((op) => {
-            const skills: Skill[] = skillsOf(op);
+            const skills: Skill[] = learnerSkillsOf(data, op);
             const mastered = skills.filter((s) => starsOf(data, s.id) >= 3).length;
             const stars = skills.reduce((sum, s) => sum + starsOf(data, s.id), 0);
             return (

@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { MVP_SKILLS } from '../services/content';
-import { isSkillUnlocked, isWorldOpen, type UnlockInput } from '../domain/adaptivity/unlock';
+import { isSkillUnlocked, isWorldOpen, visibleSkills, type UnlockInput } from '../domain/adaptivity/unlock';
 import type { Operation, Skill, SkillId } from '../domain/math/types';
 import type { DeviceSettingsRow, ProfileRow } from '../services/storage/db';
 import { getDevice, loadProfileData, type ProfileData } from '../services/storage/repo';
@@ -117,4 +117,16 @@ export function skillUnlocked(data: ProfileData | null, skill: Skill): boolean {
 
 export function worldOpen(data: ProfileData | null, op: Operation): boolean {
   return data ? isWorldOpen(op, unlockInputFor(data)) : false;
+}
+
+/** The MVP skills this learner sees: earlier-Stage basics are hidden for older starters (decision 004). */
+export function learnerSkills(data: ProfileData | null): Skill[] {
+  if (!data) return [...MVP_SKILLS];
+  return visibleSkills(MVP_SKILLS, data.profile.startingStage, data.profile.prefs.showEarlierSkills ?? false);
+}
+
+export function learnerSkillsOf(data: ProfileData | null, op: Operation): Skill[] {
+  return learnerSkills(data)
+    .filter((s) => s.operation === op)
+    .sort((a, b) => a.order - b.order);
 }

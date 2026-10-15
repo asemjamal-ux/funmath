@@ -22,7 +22,7 @@ if (import.meta.env.DEV) {
 }
 
 export const OPERATIONS: readonly Operation[] = ['addition', 'subtraction', 'multiplication', 'division'];
-export const GAMES: readonly GameId[] = ['bubble-pop', 'number-line-hop', 'match-pairs'];
+export const GAMES: readonly GameId[] = ['bubble-pop', 'number-line-hop', 'match-pairs', 'bingo', 'number-hunt', 'true-false'];
 
 const byId = new Map(SKILLS.map((s) => [s.id, s]));
 

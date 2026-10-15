@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useFmt, usePath, useReducedMotion, useT } from '../../app/hooks';
-import { skillUnlocked, starsOf, useApp, worldOpen } from '../../app/store';
+import { learnerSkills, learnerSkillsOf, skillUnlocked, starsOf, useApp, worldOpen } from '../../app/store';
 import { ChoiceGroup, type ChoiceState } from '../../components/Answering';
 import { Avatar, OP_SHORT, OP_SYMBOL, SeedCounter } from '../../components/Progress';
 import { Confetti } from '../../components/Feedback';
@@ -19,7 +19,7 @@ import { randomSeed } from '../../domain/rng';
 import { localDateString } from '../../domain/time';
 import { playSfx, setMusic } from '../../services/audio/audio';
 import { appClock } from '../../services/clock';
-import { getSkill, MVP_SKILLS, OPERATIONS, skillsOf, TROPHIES } from '../../services/content';
+import { getSkill, OPERATIONS, TROPHIES } from '../../services/content';
 
 /*
  * Learner Home in the "Fun with Multiplication" front-page layout (decision 003): hero with Fanak and the Oasis,
@@ -33,7 +33,7 @@ function useSuggestion(): Skill | undefined {
   if (!data) return undefined;
   for (const op of OPERATIONS) {
     if (!worldOpen(data, op)) continue;
-    const s = skillsOf(op).find((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2);
+    const s = learnerSkillsOf(data, op).find((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2);
     if (s) return s;
   }
   return undefined;
@@ -51,7 +51,7 @@ function WorldChip({ op }: { op: Operation }) {
   const [explain, setExplain] = useState(false);
   if (!data) return null;
   const open = worldOpen(data, op);
-  const skills = skillsOf(op);
+  const skills = learnerSkillsOf(data, op);
   const mastered = skills.filter((s) => starsOf(data, s.id) >= 3).length;
   const body = (
     <>
@@ -154,12 +154,13 @@ export function HomePage() {
     setMusic(true);
     return () => setMusic(false);
   }, []);
-  const qcSkill = useMemo(() => suggestion ?? getSkill('ADD-01'), [suggestion]);
+  const qcSkill = useMemo(() => suggestion ?? learnerSkills(data)[0] ?? getSkill('ADD-01'), [suggestion, data]);
   if (!data || !qcSkill) return null;
 
   const today = localDateString(appClock.now());
-  const anyStar = MVP_SKILLS.some((s) => starsOf(data, s.id) >= 1);
-  const dueCount = MVP_SKILLS.filter((s) => {
+  const mine = learnerSkills(data);
+  const anyStar = mine.some((s) => starsOf(data, s.id) >= 1);
+  const dueCount = mine.filter((s) => {
     const p = data.progress.get(s.id);
     return p ? isReviewDue(p, today) : false;
   }).length;

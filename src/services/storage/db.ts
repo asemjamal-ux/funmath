@@ -11,6 +11,8 @@ export interface ProfilePrefs {
   music: boolean;
   calmMode: boolean;
   breakReminderMinutes: 0 | 10 | 15 | 20 | 30 | 45;
+  /** Show skills from Stages below the starting Stage (decision 004). Absent on older profiles = false. */
+  showEarlierSkills?: boolean;
   /** Set once the Arabic defaults have been applied (ARCH §9.8). */
   arabicDefaultsApplied: boolean;
 }

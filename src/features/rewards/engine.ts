@@ -1,3 +1,4 @@
+import { visibleSkills } from '../../domain/adaptivity/unlock';
 import { afterLesson, afterPracticeSet, afterReview, isReviewDue, type SetResult } from '../../domain/adaptivity/stars';
 import { eventBus } from '../../domain/events/bus';
 import type { GameId, Item, SkillId, Tier } from '../../domain/math/types';
@@ -46,7 +47,7 @@ async function evaluate(profileId: string, stageBefore: number, stageAfter: numb
   const snapshot = {
     counters,
     stars: new Map([...data.progress].map(([k, v]) => [k, v.stars])),
-    mvpSkills: MVP_SKILLS.map((s) => s.id),
+    mvpSkills: visibleSkills(MVP_SKILLS, data.profile.startingStage, data.profile.prefs.showEarlierSkills ?? false).map((s) => s.id),
     oasisStage: data.rewards.oasisStage,
     gamesPlayed: counters.gamesPlayed ?? 0,
   };

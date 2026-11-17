@@ -101,17 +101,19 @@ export function OpBadge({ op, size = 48 }: { op: Operation; size?: number }) {
   );
 }
 
-const AVATARS: Record<string, string> = {
-  fox: '🦊', camel: '🐪', owl: '🦉', turtle: '🐢', dolphin: '🐬', lion: '🦁',
-  elephant: '🐘', rabbit: '🐰', cat: '🐱', giraffe: '🦒', penguin: '🐧', parrot: '🦜',
-};
-export const AVATAR_IDS = Object.keys(AVATARS);
+// Rendered animal portraits, one per avatar id (decision 008). The file name is the id.
+const AVATAR_ART = import.meta.glob<string>('../assets/avatars/*.webp', { eager: true, import: 'default' });
+const AVATARS: Record<string, string> = Object.fromEntries(
+  Object.entries(AVATAR_ART).map(([path, url]) => [path.slice(path.lastIndexOf('/') + 1, -'.webp'.length), url]),
+);
+/** Same order as before the pictures, so existing profiles and the picker keep their positions. */
+export const AVATAR_IDS = ['fox', 'camel', 'owl', 'turtle', 'dolphin', 'lion', 'elephant', 'rabbit', 'cat', 'giraffe', 'penguin', 'parrot'];
 
 export function Avatar({ id, size = 64 }: { id: string; size?: number }) {
   const t = useT();
   return (
-    <span className={`avatar avatar--${id}`} role="img" aria-label={t(`avatar.${id}`)} style={{ inlineSize: size, blockSize: size, fontSize: size * 0.55 }}>
-      {AVATARS[id] ?? AVATARS.fox}
+    <span className={`avatar avatar--${id}`} role="img" aria-label={t(`avatar.${id}`)} style={{ inlineSize: size, blockSize: size }}>
+      <img className="avatar__art" src={AVATARS[id] ?? AVATARS.fox} alt="" draggable={false} />
     </span>
   );
 }

@@ -65,7 +65,8 @@ export function TappableFanak({ children, size = 96 }: { children: React.ReactNo
   return (
     <div className="fanak-says">
       <button type="button" className={`fanak-tap${jumping ? ' fanak-tap--jump' : ''}`} onClick={tap} aria-label={t('home.fanak.tap')}>
-        <Mascot expression={cheer === null ? 'happy' : 'cheer'} size={size} />
+        {/* Cheers while jumping, then goes back to waving; in calm mode (no jump) the cheer stays. */}
+        <Mascot expression={jumping || (reduced && cheer !== null) ? 'cheer' : 'happy'} size={size} lively />
       </button>
       <SpeechBubble>
         {children}

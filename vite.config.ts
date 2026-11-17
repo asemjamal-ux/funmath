@@ -23,7 +23,7 @@ export default defineConfig({
       injectRegister: null,
       manifest: false, // per-locale manifests live in public/{en,ar}/manifest.webmanifest (ARCH §10)
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,woff2,json,webmanifest}'],
+        globPatterns: ['**/*.{js,css,html,svg,webp,woff2,json,webmanifest}'],
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
       },

@@ -3,7 +3,7 @@ import { Navigate, Outlet, useNavigate, useParams, useSearchParams } from 'react
 import { useFmt, usePath, useT } from '../app/hooks';
 import { learnerSkills, learnerSkillsOf, skillUnlocked, starsOf, unlockInputFor, useApp, worldOpen } from '../app/store';
 import { Button, IconButton } from '../components/Button';
-import { Icon, type IconName } from '../components/Icon';
+import { Icon } from '../components/Icon';
 import { FanakSays, Mascot } from '../components/Mascot';
 import { Avatar, OP_SHORT, OpBadge, SeedCounter, StarRating } from '../components/Progress';
 import { LanguageSwitch, TopBar } from '../components/TopBar';
@@ -217,10 +217,9 @@ export function DailyMixPage() {
 }
 
 /* ---------------- Games ---------------- */
-const GAME_ICON: Record<GameId, IconName> = {
-  'bubble-pop': 'seed', 'number-line-hop': 'arrow-forward', 'match-pairs': 'shuffle',
-  bingo: 'star', 'number-hunt': 'lightbulb', 'true-false': 'check',
-};
+// Rendered game pictures, one per game id (decision 008). The file name is the id.
+const GAME_ART = import.meta.glob<string>('../assets/games/*.webp', { eager: true, import: 'default' });
+const gameArt = (g: GameId) => GAME_ART[`../assets/games/${g}.webp`];
 
 export function GamesHubPage() {
   const t = useT();
@@ -246,7 +245,7 @@ export function GamesHubPage() {
             {GAMES.map((g) => (
               <li key={g}>
                 <button type="button" className={`game-card game-card--${g}`} onClick={() => choose(g)}>
-                  <span className="game-card__art" aria-hidden="true"><Icon name={GAME_ICON[g]} size={48} /></span>
+                  <span className="game-card__art" aria-hidden="true"><img src={gameArt(g)} alt="" draggable={false} /></span>
                   <span className="game-card__title">{t(`games.${g}.title`)}</span>
                   <span className="game-card__desc">{t(`games.${g}.desc`)}</span>
                 </button>

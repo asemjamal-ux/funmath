@@ -5,14 +5,76 @@
  * The pictures are decorative (DS §2: no text inside illustrations) and are never mirrored in RTL (DS §6.3).
  */
 
-/* ---------- World landmarks (DS §2) ---------- */
-.world--add, .world-chip--add { --landmark: url('../assets/art/well.svg'); }
-.world--sub, .world-chip--sub { --landmark: url('../assets/art/market.svg'); }
-.world--mul, .world-chip--mul { --landmark: url('../assets/art/palms.svg'); }
-.world--div, .world-chip--div { --landmark: url('../assets/art/picnic.svg'); }
-.world--frac, .world-chip--frac { --landmark: url('../assets/art/cake.svg'); }
-.world--dec, .world-chip--dec { --landmark: url('../assets/art/jug.svg'); }
-.world--geo, .world-chip--geo { --landmark: url('../assets/art/tiles.svg'); }
+/* ---------- World landmarks (DS §2): rendered pictures, decision 008 ---------- */
+/* Set as background-image in each rule: a url() inside a custom property would resolve against the page, not this file. */
+.world-chip--add .world-chip__link::after,
+.world--add .world__header::after,
+.world--add .skill-page__main::before {
+  background-image: url('../assets/world/well.webp');
+}
+
+.world-chip--sub .world-chip__link::after,
+.world--sub .world__header::after,
+.world--sub .skill-page__main::before {
+  background-image: url('../assets/world/market.webp');
+}
+
+.world-chip--mul .world-chip__link::after,
+.world--mul .world__header::after,
+.world--mul .skill-page__main::before {
+  background-image: url('../assets/world/palms.webp');
+}
+
+.world-chip--div .world-chip__link::after,
+.world--div .world__header::after,
+.world--div .skill-page__main::before {
+  background-image: url('../assets/world/picnic.webp');
+}
+
+.world-chip--frac .world-chip__link::after,
+.world--frac .world__header::after,
+.world--frac .skill-page__main::before {
+  background-image: url('../assets/world/cake.webp');
+}
+
+.world-chip--dec .world-chip__link::after,
+.world--dec .world__header::after,
+.world--dec .skill-page__main::before {
+  background-image: url('../assets/world/jug.webp');
+}
+
+.world-chip--geo .world-chip__link::after,
+.world--geo .world__header::after,
+.world--geo .skill-page__main::before {
+  background-image: url('../assets/world/tiles.webp');
+}
+
+/* The World banner plays the landmark's short looping clip; calm mode keeps the still picture (decision 008). */
+.world--add .world__header::after { background-image: url('../assets/world/well-clip.webp'); }
+.world--sub .world__header::after { background-image: url('../assets/world/market-clip.webp'); }
+.world--mul .world__header::after { background-image: url('../assets/world/palms-clip.webp'); }
+.world--div .world__header::after { background-image: url('../assets/world/picnic-clip.webp'); }
+.world--frac .world__header::after { background-image: url('../assets/world/cake-clip.webp'); }
+.world--dec .world__header::after { background-image: url('../assets/world/jug-clip.webp'); }
+.world--geo .world__header::after { background-image: url('../assets/world/tiles-clip.webp'); }
+
+@media (prefers-reduced-motion: reduce) {
+  .world--add .world__header::after { background-image: url('../assets/world/well.webp'); }
+  .world--sub .world__header::after { background-image: url('../assets/world/market.webp'); }
+  .world--mul .world__header::after { background-image: url('../assets/world/palms.webp'); }
+  .world--div .world__header::after { background-image: url('../assets/world/picnic.webp'); }
+  .world--frac .world__header::after { background-image: url('../assets/world/cake.webp'); }
+  .world--dec .world__header::after { background-image: url('../assets/world/jug.webp'); }
+  .world--geo .world__header::after { background-image: url('../assets/world/tiles.webp'); }
+}
+
+:root[data-motion='reduced'] .world--add .world__header::after { background-image: url('../assets/world/well.webp'); }
+:root[data-motion='reduced'] .world--sub .world__header::after { background-image: url('../assets/world/market.webp'); }
+:root[data-motion='reduced'] .world--mul .world__header::after { background-image: url('../assets/world/palms.webp'); }
+:root[data-motion='reduced'] .world--div .world__header::after { background-image: url('../assets/world/picnic.webp'); }
+:root[data-motion='reduced'] .world--frac .world__header::after { background-image: url('../assets/world/cake.webp'); }
+:root[data-motion='reduced'] .world--dec .world__header::after { background-image: url('../assets/world/jug.webp'); }
+:root[data-motion='reduced'] .world--geo .world__header::after { background-image: url('../assets/world/tiles.webp'); }
 
 /* ---------- Home: a landmark sticker on every open World ---------- */
 .world-chip__link {
@@ -28,7 +90,10 @@
   block-size: 64px;
   border: var(--outline);
   border-radius: var(--radius-pill);
-  background: var(--color-surface) var(--landmark) center / 76% no-repeat;
+  background-color: var(--color-surface);
+  background-position: center;
+  background-size: 80%;
+  background-repeat: no-repeat;
   box-shadow: var(--shadow-sticker-sm);
   rotate: calc(8deg * var(--dir-sign));
   transition: rotate var(--motion-quick), scale var(--motion-quick);
@@ -66,7 +131,9 @@
   inset-inline-end: var(--space-4);
   inline-size: 124px;
   block-size: 124px;
-  background: var(--landmark) center / contain no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  background-repeat: no-repeat;
 }
 
 .world__header .op-badge {
@@ -195,7 +262,10 @@
   block-size: 104px;
   border: var(--outline);
   border-radius: var(--radius-pill);
-  background: var(--op-soft) var(--landmark) center / 78% no-repeat;
+  background-color: var(--op-soft);
+  background-position: center;
+  background-size: 82%;
+  background-repeat: no-repeat;
   box-shadow: var(--shadow-sticker-sm);
   rotate: calc(6deg * var(--dir-sign));
 }
@@ -324,7 +394,7 @@
   padding: var(--space-5) var(--space-4) 120px;
   border-radius: calc(var(--radius-l) - 4px);
   background:
-    url('../assets/art/dunes.svg') repeat-x 50% 100% / 420px 122px,
+    url('../assets/art/dunes.svg') repeat-x 50% 100% / 480px 140px,
     url('../assets/art/sky.svg') no-repeat 50% 12px / 220px auto,
     linear-gradient(to bottom, var(--art-sky), var(--art-sky-low));
 }
@@ -372,6 +442,163 @@
   box-shadow: var(--shadow-sticker-sm);
 }
 
+/* ---------- Fanak: a rendered picture that blinks and waves (decision 007) ---------- */
+/* Each file is a strip of square frames; the box shows one frame and object-position picks which. */
+.mascot {
+  display: block;
+  object-fit: cover;
+  object-position: 0 0;
+  overflow: clip; /* one frame only: the theme layer below lets the old drawing overflow its box */
+  user-select: none;
+  filter: drop-shadow(0 5px 0 var(--art-shadow));
+}
+
+.mascot--f2 { --blink: 100%; }
+.mascot--f3 { --blink: 50%; }
+
+/* A blink every few seconds, on every screen (the one idle motion DS §11.2 allows in activities). */
+.mascot--f2,
+.mascot--f3 {
+  animation: fanak-blink 4.6s step-end infinite;
+}
+
+@keyframes fanak-blink {
+  0% { object-position: 0 0; }
+  93% { object-position: var(--blink) 0; }
+  96% { object-position: 0 0; }
+}
+
+/* Where Fanak greets the learner (Home, welcome) a short clip plays instead: he blinks, wiggles his ears and waves
+   (Mascot's `lively`). In calm mode the still picture stays, and nothing below applies. */
+.fanak-tap:not(.fanak-tap--jump) .mascot--clip,
+.welcome .mascot--clip {
+  animation: fanak-bob 3.2s ease-in-out infinite;
+}
+
+@keyframes fanak-bob {
+  0%, 100% { translate: 0 0; rotate: 0deg; }
+  50% { translate: 0 -6px; rotate: calc(2deg * var(--dir-sign)); }
+}
+
+/* ---------- Pictures that move (decision 008) ---------- */
+/* Landmark stickers on Home sway gently, each a little out of step with the next. */
+.world-chip:not(.world-chip--locked):not(.world-chip--mix) .world-chip__link::after {
+  animation: art-sway 4s ease-in-out infinite;
+}
+.world-chip:nth-child(2) .world-chip__link::after { animation-delay: -0.6s; }
+.world-chip:nth-child(3) .world-chip__link::after { animation-delay: -1.2s; }
+.world-chip:nth-child(4) .world-chip__link::after { animation-delay: -1.8s; }
+.world-chip:nth-child(5) .world-chip__link::after { animation-delay: -2.4s; }
+.world-chip:nth-child(6) .world-chip__link::after { animation-delay: -3s; }
+.world-chip:nth-child(7) .world-chip__link::after { animation-delay: -3.6s; }
+
+@media (hover: hover) {
+  .world-chip:not(.world-chip--locked) .world-chip__link:hover::after {
+    animation: art-wiggle 600ms ease-in-out 1;
+  }
+}
+
+/* The World banner's landmark floats; the Skill page's landmark sticker sways. */
+.world__header::after {
+  animation: art-float 3.4s ease-in-out infinite;
+}
+
+.skill-page__main::before {
+  animation: art-sway 4.4s ease-in-out infinite;
+}
+
+/* Game pictures */
+.game-list .game-card .game-card__art {
+  overflow: visible;
+}
+
+.game-card__art img {
+  display: block;
+  inline-size: 112%;
+  block-size: 112%;
+  object-fit: contain;
+  animation: art-float 3s ease-in-out infinite;
+}
+.game-list li:nth-child(2) .game-card__art img { animation-delay: -0.5s; }
+.game-list li:nth-child(3) .game-card__art img { animation-delay: -1s; }
+.game-list li:nth-child(4) .game-card__art img { animation-delay: -1.5s; }
+.game-list li:nth-child(5) .game-card__art img { animation-delay: -2s; }
+.game-list li:nth-child(6) .game-card__art img { animation-delay: -2.5s; }
+
+@media (hover: hover) {
+  .game-card:hover .game-card__art img {
+    animation: art-wiggle 600ms ease-in-out 1;
+  }
+}
+
+/* Avatars: the animal fills its sticker; it pops when picked and wiggles when a profile is pointed at. */
+.avatar {
+  overflow: hidden;
+}
+
+.avatar__art {
+  display: block;
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  translate: 0 4%;
+  user-select: none;
+}
+
+.avatar-option--on .avatar__art {
+  animation: art-pop 450ms var(--ease-out) 1;
+}
+
+@media (hover: hover) {
+  .avatar-option:hover .avatar__art,
+  .profile-card:hover .avatar__art {
+    animation: art-wiggle 600ms ease-in-out 1;
+  }
+}
+
+/* Earned trophies twinkle. */
+.trophy-card--earned .trophy-art {
+  position: relative;
+  animation: art-float 3.2s ease-in-out infinite;
+}
+
+.trophy-card--earned .trophy-art::after {
+  content: '';
+  position: absolute;
+  inset-block-start: -4px;
+  inset-inline-end: -6px;
+  inline-size: 24px;
+  block-size: 24px;
+  background: url('../assets/art/spark.svg') center / contain no-repeat;
+  animation: art-twinkle 2.4s ease-in-out infinite;
+}
+
+@keyframes art-sway {
+  0%, 100% { rotate: calc(8deg * var(--dir-sign)); translate: 0 0; }
+  50% { rotate: calc(-3deg * var(--dir-sign)); translate: 0 -3px; }
+}
+
+@keyframes art-float {
+  0%, 100% { translate: 0 0; }
+  50% { translate: 0 -6px; }
+}
+
+@keyframes art-wiggle {
+  0%, 100% { rotate: 0deg; }
+  25% { rotate: calc(-10deg * var(--dir-sign)); }
+  75% { rotate: calc(10deg * var(--dir-sign)); }
+}
+
+@keyframes art-pop {
+  0%, 100% { scale: 1; }
+  45% { scale: 1.2; }
+}
+
+@keyframes art-twinkle {
+  0%, 100% { scale: 0.6; opacity: 0.4; }
+  50% { scale: 1.1; opacity: 1; }
+}
+
 /* ---------- Printing and calm mode ---------- */
 @media print {
   .page,
@@ -385,11 +612,36 @@
   .game-card {
     transition: none;
   }
+  .mascot,
+  .fanak-tap .mascot,
+  .welcome .mascot,
+  .world-chip__link::after,
+  .world__header::after,
+  .skill-page__main::before,
+  .game-card__art img,
+  .avatar__art,
+  .trophy-art,
+  .trophy-art::after {
+    animation: none !important;
+  }
 }
 
 :root[data-motion='reduced'] .world-chip__link::after,
 :root[data-motion='reduced'] .game-card {
   transition: none;
+}
+
+:root[data-motion='reduced'] .mascot,
+:root[data-motion='reduced'] .fanak-tap .mascot,
+:root[data-motion='reduced'] .welcome .mascot,
+:root[data-motion='reduced'] .world-chip__link::after,
+:root[data-motion='reduced'] .world__header::after,
+:root[data-motion='reduced'] .skill-page__main::before,
+:root[data-motion='reduced'] .game-card__art img,
+:root[data-motion='reduced'] .avatar__art,
+:root[data-motion='reduced'] .trophy-art,
+:root[data-motion='reduced'] .trophy-art::after {
+  animation: none !important;
 }
 
 /* Stars under a skill's name keep a clear patch so the trail never runs through them. */
@@ -398,4 +650,10 @@
   padding-inline: var(--space-2);
   border-radius: var(--radius-pill);
   background: var(--color-bg);
+}
+
+/* Fanak is the star of the Home hero. */
+.hero-art .fanak-tap .mascot {
+  inline-size: 168px;
+  block-size: 168px;
 }

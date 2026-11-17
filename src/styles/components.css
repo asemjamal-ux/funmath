@@ -589,17 +589,6 @@
   transform: scaleX(-1);
 }
 
-.mascot__eye {
-  animation: blink-eye 6s infinite;
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
-@keyframes blink-eye {
-  0%, 96%, 100% { transform: scaleY(1); }
-  98% { transform: scaleY(0.1); }
-}
-
 .fanak-says {
   display: flex;
   align-items: flex-end;

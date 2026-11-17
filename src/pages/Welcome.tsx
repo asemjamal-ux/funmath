@@ -38,7 +38,7 @@ function BilingualWelcome() {
   };
   return (
     <main className="welcome" id="main">
-      <Mascot expression="happy" size={160} />
+      <Mascot expression="happy" size={160} lively />
       <h1 className="welcome__title">
         <span lang="en" dir="ltr">{t('welcome.title.en')}</span>
         <span lang="ar" dir="rtl">{t('welcome.title.ar')}</span>
@@ -72,7 +72,7 @@ export function WelcomePage() {
     <div className="page">
       <TopBar end={<LanguageSwitch />} />
       <main className="picker" id="main">
-        <Mascot expression="happy" size={120} />
+        <Mascot expression="happy" size={120} lively />
         <h1>{t('picker.title')}</h1>
         <ul className="picker__list">
           {profiles.map((p) => (

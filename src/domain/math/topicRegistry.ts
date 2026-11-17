@@ -25,7 +25,7 @@ export function topicImpl(): TopicImpl {
   return impl;
 }
 
-const TOPIC_KINDS = new Set<string>(['fracName', 'fracOf', 'fracEquiv', 'fracAdd', 'decFrac', 'decAdd', 'decShift', 'rect', 'side']);
+const TOPIC_KINDS = new Set<string>(['fracName', 'fracOf', 'fracEquiv', 'fracAdd', 'decFrac', 'decAdd', 'decShift', 'rect', 'side', 'divRem']);
 
 export function isTopicSpec(spec: TierSpec): spec is TopicSpec {
   return TOPIC_KINDS.has(spec.kind);

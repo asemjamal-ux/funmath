@@ -7,7 +7,7 @@ import { Button, IconButton } from '../../components/Button';
 import { LanguageSwitch, TopBar } from '../../components/TopBar';
 import { nextSetItem } from '../../domain/math/practiceSet';
 import { isTopicSpec } from '../../domain/math/topicRegistry';
-import { isTopic, OPERATOR_OF, type Blank, type Item, type Skill, type Tier } from '../../domain/math/types';
+import { OPERATOR_OF, type Blank, type Item, type Skill, type Tier } from '../../domain/math/types';
 import { ItemExpression } from '../../components/MathDisplay';
 import { createRng, randomSeed } from '../../domain/rng';
 import { localDateString } from '../../domain/time';
@@ -49,7 +49,7 @@ function hideFor(item: Item, wantMissing: boolean, pickA: boolean): Blank {
 
 function makeProblems(skill: Skill, tier: Tier, count: number, seed: number, missingAsked: boolean): Problem[] {
   // Advanced-World questions (decision 005) always ask for the result.
-  const missing = missingAsked && !isTopic(skill.operation);
+  const missing = missingAsked && skill.model !== 'form';
   const items: Item[] = [];
   for (let i = 0; i < count; i++) {
     items.push(nextSetItem(skill, tier, seed, i, items, { format: 'entry', reject: missing ? (c) => c.blank !== 'result' : undefined }));
@@ -175,7 +175,7 @@ function WorksheetsBody() {
   const isProblems = type === 'practice' || type === 'missing';
   // Stacked columns only make sense when the result is always the unknown.
   const spec = skill.generator.tiers[String(tier) as '1' | '2' | '3'];
-  const topic = isTopic(skill.operation);
+  const topic = skill.model === 'form';
   const canStack = type === 'practice' && !isTopicSpec(spec) && skill.operation !== 'division' && spec.kind !== 'family' && spec.blank.every((b) => b === 'result');
   const problems = useMemo(
     () => (isProblems ? makeProblems(skill, tier, count, seed, type === 'missing') : []),

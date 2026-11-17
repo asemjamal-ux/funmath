@@ -3299,6 +3299,268 @@
     ]
   },
   {
+    "id": "lesson-DIV-07",
+    "skillId": "DIV-07",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-07.hook",
+        "audioKey": "DIV-07.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-07.model",
+        "audioKey": "DIV-07.model",
+        "form": {
+          "k": "divRem",
+          "a": 14,
+          "b": 4,
+          "ask": "r",
+          "long": false
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-07.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            11,
+            2,
+            1
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 11,
+            "b": 2,
+            "ask": "r",
+            "long": false
+          },
+          "choices": [
+            5,
+            1,
+            2,
+            0
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-07.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            17,
+            5,
+            3
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 17,
+            "b": 5,
+            "ask": "q",
+            "long": false
+          },
+          "choices": [
+            3,
+            2,
+            4,
+            5
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-07.guided3",
+        "item": {
+          "operation": "division",
+          "operands": [
+            29,
+            6,
+            5
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 29,
+            "b": 6,
+            "ask": "r",
+            "long": false
+          },
+          "choices": [
+            5,
+            4,
+            1,
+            6
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-07.keyIdea",
+        "audioKey": "DIV-07.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            23,
+            4,
+            5
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 23,
+            "b": 4,
+            "ask": "q",
+            "long": false
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
+    "id": "lesson-DIV-08",
+    "skillId": "DIV-08",
+    "steps": [
+      {
+        "kind": "hook",
+        "textKey": "lesson.DIV-08.hook",
+        "audioKey": "DIV-08.hook",
+        "illustration": "oasis"
+      },
+      {
+        "kind": "model",
+        "textKey": "lesson.DIV-08.model",
+        "audioKey": "DIV-08.model",
+        "form": {
+          "k": "divRem",
+          "a": 72,
+          "b": 3,
+          "ask": "q",
+          "long": true
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-08.guided1",
+        "item": {
+          "operation": "division",
+          "operands": [
+            84,
+            4,
+            21
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 84,
+            "b": 4,
+            "ask": "q",
+            "long": true
+          },
+          "choices": [
+            12,
+            21,
+            24,
+            20
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-08.guided2",
+        "item": {
+          "operation": "division",
+          "operands": [
+            75,
+            5,
+            15
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 75,
+            "b": 5,
+            "ask": "q",
+            "long": true
+          },
+          "choices": [
+            15,
+            13,
+            25,
+            11
+          ]
+        }
+      },
+      {
+        "kind": "guided",
+        "textKey": "lesson.guided.prompt",
+        "audioKey": "DIV-08.guided3",
+        "item": {
+          "operation": "division",
+          "operands": [
+            96,
+            8,
+            12
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 96,
+            "b": 8,
+            "ask": "q",
+            "long": true
+          },
+          "choices": [
+            12,
+            14,
+            11,
+            22
+          ]
+        }
+      },
+      {
+        "kind": "keyIdea",
+        "textKey": "lesson.DIV-08.keyIdea",
+        "audioKey": "DIV-08.keyIdea",
+        "expression": {
+          "operation": "division",
+          "operands": [
+            432,
+            4,
+            108
+          ],
+          "blank": "result",
+          "form": {
+            "k": "divRem",
+            "a": 432,
+            "b": 4,
+            "ask": "q",
+            "long": true
+          }
+        }
+      },
+      {
+        "kind": "ready",
+        "textKey": "lesson.ready",
+        "audioKey": "ui.ready"
+      }
+    ]
+  },
+  {
     "id": "lesson-GEO-04",
     "skillId": "GEO-04",
     "steps": [

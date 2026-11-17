@@ -14,7 +14,7 @@ import { MVP_SKILLS, TROPHIES, getSkill, LESSONS } from '../src/services/content
 import { formatNumber } from '../src/services/formatting/number';
 import { checkAnswer, parseDecimal } from '../src/domain/math/check';
 import { generateItem } from '../src/domain/math/generate';
-import { formAnswer, norm } from '../src/domain/math/topics';
+import { formAnswer, longDivSteps, norm } from '../src/domain/math/topics';
 import { expressionTokens, workedExample } from '../src/domain/math/present';
 import { ADVANCED_FROM_STAGE, visibleSkills } from '../src/domain/adaptivity/unlock';
 import type { SkillId, Tier } from '../src/domain/math/types';
@@ -139,9 +139,9 @@ describe('rewards (PRD §7)', () => {
     expect(first.map((t) => t.id)).toEqual(['TR-01']);
     expect(newlyEarnedTrophies(TROPHIES, snap, new Set(['TR-01']))).toEqual([]);
   });
-  it('all 18 trophies defined; all 38 lessons with 4–7 steps', () => {
+  it('all 18 trophies defined; all 40 lessons with 4–7 steps', () => {
     expect(TROPHIES).toHaveLength(18);
-    expect(LESSONS).toHaveLength(38);
+    expect(LESSONS).toHaveLength(40);
     for (const l of LESSONS) {
       expect(l.steps[0]?.kind).toBe('hook');
       expect(l.steps.at(-1)?.kind).toBe('ready');
@@ -165,7 +165,7 @@ describe('age-appropriate skills (decision 004)', () => {
   const ids = (list: { id: string }[]) => list.map((s) => s.id);
   it('stage 1 sees everything; stage 3 starts at its own stage', async () => {
     const { visibleSkills } = await import('../src/domain/adaptivity/unlock');
-    expect(visibleSkills(MVP_SKILLS, 1, false)).toHaveLength(26);
+    expect(visibleSkills(MVP_SKILLS, 1, false)).toHaveLength(28);
     const s3 = ids(visibleSkills(MVP_SKILLS, 3, false));
     expect(s3).toContain('ADD-07');
     expect(s3).not.toContain('ADD-01');
@@ -173,7 +173,7 @@ describe('age-appropriate skills (decision 004)', () => {
     // Stage 4–5 keep the Stage 3 arithmetic facts (decision 005 caps the cut-off per World).
     const s5 = ids(visibleSkills(MVP_SKILLS, 5, false));
     expect(s5.filter((id) => !/^(FRA|DEC|GEO)/.test(id))).toEqual(s3);
-    expect(visibleSkills(MVP_SKILLS, 3, true)).toHaveLength(26);
+    expect(visibleSkills(MVP_SKILLS, 3, true)).toHaveLength(28);
   });
   it('trophies only count visible skills', async () => {
     const { visibleSkills } = await import('../src/domain/adaptivity/unlock');
@@ -222,7 +222,7 @@ describe('advanced Worlds for older learners (decision 005)', () => {
   });
 
   it('a grown-up unlocking everything shows the advanced Worlds at any Stage', () => {
-    expect(visibleSkills(MVP_SKILLS, 1, false, true)).toHaveLength(38);
+    expect(visibleSkills(MVP_SKILLS, 1, false, true)).toHaveLength(40);
   });
 
   it('decimal answers: typed with ., ٫ or , and Eastern Arabic digits', () => {
@@ -260,6 +260,57 @@ describe('advanced Worlds for older learners (decision 005)', () => {
         expect(workedExample(item).at(-1)?.value).toBe(item.answer);
       }
     }
+  });
+
+  it('remainders and long division (decision 006): one unknown, true equation, remainder below the divisor', () => {
+    for (const id of ['DIV-07', 'DIV-08']) {
+      for (const tier of [1, 2, 3] as Tier[]) {
+        for (let seed = 0; seed < 300; seed++) {
+          const item = generateItem(getSkill(id)!, tier, seed, tier);
+          const f = item.form as { k: string; a: number; b: number; ask: 'q' | 'r'; long: boolean };
+          expect(f.k).toBe('divRem');
+          const q = Math.floor(f.a / f.b);
+          const r = f.a % f.b;
+          expect(f.b * q + r).toBe(f.a);
+          expect(r).toBeLessThan(f.b);
+          expect(item.answer).toBe(f.ask === 'q' ? q : r);
+          expect(f.a).toBeLessThanOrEqual(id === 'DIV-07' ? 100 : 999);
+          // PRD §6.2: DIV-07 always leaves a remainder; DIV-08 is exact at Tiers 1–2.
+          if (id === 'DIV-07' || tier === 3) expect(r).toBeGreaterThan(0);
+          else expect(r).toBe(0);
+          if (id === 'DIV-08' && tier === 1) expect([...String(f.a)].every((d) => Number(d) % f.b === 0)).toBe(true);
+          expect(expressionTokens(item).filter((t) => t.t === 'blank')).toHaveLength(1);
+          expect(workedExample(item).at(-1)?.value).toBe(item.answer);
+        }
+      }
+    }
+  });
+
+  it('long division rounds rebuild the quotient and end on the remainder', () => {
+    for (const [a, b] of [[72, 3], [84, 4], [618, 6], [432, 4], [905, 7], [100, 9], [56, 8], [999, 2]] as const) {
+      const steps = longDivSteps(a, b);
+      expect(Number(steps.map((s) => s.qd).join(''))).toBe(Math.floor(a / b));
+      expect(steps.at(-1)?.rem).toBe(a % b);
+      for (const s of steps) {
+        expect(s.p).toBe(s.qd * b);
+        expect(s.rem).toBe(s.cur - s.p);
+        expect(s.rem).toBeLessThan(b);
+      }
+    }
+    // 618 ÷ 6 keeps the zero in the quotient: 1, 0, 3.
+    expect(longDivSteps(618, 6).map((s) => s.qd)).toEqual([1, 0, 3]);
+    // 156 ÷ 4 starts with the first two digits because 1 is smaller than 4.
+    expect(longDivSteps(156, 4)[0]).toMatchObject({ col: 1, cur: 15, qd: 3, rem: 3 });
+  });
+
+  it('older learners keep the division facts and go on to remainders and long division', () => {
+    const s4 = ids(visibleSkills(MVP_SKILLS, 4, false));
+    for (const id of ['DIV-02', 'DIV-06', 'DIV-07', 'DIV-08']) expect(s4).toContain(id);
+    expect(s4).not.toContain('DIV-01');
+    expect(isSkillUnlocked(getSkill('DIV-07')!, input(4))).toBe(true);
+    expect(isSkillUnlocked(getSkill('DIV-08')!, input(4))).toBe(false);
+    expect(isSkillUnlocked(getSkill('DIV-08')!, input(5))).toBe(true);
+    expect(isSkillUnlocked(getSkill('DIV-07')!, input(3))).toBe(false);
   });
 
   it('pictures that would give the answer away are not asked as visual-only questions', () => {

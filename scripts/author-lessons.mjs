@@ -86,6 +86,9 @@ const TOPIC = {
   'GEO-01': [{ k: 'rect', measure: 'area', l: 4, w: 3, grid: true }, [[{ k: 'rect', measure: 'area', l: 3, w: 2, grid: true }, [6, 5, 10, 7]], [{ k: 'rect', measure: 'area', l: 5, w: 3, grid: true }, [15, 16, 8, 14]]], { k: 'rect', measure: 'area', l: 4, w: 3, grid: true }],
   'GEO-02': [{ k: 'rect', measure: 'perim', l: 4, w: 2, grid: true }, [[{ k: 'rect', measure: 'perim', l: 3, w: 2, grid: true }, [10, 6, 5, 12]], [{ k: 'rect', measure: 'perim', l: 6, w: 4, grid: false }, [20, 24, 10, 22]]], { k: 'rect', measure: 'perim', l: 5, w: 3, grid: false }],
   'GEO-03': [{ k: 'rect', measure: 'area', l: 6, w: 4, grid: false }, [[{ k: 'rect', measure: 'area', l: 7, w: 3, grid: false }, [21, 10, 20, 24]], [{ k: 'rect', measure: 'area', l: 8, w: 5, grid: false }, [40, 26, 13, 45]]], { k: 'rect', measure: 'area', l: 9, w: 4, grid: false }],
+  // Remainders and long division (decision 006).
+  'DIV-07': [{ k: 'divRem', a: 14, b: 4, ask: 'r', long: false }, [[{ k: 'divRem', a: 11, b: 2, ask: 'r', long: false }, [1, 5, 2, 0]], [{ k: 'divRem', a: 17, b: 5, ask: 'q', long: false }, [3, 2, 4, 5]], [{ k: 'divRem', a: 29, b: 6, ask: 'r', long: false }, [5, 4, 1, 6]]], { k: 'divRem', a: 23, b: 4, ask: 'q', long: false }],
+  'DIV-08': [{ k: 'divRem', a: 72, b: 3, ask: 'q', long: true }, [[{ k: 'divRem', a: 84, b: 4, ask: 'q', long: true }, [21, 12, 24, 20]], [{ k: 'divRem', a: 75, b: 5, ask: 'q', long: true }, [15, 13, 25, 11]], [{ k: 'divRem', a: 96, b: 8, ask: 'q', long: true }, [12, 14, 11, 22]]], { k: 'divRem', a: 432, b: 4, ask: 'q', long: true }],
   'GEO-04': [{ k: 'side', of: 'area', l: 6, w: 4 }, [[{ k: 'side', of: 'area', l: 5, w: 3 }, [3, 10, 5, 4]], [{ k: 'side', of: 'perim', l: 6, w: 2 }, [2, 10, 4, 8]]], { k: 'side', of: 'area', l: 8, w: 3 }],
 };
 
@@ -99,6 +102,7 @@ function formItem(f) {
     case 'fracAdd': { const ans = f.op === '+' ? f.a + f.b : f.a - f.b; return [f.op === '+' ? 'addition' : 'subtraction', [f.a, f.b, ans], ans]; }
     case 'decFrac': { const ans = f.ask === 'dec' ? f.n / f.den : f.n; return ['division', f.ask === 'dec' ? [f.n, f.den, ans] : [f.n / f.den, f.den, ans], ans, f.ask === 'dec' ? (f.den === 10 ? 1 : 2) : undefined]; }
     case 'rect': { const ans = f.measure === 'area' ? f.l * f.w : 2 * (f.l + f.w); return [f.measure === 'area' ? 'multiplication' : 'addition', [f.l, f.w, ans], ans]; }
+    case 'divRem': { const ans = f.ask === 'q' ? Math.floor(f.a / f.b) : f.a % f.b; return ['division', [f.a, f.b, ans], ans]; }
     case 'side': { const total = f.of === 'area' ? f.l * f.w : 2 * (f.l + f.w); return [f.of === 'area' ? 'division' : 'subtraction', [total, f.l, f.w], f.w]; }
   }
 }

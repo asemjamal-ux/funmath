@@ -1,5 +1,6 @@
 import { useFmt, useT } from '../../app/hooks';
 import type { TopicPictureProps } from '../../components/MathDisplay';
+import { longDivSteps } from '../../domain/math/topics';
 import type { Form } from '../../domain/math/types';
 
 /*
@@ -130,6 +131,97 @@ function SideRect({ l, w, unknownW, inner, showAnswer }: { l: number; w: number;
   );
 }
 
+/** a things put into groups of b, with the leftovers set apart (division with remainders, decision 006). */
+function Leftovers({ a, b, rtl }: { a: number; b: number; rtl: boolean }) {
+  const q = Math.floor(a / b);
+  const r = a % b;
+  const pitch = 20;
+  const colW = 28;
+  const cols = q + (r > 0 ? 1 : 0);
+  const width = cols * colW + (r > 0 ? 10 : 0);
+  const height = b * pitch + 12;
+  // Groups start at the reading side; the leftovers sit at the far end.
+  const x = (i: number) => (rtl ? width - (i + 1) * colW - (i === q ? 10 : 0) : i * colW + (i === q ? 10 : 0));
+  return (
+    <svg viewBox={`-2 -2 ${width + 4} ${height + 4}`} className="tp-svg tp-leftovers" style={{ maxInlineSize: `${Math.max(140, width * 1.7)}px` }} aria-hidden="true" focusable="false">
+      {Array.from({ length: cols }, (_, i) => {
+        const count = i < q ? b : r;
+        return (
+          <g key={i}>
+            <rect x={x(i) + 2} y={0} width={colW - 4} height={count * pitch + 12} rx={10} className={i < q ? 'tp-bag' : 'tp-bag tp-bag--rest'} />
+            {Array.from({ length: count }, (_, k) => (
+              <circle key={k} cx={x(i) + colW / 2} cy={16 + k * pitch} r={7} className={i < q ? 'tp-dot' : 'tp-dot tp-dot--rest'} />
+            ))}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
+/**
+ * Long division written out (decision 006): quotient on top, the divisor beside the bracket, then one
+ * subtract-and-bring-down block per round. `rounds` is how many rounds are filled in; the rest of the quotient
+ * shows as empty boxes. Digits keep their order in every locale; the divisor sits on the Math Direction's start side.
+ */
+function LongDivision({ a, b, rounds, rtl }: { a: number; b: number; rounds: number; rtl: boolean }) {
+  const { n } = useFmt();
+  const steps = longDivSteps(a, b);
+  const shown = steps.slice(0, rounds);
+  const len = String(a).length;
+  const cw = 34;
+  const rh = 40;
+  const side = 56; // room for the divisor and the bracket
+  const pad = 22; // room for the minus signs
+  const width = side + len * cw + pad;
+  const rows = 2 + shown.length * 2;
+  const height = rows * rh + 8;
+  // Column c of the dividend (0 = first digit), always most significant on the left.
+  const cx = (c: number) => (rtl ? pad : side) + c * cw + cw / 2;
+  const edge = rtl ? pad + len * cw + 8 : side - 8; // the bracket's upright
+  const digitsAt = (value: number, endCol: number, y: number, cls: string, keyBase: string) =>
+    [...String(value)].map((ch, j, all) => (
+      <text key={`${keyBase}${j}`} x={cx(endCol - (all.length - 1 - j))} y={y} textAnchor="middle" className={`ld-digit ${cls}`}>{n(Number(ch))}</text>
+    ));
+  const base = rh * 2 - 10; // baseline of the dividend row
+  return (
+    <svg viewBox={`0 0 ${width} ${height}`} className="tp-svg tp-longdiv" style={{ maxInlineSize: `${width * 1.15}px` }} aria-hidden="true" focusable="false">
+      {/* Quotient: filled digits, then empty boxes for the digits still to find */}
+      {steps.map((s, i) =>
+        i < rounds ? (
+          <text key={`q${i}`} x={cx(s.col)} y={rh - 10} textAnchor="middle" className="ld-digit ld-digit--q">{n(s.qd)}</text>
+        ) : (
+          <rect key={`q${i}`} x={cx(s.col) - 12} y={6} width={24} height={rh - 12} rx={6} className="ld-box" />
+        ),
+      )}
+      {/* Bracket: a line over the dividend and a curved upright beside the divisor */}
+      <path
+        d={rtl
+          ? `M${pad - 4} ${rh + 2}H${edge}q10 ${rh / 2} 0 ${rh}`
+          : `M${side + len * cw + 4} ${rh + 2}H${edge}q-10 ${rh / 2} 0 ${rh}`}
+        className="ld-bracket"
+      />
+      <text x={rtl ? edge + 26 : edge - 26} y={base} textAnchor="middle" className="ld-digit ld-digit--b">{n(b)}</text>
+      {digitsAt(a, len - 1, base, '', 'a')}
+      {shown.map((s, i) => {
+        const y = base + rh * (1 + i * 2);
+        const start = s.col - Math.max(String(s.p).length, String(s.cur).length) + 1;
+        const last = i === steps.length - 1;
+        return (
+          <g key={`s${i}`}>
+            <text x={cx(start) - cw * 0.75} y={y} textAnchor="middle" className="ld-digit ld-digit--op">−</text>
+            {digitsAt(s.p, s.col, y, 'ld-digit--p', `p${i}`)}
+            <path d={`M${cx(start) - cw / 2 + 2} ${y + 9}H${cx(s.col) + cw / 2 - 2}`} className="ld-rule" />
+            {/* A zero left before bringing down is not written: 0 then 4 reads as 4. */}
+            {(last || s.rem > 0) && digitsAt(s.rem, s.col, y + rh, last ? 'ld-digit--r' : '', `r${i}`)}
+            {!last && <text x={cx(s.col + 1)} y={y + rh} textAnchor="middle" className="ld-digit ld-digit--down">{n(steps[i + 1]?.d ?? 0)}</text>}
+          </g>
+        );
+      })}
+    </svg>
+  );
+}
+
 function Picture({ form, showAnswer, hint }: { form: Form; showAnswer: boolean; hint: boolean }) {
   const t = useT();
   const fmt = useFmt();
@@ -182,12 +274,16 @@ function Picture({ form, showAnswer, hint }: { form: Form; showAnswer: boolean; 
       const inner = form.of === 'area' ? t('math.unit.areaIs', { n: n(form.l * form.w) }) : t('math.unit.perimIs', { n: n(2 * (form.l + form.w)) });
       return <SideRect l={form.l} w={form.w} unknownW inner={inner} showAnswer={showAnswer} />;
     }
+    case 'divRem':
+      // Long division: the hint works the first round; the answer shows every round.
+      if (form.long) return <LongDivision a={form.a} b={form.b} rounds={showAnswer ? Infinity : hint ? 1 : 0} rtl={rtl} />;
+      return helping ? <Leftovers a={form.a} b={form.b} rtl={rtl} /> : null;
   }
 }
 
 /** Fraction-of, equivalence and adding pictures would show the answer, so they appear only in hints and answers. */
 function hasPicture(form: Form, helping: boolean): boolean {
-  return helping || !(form.k === 'fracOf' || form.k === 'fracEquiv' || form.k === 'fracAdd');
+  return helping || !(form.k === 'fracOf' || form.k === 'fracEquiv' || form.k === 'fracAdd' || (form.k === 'divRem' && !form.long));
 }
 
 export function TopicPicture({ item, showAnswer = false, hint = false, size = 'xl' }: TopicPictureProps) {

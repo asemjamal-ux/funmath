@@ -129,7 +129,7 @@ export function LessonPlayer({ skill, lesson }: { skill: Skill; lesson: Lesson }
         <>
           <FanakSays expression="happy" onSpeak={speak} canSpeak={canSpeak}>{t(step.textKey)}</FanakSays>
           {step.model && <Manipulative key={`${st.step}`} spec={step.model} mode="explore" />}
-          {step.form && <ItemPicture item={pictureItem(skill, step.form as Form)} hint size="l" />}
+          {step.form && <ItemPicture item={pictureItem(skill, step.form as Form)} hint showAnswer={step.form.k === 'divRem'} size="l" />}
         </>
       );
       break;

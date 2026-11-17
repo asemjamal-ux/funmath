@@ -17,6 +17,7 @@ const formSchema = z.discriminatedUnion('k', [
   z.object({ k: z.literal('decFrac'), n: z.number().int().min(1), den: z.union([z.literal(10), z.literal(100)]), ask: z.enum(['dec', 'frac']) }),
   z.object({ k: z.literal('rect'), measure: z.enum(['area', 'perim']), l: z.number().int().min(1), w: z.number().int().min(1), grid: z.boolean() }),
   z.object({ k: z.literal('side'), of: z.enum(['area', 'perim']), l: z.number().int().min(1), w: z.number().int().min(1) }),
+  z.object({ k: z.literal('divRem'), a: z.number().int().min(1), b: z.number().int().min(2), ask: z.enum(['q', 'r']), long: z.boolean() }),
 ]);
 
 export const tierSpecSchema = z.discriminatedUnion('kind', [
@@ -41,6 +42,11 @@ export const tierSpecSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('decShift'), a: span, factors: z.array(z.union([z.literal(10), z.literal(100)])).min(1), ops: z.array(z.enum(['×', '÷'])).min(1) }),
   z.object({ kind: z.literal('rect'), measure: z.enum(['area', 'perim']), l: span, w: span, grid: z.boolean() }),
   z.object({ kind: z.literal('side'), of: z.array(z.enum(['area', 'perim'])).min(1), l: span, w: span }),
+  // Remainders and long division (decision 006)
+  z.object({
+    kind: z.literal('divRem'), b: span, q: span, aMax: z.number().int().positive(), rem: z.boolean(),
+    carry: z.enum(['none', 'some']).optional(), ask: z.array(z.enum(['q', 'r'])).min(1), long: z.boolean(),
+  }),
 ]);
 
 export const skillSchema = z.object({

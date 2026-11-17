@@ -286,6 +286,18 @@
     } }
   },
   {
+    "id": "DIV-07", "operation": "division", "stage": 4, "order": 7, "prerequisites": ["DIV-06"], "scope": "mvp",
+    "titleKey": "skill.DIV-07.title", "model": "form", "lessonId": "lesson-DIV-07",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "choice", "3": "entry"}
+  },
+  {
+    "id": "DIV-08", "operation": "division", "stage": 4, "order": 8, "prerequisites": ["DIV-07"], "scope": "mvp",
+    "titleKey": "skill.DIV-08.title", "model": "form", "lessonId": "lesson-DIV-08",
+    "games": ["bubble-pop", "bingo", "true-false"],
+    "formats": {"1": "choice", "2": "entry", "3": "entry"}
+  },
+  {
     "id": "FRA-01", "operation": "fractions", "stage": 4, "order": 1, "prerequisites": [], "scope": "mvp",
     "titleKey": "skill.FRA-01.title", "model": "form", "lessonId": "lesson-FRA-01",
     "games": ["bubble-pop", "bingo", "true-false"],

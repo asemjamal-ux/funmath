@@ -1,4 +1,14 @@
 {
+  "DIV-07": { "valueMax": 100, "tiers": {
+    "1": {"kind": "divRem", "b": [2, 5], "q": [1, 5], "aMax": 99, "rem": true, "ask": ["q", "r"], "long": false},
+    "2": {"kind": "divRem", "b": [2, 9], "q": [2, 10], "aMax": 99, "rem": true, "ask": ["q", "r"], "long": false},
+    "3": {"kind": "divRem", "b": [6, 9], "q": [5, 10], "aMax": 99, "rem": true, "ask": ["q", "r"], "long": false}
+  } },
+  "DIV-08": { "valueMax": 999, "tiers": {
+    "1": {"kind": "divRem", "b": [2, 4], "q": [11, 44], "aMax": 99, "rem": false, "carry": "none", "ask": ["q"], "long": true},
+    "2": {"kind": "divRem", "b": [2, 9], "q": [12, 199], "aMax": 999, "rem": false, "carry": "some", "ask": ["q"], "long": true},
+    "3": {"kind": "divRem", "b": [3, 9], "q": [24, 199], "aMax": 999, "rem": true, "ask": ["q", "q", "r"], "long": true}
+  } },
   "FRA-01": { "valueMax": 12, "tiers": {
     "1": {"kind": "fracName", "d": [2, 4]},
     "2": {"kind": "fracName", "d": [2, 8]},

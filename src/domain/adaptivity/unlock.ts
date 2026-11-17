@@ -14,8 +14,8 @@ export const ADVANCED_FROM_STAGE = 4;
 /**
  * Skills a learner sees (decisions 004, 005): a profile started at a higher Stage goes straight to its own skills, so
  * basics from earlier Stages are hidden unless a grown-up turns "show earlier skills" on. Within each World the
- * cut-off is capped at that World's top Stage, so Stage 4–5 learners keep the Stage 3 arithmetic facts. The advanced
- * Worlds appear only from Stage 4, or when a grown-up unlocks everything.
+ * cut-off is capped at that World's top Stage (Stage 3 at most for the arithmetic Worlds), so Stage 4–5 learners keep
+ * the Stage 3 arithmetic facts. The advanced Worlds appear only from Stage 4, or when a grown-up unlocks everything.
  */
 export function visibleSkills<S extends { stage: number; operation: Operation }>(
   skills: readonly S[],
@@ -28,7 +28,10 @@ export function visibleSkills<S extends { stage: number; operation: Operation }>
   return skills.filter((s) => {
     if (isTopic(s.operation) && startingStage < ADVANCED_FROM_STAGE && !unlockAll) return false;
     if (showEarlier) return true;
-    return s.stage >= Math.min(startingStage, top.get(s.operation) ?? s.stage);
+    // The arithmetic Worlds keep their Stage 3 facts for older learners even now that Division goes on to Stage 4
+    // (decision 006): long division leans on the times tables.
+    const cap = top.get(s.operation) ?? s.stage;
+    return s.stage >= Math.min(startingStage, isTopic(s.operation) ? cap : Math.min(cap, ADVANCED_FROM_STAGE - 1));
   });
 }
 

@@ -70,7 +70,12 @@ export type TopicSpec =
   /** Area or perimeter of an l × w rectangle, on a square grid or with labelled sides. */
   | { kind: 'rect'; measure: 'area' | 'perim'; l: [number, number]; w: [number, number]; grid: boolean }
   /** A missing side from the area or perimeter and one side. */
-  | { kind: 'side'; of: Array<'area' | 'perim'>; l: [number, number]; w: [number, number] };
+  | { kind: 'side'; of: Array<'area' | 'perim'>; l: [number, number]; w: [number, number] }
+  /**
+   * a ÷ b with a = b × q + r (decision 006). `rem`: whether something is left over; `carry` (exact long division):
+   * 'none' means every digit of a divides by b on its own (84 ÷ 4). `long` shows the long-division layout.
+   */
+  | { kind: 'divRem'; b: [number, number]; q: [number, number]; aMax: number; rem: boolean; carry?: 'none' | 'some'; ask: Array<'q' | 'r'>; long: boolean };
 
 /** What an advanced Item shows (decision 005). Every answer is still a single number. */
 export type Form =
@@ -80,7 +85,9 @@ export type Form =
   | { k: 'fracAdd'; a: number; b: number; d: number; op: '+' | '−' }
   | { k: 'decFrac'; n: number; den: 10 | 100; ask: 'dec' | 'frac' }
   | { k: 'rect'; measure: 'area' | 'perim'; l: number; w: number; grid: boolean }
-  | { k: 'side'; of: 'area' | 'perim'; l: number; w: number };
+  | { k: 'side'; of: 'area' | 'perim'; l: number; w: number }
+  /** a ÷ b = q remainder r; one of the two is asked, the other is shown (decision 006). */
+  | { k: 'divRem'; a: number; b: number; ask: 'q' | 'r'; long: boolean };
 
 export interface GeneratorSpec {
   /** Hard catalogue limit for every operand, answer and choice (PRD §6.2, §6.5 rule 8). */

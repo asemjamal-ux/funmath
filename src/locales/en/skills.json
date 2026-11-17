@@ -25,6 +25,8 @@
   "skill.DIV-04.title": "Divide by 3 and 4",
   "skill.DIV-05.title": "Divide by 6 and 7",
   "skill.DIV-06.title": "Divide by 8 and 9",
+  "skill.DIV-07.title": "Division with remainders",
+  "skill.DIV-08.title": "Long division",
 
   "hint.ADD-01": "Count all the things together.",
   "hint.ADD-02": "Start at the bigger number and count on.",

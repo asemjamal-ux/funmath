@@ -50,7 +50,7 @@ export function ItemView({ item, stage, state, locked, onState, onSubmit }: Item
     if (state.solved) states[item.answer] = 'correct';
     return (
       <div className="item">
-        <div className="item__work"><ItemExpression item={item} /></div>
+        <div className="item__work"><ItemExpression item={item} showAnswer={state.solved} /></div>
         <div className="item__answer">
           <ChoiceGroup choices={item.choices ?? []} states={states} onChoose={onSubmit} label={t('answer.choices.label')} large={large} disabled={locked} />
         </div>
@@ -113,7 +113,7 @@ export function ItemView({ item, stage, state, locked, onState, onSubmit }: Item
   return (
     <div className="item">
       <div className="item__work">
-        <ItemExpression item={item} blankContent={state.entry !== '' ? formatEntry(state.entry, fmt) : undefined} />
+        <ItemExpression item={item} showAnswer={state.solved} blankContent={state.entry !== '' ? formatEntry(state.entry, fmt) : undefined} />
       </div>
       <div className="item__answer">
         <AnswerField value={state.solved ? String(item.answer) : state.entry} state={state.solved ? 'correct' : 'default'} />

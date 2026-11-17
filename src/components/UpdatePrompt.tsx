@@ -20,12 +20,14 @@ function markReady(): void {
  */
 export async function registerServiceWorker(): Promise<void> {
   if (import.meta.env.DEV || !('serviceWorker' in navigator)) return;
-  let reg: ServiceWorkerRegistration;
+  let reg: ServiceWorkerRegistration | undefined;
   try {
     reg = await navigator.serviceWorker.register('/sw.js', { scope: '/' });
   } catch {
     return; // offline-first is an enhancement; the app still works without it
   }
+  // Some browsers and test harnesses block service workers and resolve with nothing instead of rejecting.
+  if (!reg) return;
   applyUpdate = () => {
     const waiting = reg.waiting;
     if (!waiting) {

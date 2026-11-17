@@ -1,0 +1,401 @@
+/*
+ * Scenery layer (decision 006): the Oasis landmarks and desert scenery on the inner learner screens.
+ * Loaded last. Like playful.css it only restyles existing classes, so markup and test selectors stay unchanged,
+ * and every picture is a CSS background: no JavaScript is added to the startup bundle (NFR-01).
+ * The pictures are decorative (DS §2: no text inside illustrations) and are never mirrored in RTL (DS §6.3).
+ */
+
+/* ---------- World landmarks (DS §2) ---------- */
+.world--add, .world-chip--add { --landmark: url('../assets/art/well.svg'); }
+.world--sub, .world-chip--sub { --landmark: url('../assets/art/market.svg'); }
+.world--mul, .world-chip--mul { --landmark: url('../assets/art/palms.svg'); }
+.world--div, .world-chip--div { --landmark: url('../assets/art/picnic.svg'); }
+.world--frac, .world-chip--frac { --landmark: url('../assets/art/cake.svg'); }
+.world--dec, .world-chip--dec { --landmark: url('../assets/art/jug.svg'); }
+.world--geo, .world-chip--geo { --landmark: url('../assets/art/tiles.svg'); }
+
+/* ---------- Home: a landmark sticker on every open World ---------- */
+.world-chip__link {
+  position: relative;
+}
+
+.world-chip:not(.world-chip--locked):not(.world-chip--mix) .world-chip__link::after {
+  content: '';
+  position: absolute;
+  inset-block-start: -16px;
+  inset-inline-end: -12px;
+  inline-size: 64px;
+  block-size: 64px;
+  border: var(--outline);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface) var(--landmark) center / 76% no-repeat;
+  box-shadow: var(--shadow-sticker-sm);
+  rotate: calc(8deg * var(--dir-sign));
+  transition: rotate var(--motion-quick), scale var(--motion-quick);
+}
+
+@media (hover: hover) {
+  .world-chip:not(.world-chip--locked) .world-chip__link:hover::after {
+    rotate: calc(-6deg * var(--dir-sign));
+    scale: 1.08;
+  }
+}
+
+/* ---------- World page: a banner with the landmark, sun and clouds ---------- */
+.world__header {
+  position: relative;
+  overflow: hidden;
+  min-block-size: 132px;
+  padding: var(--space-5);
+  padding-inline-end: 150px;
+  background-image: url('../assets/art/sky.svg'), linear-gradient(to bottom, transparent 62%, var(--scenery-ground) 62%);
+  background-repeat: no-repeat;
+  background-position: 50% 8px, 0 0;
+  background-size: 200px auto, auto;
+  --scenery-ground: color-mix(in srgb, var(--color-ink) 12%, transparent);
+}
+
+.world__header h1 {
+  font: var(--type-display-l);
+}
+
+.world__header::after {
+  content: '';
+  position: absolute;
+  inset-block-end: 4px;
+  inset-inline-end: var(--space-4);
+  inline-size: 124px;
+  block-size: 124px;
+  background: var(--landmark) center / contain no-repeat;
+}
+
+.world__header .op-badge {
+  flex: none;
+  filter: drop-shadow(calc(3px * var(--dir-sign)) 3px 0 var(--color-ink));
+}
+
+@media (width < 480px) {
+  .world__header {
+    padding-inline-end: 108px;
+    background-image: linear-gradient(to bottom, transparent 62%, var(--scenery-ground) 62%);
+    background-position: 0 0;
+    background-size: auto;
+  }
+  .world__header h1 {
+    font: var(--type-title);
+  }
+  .world__header::after {
+    inline-size: 92px;
+    block-size: 92px;
+  }
+}
+
+/* ---------- Skill path: a dotted trail from one skill to the next ---------- */
+.skill-path {
+  container-type: inline-size;
+  gap: var(--space-4);
+}
+
+.skill-node {
+  position: relative;
+  min-block-size: 96px;
+}
+
+.skill-node__btn {
+  position: relative;
+  z-index: 1;
+}
+
+.skill-node__title {
+  padding: 2px var(--space-3);
+  border: var(--outline-thin);
+  border-radius: var(--radius-m);
+  background: var(--color-surface);
+  justify-self: start;
+}
+
+.skill-node--locked .skill-node__title {
+  border-style: dashed;
+  border-color: var(--color-locked);
+  background: transparent;
+}
+
+.skill-node--mastered .skill-node__title {
+  background: var(--pop-sun);
+}
+
+.skill-node--progress .skill-node__title {
+  background: var(--op-soft);
+}
+
+/* Compact: skills sit in one column, joined by a short dotted line. */
+.skill-node:not(:first-child)::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  inset-block-start: -18px;
+  inset-inline-start: 46px;
+  inline-size: 0;
+  block-size: 20px;
+  border-inline-start: 5px dotted var(--color-ink);
+  opacity: 0.55;
+}
+
+/* Wider screens: the path winds, so the trail runs diagonally between the two circles. */
+@media (width >= 600px) {
+  .skill-node:not(:first-child)::before {
+    --run: 32cqi; /* how far apart two neighbouring circles sit sideways (8 % and 40 % of the path) */
+    --rise: 112px; /* one row: 96px node + 16px gap */
+    inset-block-start: 46px;
+    inline-size: hypot(var(--run), var(--rise));
+    block-size: 0;
+    border-inline-start: 0;
+    border-block-start: 5px dotted var(--color-ink);
+    transform-origin: 0 50%;
+  }
+  [dir='rtl'] .skill-node:not(:first-child)::before {
+    transform-origin: 100% 50%;
+  }
+  .skill-node--pos1:not(:first-child)::before {
+    inset-inline-start: calc(40% + 48px);
+    rotate: calc(180deg + var(--dir-sign) * atan2(var(--rise), var(--run)));
+  }
+  .skill-node--pos0:not(:first-child)::before {
+    inset-inline-start: calc(8% + 48px);
+    rotate: calc(-1 * var(--dir-sign) * atan2(var(--rise), var(--run)));
+  }
+}
+
+/* ---------- Skill page: one big sticker card with the World's landmark ---------- */
+.skill-page__main {
+  position: relative;
+  gap: var(--space-3);
+  max-inline-size: 560px;
+  margin-block-start: var(--space-7);
+  padding: var(--space-6) var(--space-5) var(--space-5);
+  border: var(--outline);
+  border-radius: var(--radius-l);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker);
+}
+
+.page.skill-page > .skill-page__main {
+  inline-size: calc(100% - 2 * var(--space-4));
+  max-inline-size: 560px;
+  padding-block: var(--space-6) var(--space-5);
+  margin-block: var(--space-7) var(--space-5);
+}
+
+.skill-page__main::before {
+  content: '';
+  position: absolute;
+  inset-block-start: -44px;
+  inset-inline-end: var(--space-3);
+  inline-size: 104px;
+  block-size: 104px;
+  border: var(--outline);
+  border-radius: var(--radius-pill);
+  background: var(--op-soft) var(--landmark) center / 78% no-repeat;
+  box-shadow: var(--shadow-sticker-sm);
+  rotate: calc(6deg * var(--dir-sign));
+}
+
+.skill-page__main h1 {
+  color: var(--color-ink);
+  font: var(--type-display-l);
+  margin-block: 0;
+}
+
+.skill-page__status {
+  margin: 0;
+  padding: 2px var(--space-3);
+  border-radius: var(--radius-pill);
+  background: var(--op-soft);
+  color: var(--op-strong);
+  font-weight: 700;
+}
+
+/* ---------- Desert scenery at the foot of the learner's pages ---------- */
+.page.world,
+.page.skill-page,
+.page:has(> .games-hub),
+.page:has(.trophy-grid),
+.page:has(.progress-worlds) {
+  padding-block-end: 120px;
+  background: url('../assets/art/dunes.svg') repeat-x 50% 100% / 480px 140px;
+}
+
+/* ---------- Games hub: one colour per game ---------- */
+.game-list {
+  gap: var(--space-5);
+}
+
+.game-list li:nth-child(1) .game-card { --game: var(--pop-sky); --game-soft: var(--color-add-soft); }
+.game-list li:nth-child(2) .game-card { --game: var(--pop-tangerine); --game-soft: var(--color-mul-soft); }
+.game-list li:nth-child(3) .game-card { --game: var(--pop-pink); --game-soft: var(--color-sub-soft); }
+.game-list li:nth-child(4) .game-card { --game: var(--pop-sun); --game-soft: var(--pop-sun-soft); }
+.game-list li:nth-child(5) .game-card { --game: var(--pop-lime); --game-soft: var(--color-success-soft); }
+.game-list li:nth-child(6) .game-card { --game: var(--pop-grape); --game-soft: var(--color-div-soft); }
+
+.game-card {
+  position: relative;
+  overflow: hidden;
+  align-content: start;
+  padding-block-start: var(--space-5);
+  background: linear-gradient(to bottom, var(--game, var(--pop-sky)) 0 76px, var(--game-soft, var(--color-surface)) 76px);
+  transition: transform var(--motion-quick), box-shadow var(--motion-quick);
+}
+
+.game-list li:nth-child(odd) .game-card { rotate: calc(-1deg * var(--dir-sign)); }
+.game-list li:nth-child(even) .game-card { rotate: calc(1deg * var(--dir-sign)); }
+
+.game-list .game-card .game-card__art {
+  inline-size: 96px;
+  block-size: 96px;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+.game-card__title {
+  font: var(--type-title);
+}
+
+.game-card__desc {
+  color: var(--color-ink);
+}
+
+/* A spark in the corner of each game card */
+.game-card::after {
+  content: '';
+  position: absolute;
+  inset-block-start: 10px;
+  inset-inline-end: 12px;
+  inline-size: 28px;
+  block-size: 28px;
+  background: url('../assets/art/spark.svg') center / contain no-repeat;
+  rotate: 12deg;
+}
+
+@media (hover: hover) {
+  .game-list .game-card:hover {
+    transform: translate(calc(-2px * var(--dir-sign)), -3px);
+    box-shadow: calc(8px * var(--dir-sign)) 8px 0 var(--color-ink);
+  }
+}
+
+.games-hub > h1 {
+  font: var(--type-display-l);
+}
+
+/* ---------- Practice: the question sits on its own sheet of paper ---------- */
+.activity__main > .item > .item__work {
+  padding: var(--space-5) var(--space-4);
+  border: var(--outline);
+  border-radius: var(--radius-l);
+  background-color: var(--color-surface);
+  background-image: linear-gradient(to bottom, var(--pop-teal-soft) 0 14px, transparent 14px);
+  box-shadow: var(--shadow-sticker);
+}
+
+.activity__main > .item {
+  gap: var(--space-5);
+  padding-block: var(--space-4);
+}
+
+.prompt {
+  padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+  border: var(--outline-thin);
+  border-radius: var(--radius-pill);
+  background: var(--color-surface);
+  align-self: start;
+  max-inline-size: 100%;
+}
+
+.prompt__text {
+  font-size: 20px;
+}
+
+/* ---------- Lessons: the story opens in the desert ---------- */
+.lesson-hook,
+.lesson-ready {
+  flex: 1;
+  justify-content: center;
+  margin: calc(-1 * var(--space-4));
+  padding: var(--space-5) var(--space-4) 120px;
+  border-radius: calc(var(--radius-l) - 4px);
+  background:
+    url('../assets/art/dunes.svg') repeat-x 50% 100% / 420px 122px,
+    url('../assets/art/sky.svg') no-repeat 50% 12px / 220px auto,
+    linear-gradient(to bottom, var(--art-sky), var(--art-sky-low));
+}
+
+.lesson-card:has(> .lesson-hook),
+.lesson-card:has(> .lesson-ready) {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.lesson-hook .lesson-text,
+.lesson-ready .lesson-text {
+  max-inline-size: 34em;
+  padding: var(--space-3) var(--space-4);
+  border: var(--outline);
+  border-radius: var(--radius-l);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+/* ---------- Summary and first-run screens ---------- */
+.welcome {
+  padding-block-end: 150px;
+  background: url('../assets/art/dunes.svg') repeat-x 50% 100% / 480px 140px, url('../assets/art/sky.svg') no-repeat 50% 28px / 260px auto;
+}
+
+/* ---------- Trophy Room: a shelf of stickers ---------- */
+.trophy-card {
+  background: var(--color-surface);
+}
+
+.trophy-card--earned {
+  background: var(--pop-sun);
+  rotate: calc(-1deg * var(--dir-sign));
+}
+
+.trophy-card--earned:nth-child(even) {
+  rotate: calc(1deg * var(--dir-sign));
+}
+
+/* ---------- My Progress: sticker panels ---------- */
+.progress-world {
+  border: var(--outline);
+  box-shadow: var(--shadow-sticker-sm);
+}
+
+/* ---------- Printing and calm mode ---------- */
+@media print {
+  .page,
+  .welcome {
+    background: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .world-chip__link::after,
+  .game-card {
+    transition: none;
+  }
+}
+
+:root[data-motion='reduced'] .world-chip__link::after,
+:root[data-motion='reduced'] .game-card {
+  transition: none;
+}
+
+/* Stars under a skill's name keep a clear patch so the trail never runs through them. */
+.skill-node__btn .stars {
+  justify-self: start;
+  padding-inline: var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-bg);
+}

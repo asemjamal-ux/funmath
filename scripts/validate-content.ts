@@ -20,6 +20,7 @@ function formAnswer(f: FormLike): number {
     case 'decFrac': return f.ask === 'dec' ? v.n / v.den : v.n;
     case 'rect': return f.measure === 'area' ? v.l * v.w : 2 * (v.l + v.w);
     case 'side': return v.w;
+    case 'divRem': return f.ask === 'q' ? Math.floor(v.a / v.b) : v.a % v.b;
     default: return NaN;
   }
 }
@@ -39,8 +40,8 @@ if (!trophies.success) errors.push(`trophies.json: ${trophies.error.message}`);
 
 if (skills.success && lessons.success) {
   const mvp = skills.data.filter((s) => s.scope === 'mvp');
-  // 26 arithmetic Skills (PRD §6.2) + 12 advanced-World Skills (decision 005).
-  if (mvp.length !== 38) errors.push(`expected 38 MVP skills, found ${mvp.length}`);
+  // 26 arithmetic Skills (PRD §6.2) + 12 advanced-World Skills (decision 005) + DIV-07 and DIV-08 (decision 006).
+  if (mvp.length !== 40) errors.push(`expected 40 MVP skills, found ${mvp.length}`);
   for (const s of mvp) {
     const lesson = lessons.data.find((l) => l.skillId === s.id);
     if (!lesson) {
@@ -74,4 +75,4 @@ if (errors.length) {
   console.error(errors.map((e) => `✗ ${e}`).join('\n'));
   process.exit(1);
 }
-console.log('✓ content: 38 skills, 38 lessons, 18 trophies valid');
+console.log('✓ content: 40 skills, 40 lessons, 18 trophies valid');

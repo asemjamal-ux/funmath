@@ -10,7 +10,7 @@ import { LanguageSwitch, TopBar } from '../components/TopBar';
 import { TrophyArt } from '../components/TrophyArt';
 import { isReviewDue } from '../domain/adaptivity/stars';
 import { isWorldOpen } from '../domain/adaptivity/unlock';
-import { isTopic, type GameId, type Skill, type SkillId, type Tier } from '../domain/math/types';
+import type { GameId, Skill, SkillId, Tier } from '../domain/math/types';
 import { TopicsGate } from '../components/TopicsGate';
 import { selectDailyMix, type MixCandidate } from '../domain/scheduler/dailyMix';
 import { createRng, randomSeed } from '../domain/rng';
@@ -156,7 +156,7 @@ export function LessonPage() {
   const lesson = skill ? lessonFor(skill.id) : undefined;
   if (!skill || !lesson || !data) return <Navigate to={path('/home')} replace />;
   if (!skillUnlocked(data, skill)) return <Navigate to={path('/home')} replace />;
-  return <TopicsGate need={isTopic(skill.operation)}><LessonPlayer skill={skill} lesson={lesson} /></TopicsGate>;
+  return <TopicsGate need={skill.model === 'form'}><LessonPlayer skill={skill} lesson={lesson} /></TopicsGate>;
 }
 
 export function PracticePage() {
@@ -170,7 +170,7 @@ export function PracticePage() {
   if (!skillUnlocked(data, skill)) return <Navigate to={path('/home')} replace />;
   const tier = (data.progress.get(skill.id)?.currentTier ?? 1) as Tier;
   return (
-    <TopicsGate need={isTopic(skill.operation)}>
+    <TopicsGate need={skill.model === 'form'}>
       <Runner kind="practice" plan={plan} startTier={tier} title={t('practice.title', { skill: t(skill.titleKey) })} exitTo={path(`/skill/${skill.id}`)} />
     </TopicsGate>
   );
@@ -207,7 +207,7 @@ export function DailyMixPage() {
   if (!plan) return <div className="page-loading">{t('common.loading')}</div>;
   const needTopics = plan.some((p) => {
     const s = getSkill(p.skillId);
-    return s !== undefined && isTopic(s.operation);
+    return s !== undefined && s.model === 'form';
   });
   return (
     <TopicsGate need={needTopics}>
@@ -281,7 +281,7 @@ export function GamePage() {
   const tier = (data.progress.get(skill.id)?.currentTier ?? 1) as Tier;
   const props = { skill, tier, profileId: data.profile.id };
   const key = `${gameId}-${skill.id}`;
-  return <TopicsGate need={isTopic(skill.operation)}>{gameFor(gameId, key, props)}</TopicsGate>;
+  return <TopicsGate need={skill.model === 'form'}>{gameFor(gameId, key, props)}</TopicsGate>;
 }
 
 function gameFor(gameId: GameId, key: string, props: { skill: Skill; tier: Tier; profileId: string }) {

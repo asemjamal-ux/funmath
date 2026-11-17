@@ -29,7 +29,7 @@ function forAllItems(skill: Skill, tier: Tier, check: (item: Item) => void) {
 }
 
 describe('math engine invariants P-01..P-11', () => {
-  it('has 38 MVP skills (26 arithmetic + 12 advanced, decision 005)', () => expect(MVP_SKILLS).toHaveLength(38));
+  it('has 40 MVP skills (26 arithmetic + 12 advanced, decision 005; DIV-07 and DIV-08, decision 006)', () => expect(MVP_SKILLS).toHaveLength(40));
 
   for (const skill of MVP_SKILLS) {
     for (const tier of TIERS) {

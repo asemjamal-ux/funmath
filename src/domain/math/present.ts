@@ -157,6 +157,8 @@ export function promptKey(item: Item): string {
       return `math.ask.decFrac.${f.ask}`;
     case 'rect':
       return `math.ask.${f.measure}.${f.grid ? 'grid' : 'sides'}`;
+    case 'divRem':
+      return `math.ask.divRem.${f.a % f.b === 0 ? 'exact' : f.ask}`;
     default:
       return `math.ask.${f.k}`;
   }

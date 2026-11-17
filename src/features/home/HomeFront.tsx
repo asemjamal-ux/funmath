@@ -33,7 +33,7 @@ function useSuggestion(arithmeticOnly = false): Skill | undefined {
   const data = useApp((s) => s.data);
   if (!data) return undefined;
   const open = OPERATIONS.filter((op) => worldOpen(data, op) && !(arithmeticOnly && isTopic(op)));
-  const todo = open.flatMap((op) => learnerSkillsOf(data, op)).filter((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2);
+  const todo = open.flatMap((op) => learnerSkillsOf(data, op)).filter((sk) => skillUnlocked(data, sk) && starsOf(data, sk.id) < 2 && !(arithmeticOnly && sk.model === 'form'));
   return todo.find((sk) => sk.stage >= data.profile.startingStage) ?? todo[0];
 }
 
@@ -154,7 +154,7 @@ export function HomePage() {
     setMusic(true);
     return () => setMusic(false);
   }, []);
-  const qcSkill = useMemo(() => qcSuggestion ?? learnerSkills(data).find((s) => !isTopic(s.operation)) ?? getSkill('ADD-01'), [qcSuggestion, data]);
+  const qcSkill = useMemo(() => qcSuggestion ?? learnerSkills(data).find((s) => s.model !== 'form') ?? getSkill('ADD-01'), [qcSuggestion, data]);
   if (!data || !qcSkill) return null;
 
   const today = localDateString(appClock.now());

@@ -238,3 +238,92 @@
 .ws-prob--topic .tp-svg--pie {
   max-inline-size: 100px;
 }
+
+/* ---------- Remainders and long division (decision 006) ---------- */
+.tp-bag {
+  fill: var(--color-div-soft);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+.tp-bag--rest {
+  fill: var(--color-surface);
+  stroke-dasharray: 5 4;
+}
+
+.tp-dot {
+  fill: var(--color-div);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+
+.tp-dot--rest {
+  fill: var(--pop-coral);
+}
+
+.tp-longdiv {
+  font-family: var(--font-math, var(--font-display));
+  overflow: hidden;
+}
+
+/* The working can be taller than the row; it must never give the work area its own scrollbar. */
+.item__work:has(.tp-longdiv) {
+  overflow: visible;
+}
+
+.ld-digit {
+  fill: var(--color-ink);
+  font-weight: 700;
+  font-size: 30px;
+  font-variant-numeric: tabular-nums;
+}
+
+.ld-digit--q {
+  fill: var(--color-div-strong);
+}
+
+.ld-digit--b {
+  fill: var(--color-div-strong);
+}
+
+.ld-digit--p,
+.ld-digit--op {
+  fill: var(--color-ink-muted);
+}
+
+.ld-digit--down {
+  fill: var(--color-mul-strong);
+}
+
+.ld-digit--r {
+  fill: var(--color-success-strong);
+}
+
+.ld-bracket {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.ld-rule {
+  stroke: var(--color-ink);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+}
+
+.ld-box {
+  fill: var(--color-sun);
+  stroke: var(--color-ink);
+  stroke-width: 2;
+  stroke-dasharray: 5 4;
+}
+
+.ws-prob--topic .tp-longdiv {
+  max-inline-size: 120px;
+}
+
+.ws-prob--topic .ld-box {
+  fill: none;
+}

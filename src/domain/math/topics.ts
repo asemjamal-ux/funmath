@@ -49,6 +49,36 @@ export function formAnswer(form: Form): number {
       return form.measure === 'area' ? form.l * form.w : 2 * (form.l + form.w);
     case 'side':
       return form.w;
+    case 'divRem':
+      return form.ask === 'q' ? Math.floor(form.a / form.b) : form.a % form.b;
+  }
+}
+
+/** One round of long division: divide `cur` by the divisor, write `qd`, subtract `p`, keep `rem`. */
+export interface LongDivStep {
+  /** Index of the dividend digit this round ends on (0 = first digit). */
+  col: number;
+  /** That digit (the one brought down, after the first round). */
+  d: number;
+  cur: number;
+  qd: number;
+  p: number;
+  rem: number;
+}
+
+/** The rounds of a ÷ b, starting from the shortest leading part of `a` that b fits into (decision 006). */
+export function longDivSteps(a: number, b: number): LongDivStep[] {
+  const digits = [...String(a)].map(Number);
+  const steps: LongDivStep[] = [];
+  let i = 0;
+  let cur = digits[0] as number;
+  while (cur < b && i < digits.length - 1) cur = cur * 10 + (digits[++i] as number);
+  for (;;) {
+    const qd = Math.floor(cur / b);
+    const rem = cur - qd * b;
+    steps.push({ col: i, d: digits[i] as number, cur, qd, p: qd * b, rem });
+    if (++i >= digits.length) return steps;
+    cur = rem * 10 + (digits[i] as number);
   }
 }
 
@@ -139,6 +169,21 @@ function build(spec: TopicSpec, rng: Rng): Built {
       const total = of === 'area' ? form.l * form.w : 2 * (form.l + form.w);
       return fromForm(form, form.w, of === 'area' ? 'division' : 'subtraction', [total, form.l, form.w]);
     }
+    case 'divRem': {
+      let a = 0;
+      let b = 2;
+      for (let tries = 0; tries < 200; tries++) {
+        b = between(rng, spec.b);
+        const q = between(rng, spec.q);
+        a = b * q + (spec.rem ? rng.int(1, b - 1) : 0);
+        const digitwise = [...String(a)].every((ch) => Number(ch) % b === 0);
+        if (a <= spec.aMax && (spec.carry === undefined || digitwise === (spec.carry === 'none'))) break;
+      }
+      // The remainder is only asked when there is one; exact questions read a ÷ b = ?.
+      const form: Form = { k: 'divRem', a, b, ask: a % b === 0 ? 'q' : rng.pick(spec.ask), long: spec.long };
+      const answer = formAnswer(form);
+      return fromForm(form, answer, 'division', [a, b, answer]);
+    }
   }
 }
 
@@ -188,6 +233,15 @@ function mistakes(item: Item): number[] {
     case 'side': {
       const total = f.of === 'area' ? f.l * f.w : 2 * (f.l + f.w);
       return f.of === 'area' ? [total - f.l, ans + 1, ans - 1, f.l, total / 2] : [total - f.l, total / 2, ans + 1, ans - 1, total - 2 * f.l];
+    }
+    case 'divRem': {
+      const q = Math.floor(f.a / f.b);
+      const r = f.a % f.b;
+      // Remainder: giving the quotient, what is missing to the next group, or a slip of one.
+      if (f.ask === 'r') return [q, f.b - r, r + 1, r - 1, f.b, r + 2];
+      // Quotient: one group too many or too few; in long division a digit off in the tens, or a dropped zero.
+      const noZeros = Number(String(q).replace(/0/g, ''));
+      return f.long ? [q + 10, q - 10, noZeros, q + 1, q - 1, q + 11, q - 9] : [q + 1, q - 1, r, f.b, q + 2, q - 2];
     }
   }
 }
@@ -248,6 +302,13 @@ function tokens(item: Item, showAnswer: boolean, fill?: number): MathToken[] {
       return [word('perimeter'), { t: 'eq' }, numOrBlank(ans), word(f.grid ? 'units' : 'cm')];
     case 'side':
       return [word('missingSide'), { t: 'eq' }, numOrBlank(ans), word('cm')];
+    case 'divRem': {
+      const q = Math.floor(f.a / f.b);
+      const r = f.a % f.b;
+      const head: MathToken[] = [{ t: 'num', v: f.a }, { t: 'op', v: '÷' }, { t: 'num', v: f.b }, { t: 'eq' }];
+      if (r === 0) return [...head, numOrBlank(q)];
+      return [...head, f.ask === 'q' ? numOrBlank(q) : { t: 'num', v: q }, word('rem'), f.ask === 'r' ? numOrBlank(r) : { t: 'num', v: r }];
+    }
   }
 }
 
@@ -270,6 +331,10 @@ function spoken(item: Item): { key: string; values: Record<string, number> } {
       return { key: `math.form.${f.measure}.${f.grid ? 'grid' : 'sides'}`, values: { l: f.l, w: f.w } };
     case 'side':
       return { key: `math.form.side.${f.of}`, values: { l: f.l, total: f.of === 'area' ? f.l * f.w : 2 * (f.l + f.w) } };
+    case 'divRem': {
+      const r = f.a % f.b;
+      return { key: `math.form.divRem.${r === 0 ? 'exact' : f.ask}`, values: { a: f.a, b: f.b, q: Math.floor(f.a / f.b), r } };
+    }
   }
 }
 
@@ -348,6 +413,21 @@ function worked(item: Item): WorkedStep[] {
           steps.push({ key: 'math.wk.side.halfSub', values: { h: P / 2, l: f.l, w: f.w }, value: f.w });
         }
         break;
+      case 'divRem': {
+        const q = Math.floor(f.a / f.b);
+        const r = f.a % f.b;
+        if (f.long) {
+          longDivSteps(f.a, f.b).forEach((s, i) => {
+            const values = { cur: s.cur, b: f.b, qd: s.qd, p: s.p, rem: s.rem, d: s.d };
+            steps.push({ key: i === 0 ? 'math.wk.ld.first' : 'math.wk.ld.next', values, value: s.qd });
+          });
+        } else {
+          steps.push({ key: 'math.wk.divRem.fit', values: { a: f.a, b: f.b, q, p: q * f.b }, value: q });
+          steps.push({ key: 'math.wk.divRem.left', values: { a: f.a, p: q * f.b, r }, value: r });
+        }
+        steps.push({ key: r === 0 ? 'math.wk.divRem.exact' : 'math.wk.divRem.result', values: { a: f.a, b: f.b, q, r }, value: ans });
+        break;
+      }
     }
   }
   steps.push({ key: 'math.worked.answer', values: { answer: ans }, value: ans });
@@ -388,6 +468,11 @@ function violations(item: Item): string[] {
     case 'rect':
     case 'side':
       if (f.l < 1 || f.w < 1) v.push('sides must be at least 1');
+      break;
+    case 'divRem':
+      if (f.b < 1) v.push('P-05 divisor is zero');
+      if (f.a < f.b) v.push('divRem needs a dividend of at least the divisor');
+      if (f.ask === 'r' && f.a % f.b === 0) v.push('divRem asks for a remainder that is not there');
       break;
   }
   return v;
